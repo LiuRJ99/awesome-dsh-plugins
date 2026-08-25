@@ -43,7 +43,7 @@ Plugins currently installed in the local `web` profile
 | `dsh-image-gen` | 0.2.0 | Image generation | local tgz (CPA adapter build) |
 | `dsh-sandbox-schema-shim` | 0.1.1 | Compatibility shim | `github:xiaohj233/dsh-compat-shims` |
 | `dsh-spend` | 0.5.0 | Cost & usage | `link:` local dir |
-| `dsh-taskboard` | 0.5.1 | Workflow / task board | `link:` local dir |
+| `dsh-taskboard` | 0.5.1 | Workflow / task board | `link:` local dir (user fork `LiuRJ99/dsh-taskboard-cloader`) |
 
 ## Browser
 
@@ -59,12 +59,10 @@ Plugins currently installed in the local `web` profile
 ## Cost & Usage
 
 - [dsh-spend](https://github.com/nonewind/dsh-spend) —— token usage, multi-dimensional statistics, auto-detected billing plans (Code/Token) and estimated spend for the dsh web UI · **installed v0.5.0** ✅
-- [dsh-cost-meter](https://github.com/Han-1413141/dsh-cost-meter) —— per-session / daily cost, budget display and token heatmap for DSH. _Community pick — not installed locally._
 
 ## Workflow
 
-- [dsh-taskboard](https://github.com/cloader/dsh-taskboard) —— agent-first task board for the DSH web GUI: host-authoritative ledger with `taskboard_*` agent tools, project claim boundaries, per-task model execution, cron scheduling, git-worktree isolation and a live SSE kanban view · **installed v0.5.1** ✅ (local source dir `dsh-taskboard-cloader`)
-- [@zaalipro/dsh-workflows](https://www.npmjs.com/package/@zaalipro/dsh-workflows) —— workflow harness for DSH. _Community pick — not installed locally._
+- [dsh-taskboard](https://github.com/LiuRJ99/dsh-taskboard-cloader) —— agent-first task board for the DSH web GUI: host-authoritative ledger with `taskboard_*` agent tools, project claim boundaries, per-task model execution, cron scheduling, git-worktree isolation and a live SSE kanban view · **installed v0.5.1** ✅ — user's fork of [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard) with local modifications (local source dir `dsh-taskboard-cloader`)
 
 ## Compatibility
 

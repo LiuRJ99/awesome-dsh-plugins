@@ -40,7 +40,7 @@
 | `dsh-image-gen` | 0.2.0 | 图片生成 | 本地 tgz（CPA 适配版构建） |
 | `dsh-sandbox-schema-shim` | 0.1.1 | 兼容层 | `github:xiaohj233/dsh-compat-shims` |
 | `dsh-spend` | 0.5.0 | 用量与费用 | `link:` 本地目录 |
-| `dsh-taskboard` | 0.5.1 | 工作流 / 任务看板 | `link:` 本地目录 |
+| `dsh-taskboard` | 0.5.1 | 工作流 / 任务看板 | `link:` 本地目录（个人 fork `LiuRJ99/dsh-taskboard-cloader`） |
 
 ## Browser 浏览器
 
@@ -56,12 +56,10 @@
 ## Cost & Usage 用量与费用
 
 - [dsh-spend](https://github.com/nonewind/dsh-spend) —— token 调用量、多维度统计、自动识别计费计划（Code/Token）与费用估算 · **已安装 v0.5.0** ✅
-- [dsh-cost-meter](https://github.com/Han-1413141/dsh-cost-meter) —— 本会话 / 当日费用、预算显示与 token 热力图。_社区推荐 —— 本地未安装。_
 
 ## Workflow 工作流
 
-- [dsh-taskboard](https://github.com/cloader/dsh-taskboard) —— agent 优先的任务看板：host 侧任务账本 + `taskboard_*` agent 工具、项目认领边界、按任务指定模型执行、cron 定时、git worktree 隔离、SSE 实时看板 · **已安装 v0.5.1** ✅（本地源码目录 `dsh-taskboard-cloader`）
-- [@zaalipro/dsh-workflows](https://www.npmjs.com/package/@zaalipro/dsh-workflows) —— DSH 工作流工具包。_社区推荐 —— 本地未安装。_
+- [dsh-taskboard](https://github.com/LiuRJ99/dsh-taskboard-cloader) —— agent 优先的任务看板：host 侧任务账本 + `taskboard_*` agent 工具、项目认领边界、按任务指定模型执行、cron 定时、git worktree 隔离、SSE 实时看板 · **已安装 v0.5.1** ✅ —— [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard) 的个人 fork，带本地改动（本地源码目录 `dsh-taskboard-cloader`）
 
 ## Compatibility 兼容层
 
