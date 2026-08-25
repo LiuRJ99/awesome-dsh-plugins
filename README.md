@@ -14,14 +14,11 @@
 
 This list is written from the plugins **actually installed** on a local DSH instance
 (`~/.dsh/profiles/web` — the `dsh web` profile). Each entry notes the installed
-version, the source it was installed from, and the plugin-to-plugin dependencies
-observed locally. Community picks that are not installed locally are explicitly
-marked as such.
+version and the plugin-to-plugin dependencies observed locally.
 
 ## Contents
 
 - [Installed Plugins](#installed-plugins)
-- [Browser](#browser)
 - [Image Generation](#image-generation)
 - [Cost & Usage](#cost--usage)
 - [Workflow](#workflow)
@@ -44,12 +41,6 @@ Plugins currently installed in the local `web` profile
 | `dsh-sandbox-schema-shim` | 0.1.1 | Compatibility shim | [github.com/xiaohj233/dsh-compat-shims](https://github.com/xiaohj233/dsh-compat-shims) |
 | `dsh-spend` | 0.5.0 | Cost & usage | [github.com/nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) |
 | `dsh-taskboard` | 0.5.1 | Workflow / task board | [github.com/LiuRJ99/dsh-taskboard-cloader](https://github.com/LiuRJ99/dsh-taskboard-cloader) (fork of [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard)) |
-
-## Browser
-
-- [dsh-browser](https://github.com/anweat/dsh-browser) —— browser automation for DeepSeek Harness (bundles Playwright + chromium and OpenCLI as plugin-local dependencies, exposes a browser service and interactive browser tools). _Community pick — not installed locally._
-- [dsh-browser](https://github.com/ben7am1n/dsh-browser) —— Playwright-powered browser automation for DSH. _Community pick — not installed locally._
-- [dsh-tabbit](https://github.com/Tabbit-Browser/dsh-tabbit) —— Tabbit Browser plugin for DeepSeek Harness. _Community pick — not installed locally._
 
 ## Image Generation
 

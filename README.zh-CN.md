@@ -13,13 +13,11 @@
 </p>
 
 本清单按**本地 dsh 实际安装的插件**编写（`~/.dsh/profiles/web`，即 `dsh web` profile）。
-每条记录都注明本地安装版本、安装来源，以及观察到的插件间依赖关系；
-未安装的社区推荐会明确标注。
+每条记录都注明本地安装版本与观察到的插件间依赖关系。
 
 ## 目录
 
 - [已安装插件](#已安装插件)
-- [Browser 浏览器](#browser-浏览器)
 - [Image Generation 图片生成](#image-generation-图片生成)
 - [Cost & Usage 用量与费用](#cost--usage-用量与费用)
 - [Workflow 工作流](#workflow-工作流)
@@ -41,12 +39,6 @@
 | `dsh-sandbox-schema-shim` | 0.1.1 | 兼容层 | [github.com/xiaohj233/dsh-compat-shims](https://github.com/xiaohj233/dsh-compat-shims) |
 | `dsh-spend` | 0.5.0 | 用量与费用 | [github.com/nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) |
 | `dsh-taskboard` | 0.5.1 | 工作流 / 任务看板 | [github.com/LiuRJ99/dsh-taskboard-cloader](https://github.com/LiuRJ99/dsh-taskboard-cloader)（[cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard) 的 fork） |
-
-## Browser 浏览器
-
-- [dsh-browser](https://github.com/anweat/dsh-browser) —— 浏览器自动化（自带 Playwright + chromium 与 OpenCLI 运行时，提供 browser 服务与交互式浏览器工具）。_社区推荐 —— 本地未安装。_
-- [dsh-browser](https://github.com/ben7am1n/dsh-browser) —— 基于 Playwright 的浏览器自动化。_社区推荐 —— 本地未安装。_
-- [dsh-tabbit](https://github.com/Tabbit-Browser/dsh-tabbit) —— Tabbit 浏览器插件。_社区推荐 —— 本地未安装。_
 
 ## Image Generation 图片生成
 
