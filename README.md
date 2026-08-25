@@ -22,6 +22,7 @@ version and the plugin-to-plugin dependencies observed locally.
 - [Image Generation](#image-generation)
 - [Cost & Usage](#cost--usage)
 - [Workflow](#workflow)
+- [Browser Control](#browser-control)
 - [Compatibility](#compatibility)
 - [Plugin Dependencies](#plugin-dependencies)
 - [Install](#install)
@@ -36,24 +37,29 @@ Plugins currently installed in the local `web` profile
 | --- | --- | --- | --- |
 | `@LiuRJ99/dsh-cpa-plugin` | 0.3.0 | Model provider (LLM) | [github.com/LiuRJ99/dsh-cpa-plugin](https://github.com/LiuRJ99/dsh-cpa-plugin) |
 | `@LiuRJ99/dsh-workbuddy-provider` | 0.2.0 | Model provider (LLM) | [github.com/LiuRJ99/dsh-workbuddy-provider](https://github.com/LiuRJ99/dsh-workbuddy-provider) |
-| `dsh-better-sidebar` | 0.16.0 | Web UI | [github.com/omdsh-dev/DSH-better-sidebar](https://github.com/omdsh-dev/DSH-better-sidebar) |
+| `dsh-better-sidebar` | 0.16.1 | Web UI | [github.com/omdsh-dev/DSH-better-sidebar](https://github.com/omdsh-dev/DSH-better-sidebar) |
 | `dsh-image-gen` | 0.2.0 | Image generation | [github.com/LiuRJ99/dsh-image-gen](https://github.com/LiuRJ99/dsh-image-gen) (fork of [shanliuling/dsh-image-gen](https://github.com/shanliuling/dsh-image-gen)) |
 | `dsh-sandbox-schema-shim` | 0.1.1 | Compatibility shim | [github.com/xiaohj233/dsh-compat-shims](https://github.com/xiaohj233/dsh-compat-shims) |
-| `dsh-spend` | 0.5.0 | Cost & usage | [github.com/nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) |
+| `dsh-spend` | 0.6.0 | Cost & usage | [github.com/nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) |
 | `dsh-taskboard` | 0.5.1 | Workflow / task board | [github.com/LiuRJ99/dsh-taskboard-cloader](https://github.com/LiuRJ99/dsh-taskboard-cloader) (fork of [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard)) |
+| `@yuxianglin/dsh-bridge-browser` | 0.0.4 | Browser control | [github.com/LiuRJ99/dsh-browser](https://github.com/LiuRJ99/dsh-browser) (fork of [Lum1104/dsh-browser](https://github.com/Lum1104/dsh-browser); workspace/extension v0.1.3) |
 
 ## Image Generation
 
-- [dsh-image-gen](https://github.com/LiuRJ99/dsh-image-gen) —— image generation for DSH (Gemini, OpenAI, Seedream, DashScope and more) · **installed v0.2.0** ✅ — user's fork of [shanliuling/dsh-image-gen](https://github.com/shanliuling/dsh-image-gen), CPA-adapter build; requires `@LiuRJ99/dsh-cpa-plugin` ≥ 0.3.0 (see [Plugin Dependencies](#plugin-dependencies)). Local engine config: `image-generation.engine: gemini`, saving into `dsh-image-gen/` workspace folder.
+- [dsh-image-gen](https://github.com/LiuRJ99/dsh-image-gen) —— image generation for DSH (GPT Image / Gemini Image) · **installed v0.2.0** ✅ — user's fork of [shanliuling/dsh-image-gen](https://github.com/shanliuling/dsh-image-gen), CPA-adapter build; requires `@LiuRJ99/dsh-cpa-plugin` ≥ 0.3.0 (see [Plugin Dependencies](#plugin-dependencies)). Local engine config: `image-generation.engine: gpt` (default), saving into `dsh-image-gen/` workspace folder.
 - `@LiuRJ99/dsh-cpa-plugin` (`image-generation` subpath) —— the CPA provider also exposes image-capable models (`gemini-3.1-flash-image`, `gpt-image-1.5`, `gpt-image-2`) · **installed v0.3.0** ✅
 
 ## Cost & Usage
 
-- [dsh-spend](https://github.com/nonewind/dsh-spend) —— token usage, multi-dimensional statistics, auto-detected billing plans (Code/Token) and estimated spend for the dsh web UI · **installed v0.5.0** ✅
+- [dsh-spend](https://github.com/nonewind/dsh-spend) —— token usage, multi-dimensional statistics, auto-detected billing plans (Code/Token) and estimated spend for the dsh web UI · **installed v0.6.0** ✅
 
 ## Workflow
 
 - [dsh-taskboard](https://github.com/LiuRJ99/dsh-taskboard-cloader) —— agent-first task board for the DSH web GUI: host-authoritative ledger with `taskboard_*` agent tools, project claim boundaries, per-task model execution, cron scheduling, git-worktree isolation and a live SSE kanban view · **installed v0.5.1** ✅ — user's fork of [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard) with local modifications (local source dir `dsh-taskboard-cloader`)
+
+## Browser Control
+
+- [dsh-browser](https://github.com/LiuRJ99/dsh-browser) —— connect DSH to the Chrome or Firefox tab you are already using: the `@yuxianglin/dsh-bridge-browser` bridge plugin (token-authenticated WebSocket carrier + text-only `browser_*` tools — `browser_snapshot` / `browser_click` / `browser_type` / `browser_navigate` / `browser_screenshot` / `browser_network_capture` and more) plus a Chrome/Firefox MV3 sidebar extension that preserves login state, session and cookies · **bridge installed v0.0.4, workspace/extension v0.1.3** ✅ — user's fork of [Lum1104/dsh-browser](https://github.com/Lum1104/dsh-browser) with Firefox MV3 support (local source dir `dsh-browser`)
 
 ## Compatibility
 
@@ -77,6 +83,10 @@ dsh-better-sidebar ──────────────── service prov
                                     (registerTab / registerFileViewer) for other plugins;
                                     optional integration, no reverse hard dependency
 
+@yuxianglin/dsh-bridge-browser ──── browser bridge plugin: WebSocket carrier +
+                                    browser_* tools; pairs with the Chrome/Firefox
+                                    MV3 sidebar extension (out-of-band install)
+
 dsh-taskboard ───────────────────── zero peer deps; self-contained
 dsh-spend ───────────────────────── depends on official @deepseek-ai/cordis,
                                     @deepseek-ai/dsh-home-paths,
@@ -90,6 +100,7 @@ Key takeaways:
 2. **`dsh-cpa-plugin` and `dsh-workbuddy-provider` are sibling model-provider plugins** registered into the official `llm-pi-ai` provider registry (`CLIProxyAPI` on port 8317, `WorkBuddy` on port 8318). They are independent of each other.
 3. **`dsh-better-sidebar` is an optional service provider** — plugins may register sidebar tabs / file viewers through `ctx.betterSidebar`; none of the currently installed plugins require it.
 4. **`dsh-taskboard`, `dsh-spend` and `dsh-sandbox-schema-shim` are self-contained** — no inter-plugin dependencies.
+5. **`@yuxianglin/dsh-bridge-browser` is a standalone bridge plugin** — it pairs with the Chrome/Firefox MV3 sidebar extension (installed out-of-band via `scripts/install.sh`); the plugin itself has no hard dependency on other installed plugins.
 
 ## Install
 
