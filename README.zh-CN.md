@@ -35,14 +35,14 @@
 | `@LiuRJ99/dsh-cpa-plugin` | 0.3.0 | 模型供应商（LLM） | [github.com/LiuRJ99/dsh-cpa-plugin](https://github.com/LiuRJ99/dsh-cpa-plugin) |
 | `@LiuRJ99/dsh-workbuddy-provider` | 0.2.0 | 模型供应商（LLM） | [github.com/LiuRJ99/dsh-workbuddy-provider](https://github.com/LiuRJ99/dsh-workbuddy-provider) |
 | `dsh-better-sidebar` | 0.16.0 | Web UI | [github.com/omdsh-dev/DSH-better-sidebar](https://github.com/omdsh-dev/DSH-better-sidebar) |
-| `dsh-image-gen` | 0.2.0 | 图片生成 | [github.com/shanliuling/dsh-image-gen](https://github.com/shanliuling/dsh-image-gen) |
+| `dsh-image-gen` | 0.2.0 | 图片生成 | [github.com/LiuRJ99/dsh-image-gen](https://github.com/LiuRJ99/dsh-image-gen)（[shanliuling/dsh-image-gen](https://github.com/shanliuling/dsh-image-gen) 的 fork） |
 | `dsh-sandbox-schema-shim` | 0.1.1 | 兼容层 | [github.com/xiaohj233/dsh-compat-shims](https://github.com/xiaohj233/dsh-compat-shims) |
 | `dsh-spend` | 0.5.0 | 用量与费用 | [github.com/nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) |
 | `dsh-taskboard` | 0.5.1 | 工作流 / 任务看板 | [github.com/LiuRJ99/dsh-taskboard-cloader](https://github.com/LiuRJ99/dsh-taskboard-cloader)（[cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard) 的 fork） |
 
 ## Image Generation 图片生成
 
-- [dsh-image-gen](https://github.com/shanliuling/dsh-image-gen) —— 图片生成（Gemini、OpenAI、Seedream、DashScope 等）· **已安装 v0.2.0** ✅ —— CPA 适配版，**需要 `@LiuRJ99/dsh-cpa-plugin` ≥ 0.3.0**（见[插件依赖关系](#插件依赖关系)）。本地配置：`image-generation.engine: gemini`，图片保存到 `dsh-image-gen/` 工作区目录。
+- [dsh-image-gen](https://github.com/LiuRJ99/dsh-image-gen) —— 图片生成（Gemini、OpenAI、Seedream、DashScope 等）· **已安装 v0.2.0** ✅ —— [shanliuling/dsh-image-gen](https://github.com/shanliuling/dsh-image-gen) 的个人 fork（CPA 适配版），**需要 `@LiuRJ99/dsh-cpa-plugin` ≥ 0.3.0**（见[插件依赖关系](#插件依赖关系)）。本地配置：`image-generation.engine: gemini`，图片保存到 `dsh-image-gen/` 工作区目录。
 - `@LiuRJ99/dsh-cpa-plugin`（`image-generation` 子路径）—— CPA 供应商同时暴露支持生图的模型（`gemini-3.1-flash-image`、`gpt-image-1.5`、`gpt-image-2`）· **已安装 v0.3.0** ✅
 
 ## Cost & Usage 用量与费用
