@@ -78,7 +78,8 @@ dsh-better-sidebar ──────────────── service prov
                                     optional integration, no reverse hard dependency
 
 dsh-taskboard ───────────────────── zero peer deps; self-contained
-dsh-spend ───────────────────────── depends on official @deepseek-ai/dsh-home-paths,
+dsh-spend ───────────────────────── depends on official @deepseek-ai/cordis,
+                                    @deepseek-ai/dsh-home-paths,
                                     dsh-typert-protocol, schemastery only
 dsh-sandbox-schema-shim ─────────── standalone shim, no third-party deps
 ```

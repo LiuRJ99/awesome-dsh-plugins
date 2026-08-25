@@ -76,7 +76,7 @@ dsh-better-sidebar ──────────────── 服务提供
                                     可选集成，不存在反向硬依赖
 
 dsh-taskboard ───────────────────── 零 peer 依赖；自包含
-dsh-spend ───────────────────────── 只依赖官方 @deepseek-ai/dsh-home-paths、
+dsh-spend ───────────────────────── 只依赖官方 @deepseek-ai/cordis、@deepseek-ai/dsh-home-paths、
                                     dsh-typert-protocol、schemastery
 dsh-sandbox-schema-shim ─────────── 独立兼容层，无第三方依赖
 ```
