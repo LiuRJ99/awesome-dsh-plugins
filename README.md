@@ -35,15 +35,15 @@ marked as such.
 Plugins currently installed in the local `web` profile
 (`~/.dsh/profiles/web/package.json`):
 
-| Plugin | Version | Type | Installed from |
+| Plugin | Version | Type | Source |
 | --- | --- | --- | --- |
-| `@LiuRJ99/dsh-cpa-plugin` | 0.3.0 | Model provider (LLM) | local tgz (worktree build) |
-| `@LiuRJ99/dsh-workbuddy-provider` | 0.2.0 | Model provider (LLM) | `link:` local dir |
-| `dsh-better-sidebar` | 0.16.0 | Web UI | `link:` local dir |
-| `dsh-image-gen` | 0.2.0 | Image generation | local tgz (CPA adapter build) |
-| `dsh-sandbox-schema-shim` | 0.1.1 | Compatibility shim | `github:xiaohj233/dsh-compat-shims` |
-| `dsh-spend` | 0.5.0 | Cost & usage | `link:` local dir |
-| `dsh-taskboard` | 0.5.1 | Workflow / task board | `link:` local dir (user fork `LiuRJ99/dsh-taskboard-cloader`) |
+| `@LiuRJ99/dsh-cpa-plugin` | 0.3.0 | Model provider (LLM) | [github.com/LiuRJ99/dsh-cpa-plugin](https://github.com/LiuRJ99/dsh-cpa-plugin) |
+| `@LiuRJ99/dsh-workbuddy-provider` | 0.2.0 | Model provider (LLM) | [github.com/LiuRJ99/dsh-workbuddy-provider](https://github.com/LiuRJ99/dsh-workbuddy-provider) |
+| `dsh-better-sidebar` | 0.16.0 | Web UI | [github.com/omdsh-dev/DSH-better-sidebar](https://github.com/omdsh-dev/DSH-better-sidebar) |
+| `dsh-image-gen` | 0.2.0 | Image generation | [github.com/shanliuling/dsh-image-gen](https://github.com/shanliuling/dsh-image-gen) |
+| `dsh-sandbox-schema-shim` | 0.1.1 | Compatibility shim | [github.com/xiaohj233/dsh-compat-shims](https://github.com/xiaohj233/dsh-compat-shims) |
+| `dsh-spend` | 0.5.0 | Cost & usage | [github.com/nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) |
+| `dsh-taskboard` | 0.5.1 | Workflow / task board | [github.com/LiuRJ99/dsh-taskboard-cloader](https://github.com/LiuRJ99/dsh-taskboard-cloader) (fork of [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard)) |
 
 ## Browser
 
