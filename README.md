@@ -39,15 +39,15 @@ Plugins currently installed in the local `web` profile
 
 | Plugin | Version | Type | Source |
 | --- | --- | --- | --- |
-| `@LiuRJ99/dsh-cpa-plugin` | 0.4.0 | Model provider (LLM) | [github.com/LiuRJ99/dsh-cpa-plugin](https://github.com/LiuRJ99/dsh-cpa-plugin) |
+| `@LiuRJ99/dsh-cpa-plugin` | 0.4.0 | Model provider (LLM) | [github.com/LiuRJ99/dsh-cpa-plugin](https://github.com/LiuRJ99/dsh-cpa-plugin) (fork of [router-for-me/dsh-cliproxyapi-provider](https://github.com/router-for-me/dsh-cliproxyapi-provider); synced from v0.0.1) |
 | `@LiuRJ99/dsh-workbuddy-provider` | 0.2.1 | Model provider (LLM) | [github.com/LiuRJ99/dsh-workbuddy-provider](https://github.com/LiuRJ99/dsh-workbuddy-provider) |
-| `@yuxianglin/dsh-bridge-browser` | 0.0.4 | Browser control | [github.com/LiuRJ99/dsh-browser](https://github.com/LiuRJ99/dsh-browser) (fork of [Lum1104/dsh-browser](https://github.com/Lum1104/dsh-browser); workspace/extension v0.1.3) |
+| `@yuxianglin/dsh-bridge-browser` | 0.0.4 | Browser control | [github.com/LiuRJ99/dsh-browser](https://github.com/LiuRJ99/dsh-browser) (fork of [Lum1104/dsh-browser](https://github.com/Lum1104/dsh-browser); synced from workspace v0.1.2 / bridge v0.0.3; current workspace/extension v0.1.3) |
 | `@zibokapi/dsh-codex-computer-use` | 0.1.2 | Desktop automation / Computer use | [github.com/geohotstan/dsh-computer-use](https://github.com/geohotstan/dsh-computer-use) |
 | `dsh-better-sidebar` | 0.17.0 | Web UI | [github.com/omdsh-dev/DSH-better-sidebar](https://github.com/omdsh-dev/DSH-better-sidebar) |
-| `dsh-image-gen` | 0.4.1 | Image generation | [github.com/LiuRJ99/dsh-image-gen](https://github.com/LiuRJ99/dsh-image-gen) (fork of [shanliuling/dsh-image-gen](https://github.com/shanliuling/dsh-image-gen)) |
+| `dsh-image-gen` | 0.4.1 | Image generation | [github.com/LiuRJ99/dsh-image-gen](https://github.com/LiuRJ99/dsh-image-gen) (fork of [shanliuling/dsh-image-gen](https://github.com/shanliuling/dsh-image-gen); synced from v0.1.7) |
 | `dsh-sandbox-schema-shim` | 0.1.1 | Compatibility shim | [github.com/xiaohj233/dsh-compat-shims](https://github.com/xiaohj233/dsh-compat-shims) |
 | `dsh-spend` | 0.6.2 | Cost & usage | [github.com/nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) |
-| `dsh-taskboard` | 0.6.0 | Workflow / task board | [github.com/LiuRJ99/dsh-taskboard-cloader](https://github.com/LiuRJ99/dsh-taskboard-cloader) (fork of [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard)) |
+| `dsh-taskboard` | 0.6.0 | Workflow / task board | [github.com/LiuRJ99/dsh-taskboard-cloader](https://github.com/LiuRJ99/dsh-taskboard-cloader) (fork of [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard); synced from v0.5.1) |
 | `dsh-tool-lazy-gate` | 0.1.0 | Security & capability control | [github.com/LiuRJ99/dsh-tool-lazy-gate](https://github.com/LiuRJ99/dsh-tool-lazy-gate) |
 
 ## Desktop Automation / Computer Use
@@ -56,16 +56,16 @@ Plugins currently installed in the local `web` profile
 
 ## Browser Control
 
-- [dsh-browser](https://github.com/LiuRJ99/dsh-browser) —— connect DSH to the Chrome or Firefox tab you are already using: the `@yuxianglin/dsh-bridge-browser` bridge plugin (token-authenticated WebSocket carrier + text-only `browser_*` tools — `browser_snapshot` / `browser_click` / `browser_type` / `browser_navigate` / `browser_screenshot` / `browser_network_capture` and more) plus a Chrome/Firefox MV3 sidebar extension that preserves login state, session and cookies; registers the `/browser` authorization skill in the skill registry · **bridge installed v0.0.4, workspace/extension v0.1.3** ✅ — user's fork of [Lum1104/dsh-browser](https://github.com/Lum1104/dsh-browser) with Firefox MV3 support (local source dir `dsh-browser`)
+- [dsh-browser](https://github.com/LiuRJ99/dsh-browser) —— connect DSH to the Chrome or Firefox tab you are already using: the `@yuxianglin/dsh-bridge-browser` bridge plugin (token-authenticated WebSocket carrier + text-only `browser_*` tools — `browser_snapshot` / `browser_click` / `browser_type` / `browser_navigate` / `browser_screenshot` / `browser_network_capture` and more) plus a Chrome/Firefox MV3 sidebar extension that preserves login state, session and cookies; registers the `/browser` authorization skill in the skill registry · **bridge installed v0.0.4, workspace/extension v0.1.3** ✅ — user's fork of [Lum1104/dsh-browser](https://github.com/Lum1104/dsh-browser) (synced from workspace v0.1.2 / bridge v0.0.3) with Firefox MV3 support (local source dir `dsh-browser`)
 
 ## Model Providers
 
-- [@LiuRJ99/dsh-cpa-plugin](https://github.com/LiuRJ99/dsh-cpa-plugin) —— GUI-configurable CLIProxyAPI Responses provider for DeepSeek Harness with account management, quota window parsing (Codex 5-hour and weekly windows), speed preference extensions, and an `./image-generation` service subpath · **installed v0.4.0** ✅ (local source dir `dsh-cpa-plugin`)
+- [@LiuRJ99/dsh-cpa-plugin](https://github.com/LiuRJ99/dsh-cpa-plugin) —— GUI-configurable CLIProxyAPI Responses provider for DeepSeek Harness with account management, quota window parsing (Codex 5-hour and weekly windows), speed preference extensions, and an `./image-generation` service subpath · **installed v0.4.0** ✅ — user's fork of [router-for-me/dsh-cliproxyapi-provider](https://github.com/router-for-me/dsh-cliproxyapi-provider) (synced from v0.0.1, local source dir `dsh-cpa-plugin`)
 - [@LiuRJ99/dsh-workbuddy-provider](https://github.com/LiuRJ99/dsh-workbuddy-provider) —— seamless integration with local WorkBuddy built-in models running on local port 8318, registering into the `llm-pi-ai` provider registry; features custom companion robot nav icon and modernized settings layout · **installed v0.2.1** ✅ (local source dir `dsh-workbuddy-provider`)
 
 ## Image Generation
 
-- [dsh-image-gen](https://github.com/LiuRJ99/dsh-image-gen) —— CPA-backed image generation for DSH (GPT Image 2 / Gemini Image); features server-side high-performance Sharp WebP thumbnail generation & HTTP caching (`public, max-age=604800, immutable`), gallery virtualization & windowed rendering (Grid / List / Table views), decoupled thumbnail vs full-resolution loading, multi-dimensional sorting, aspect ratio filtering, category pills with count badges, and saving to workspace (`dsh-image-gen/`) · **installed v0.4.1** ✅ — user's fork of [shanliuling/dsh-image-gen](https://github.com/shanliuling/dsh-image-gen); requires `@LiuRJ99/dsh-cpa-plugin` ≥ 0.3.0 (<0.5.0) and host `sharp` peer dependency (see [Plugin Dependencies](#plugin-dependencies)). Local engine config: `image-generation.engine: gpt` (default).
+- [dsh-image-gen](https://github.com/LiuRJ99/dsh-image-gen) —— CPA-backed image generation for DSH (GPT Image 2 / Gemini Image); features server-side high-performance Sharp WebP thumbnail generation & HTTP caching (`public, max-age=604800, immutable`), gallery virtualization & windowed rendering (Grid / List / Table views), decoupled thumbnail vs full-resolution loading, multi-dimensional sorting, aspect ratio filtering, category pills with count badges, and saving to workspace (`dsh-image-gen/`) · **installed v0.4.1** ✅ — user's fork of [shanliuling/dsh-image-gen](https://github.com/shanliuling/dsh-image-gen) (synced from v0.1.7); requires `@LiuRJ99/dsh-cpa-plugin` ≥ 0.3.0 (<0.5.0) and host `sharp` peer dependency (see [Plugin Dependencies](#plugin-dependencies)). Local engine config: `image-generation.engine: gpt` (default).
 - `@LiuRJ99/dsh-cpa-plugin` (`image-generation` subpath) —— the CPA provider also exposes image-capable models contract (`gemini-3.1-flash-image`, `gpt-image-1.5`, `gpt-image-2`) · **installed v0.4.0** ✅
 
 ## Cost & Usage
@@ -74,7 +74,7 @@ Plugins currently installed in the local `web` profile
 
 ## Workflow
 
-- [dsh-taskboard](https://github.com/LiuRJ99/dsh-taskboard-cloader) —— agent-first task board for the DSH web GUI: host-authoritative ledger with `taskboard_*` agent tools, project claim boundaries, per-task model execution in fresh sessions, host-side cron scheduling, optional git-worktree code isolation (dedicated task branches, commit evidence, one-click merge), live SSE kanban view, model initial SVG avatars for comments, lazy-loaded Mermaid diagrams, clickable file links, and optional sidebar tab integration with `dsh-better-sidebar` · **installed v0.6.0** ✅ — user's fork of [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard) with local modifications (local source dir `dsh-taskboard-cloader`)
+- [dsh-taskboard](https://github.com/LiuRJ99/dsh-taskboard-cloader) —— agent-first task board for the DSH web GUI: host-authoritative ledger with `taskboard_*` agent tools, project claim boundaries, per-task model execution in fresh sessions, host-side cron scheduling, optional git-worktree code isolation (dedicated task branches, commit evidence, one-click merge), live SSE kanban view, model initial SVG avatars for comments, lazy-loaded Mermaid diagrams, clickable file links, and optional sidebar tab integration with `dsh-better-sidebar` · **installed v0.6.0** ✅ — user's fork of [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard) (synced from v0.5.1) with local modifications (local source dir `dsh-taskboard-cloader`)
 
 ## Web UI
 
