@@ -12,7 +12,7 @@ The versions below were checked on 2026-09-04 against DSH `0.1.2-rc.1`.
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | 0.4.0 | Model provider | LiuRJ99 fork of [dsh-cliproxyapi-provider](https://github.com/router-for-me/dsh-cliproxyapi-provider) |
 | [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | 0.2.1 | Model provider | LiuRJ99 fork |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 0.0.5 | Browser control | LiuRJ99 fork of [dsh-browser](https://github.com/Lum1104/dsh-browser) |
-| [`@zibokapi/dsh-codex-computer-use`](https://github.com/geohotstan/dsh-computer-use) | 0.1.2 | Computer use | Community release by geohotstan |
+| [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | 0.1.2 | Computer use | LiuRJ99 fork, adapted for DSH 0.1.2-rc.1 (local checkout) |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | 0.18.0 | Web UI | Author release; used without a local fork |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | 0.4.1 | Image generation | LiuRJ99 fork of [dsh-image-gen](https://github.com/shanliuling/dsh-image-gen) |
 | [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 0.3.8 | Mobile access | Community release by saya-ch |

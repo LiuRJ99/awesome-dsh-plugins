@@ -12,7 +12,7 @@
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | 0.4.0 | 模型供应商 | LiuRJ99 fork，自 [dsh-cliproxyapi-provider](https://github.com/router-for-me/dsh-cliproxyapi-provider) 适配 |
 | [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | 0.2.1 | 模型供应商 | LiuRJ99 fork |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 0.0.5 | 浏览器控制 | LiuRJ99 fork，自 [dsh-browser](https://github.com/Lum1104/dsh-browser) 适配 |
-| [`@zibokapi/dsh-codex-computer-use`](https://github.com/geohotstan/dsh-computer-use) | 0.1.2 | Computer Use | geohotstan 社区版本 |
+| [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | 0.1.2 | Computer Use | LiuRJ99 fork，适配 DSH 0.1.2-rc.1（本地 checkout） |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | 0.18.0 | Web UI | 作者发布版；本地不维护 fork |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | 0.4.1 | 图片生成 | LiuRJ99 fork，自 [dsh-image-gen](https://github.com/shanliuling/dsh-image-gen) 适配 |
 | [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 0.3.8 | 移动访问 | saya-ch 社区版本 |
