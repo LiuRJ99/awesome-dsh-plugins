@@ -17,7 +17,7 @@ The versions below were checked on 2026-09-04 against DSH `0.1.2-rc.1`.
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | 0.4.1 | Image generation | LiuRJ99 fork of [dsh-image-gen](https://github.com/shanliuling/dsh-image-gen) |
 | [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 0.3.8 | Mobile access | Community release by saya-ch |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | 0.1.1 | Compatibility shim | Community monorepo package |
-| [`dsh-spend`](https://github.com/nonewind/dsh-spend) | 0.6.2 | Cost and usage | Community release by nonewind |
+| [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | 0.6.2 | Cost and usage | LiuRJ99 fork of [nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) (`fix/startup-scan-performance`) |
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | 0.6.4 | Workflow | LiuRJ99 fork of [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard) |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | 0.1.0 | Security and capability control | LiuRJ99 fork |
 
@@ -30,9 +30,9 @@ upgrade does not accidentally imply that an upstream project is being forked.
 - **Taskboard** — host-authoritative tasks and `taskboard_*` tools, workspace claim
   boundaries, per-task model execution, cron scheduling, optional git-worktree
   isolation, live kanban updates, clickable file links, model avatars, lazy
-  Mermaid rendering, session-header actions, and optional Better Sidebar tabs.
-  The fork uses upstream `0.6.4` as its compatibility base while retaining these
-  locally developed integrations.
+  Mermaid rendering, session-header actions with Cordis slot proxy deduplication,
+  and optional Better Sidebar tabs. The fork uses upstream `0.6.4` as its compatibility
+  base while retaining these locally developed integrations.
 - **Lazy gate** — session-scoped gating for high-privilege tool families with
   dynamic restriction, execution guards, prompt suppression, and taskboard
   capability integration.
@@ -41,12 +41,18 @@ upgrade does not accidentally imply that an upstream project is being forked.
   used by other plugins. This installation follows the author's package; it is not
   maintained as a local fork here.
 - **Model and image providers** — CPA and WorkBuddy providers register model
-  sources; `dsh-image-gen` adds a CPA-backed image gallery and generation UI.
+  sources; CPA adds automatic Web UI quota/account polling and multi-window quota
+  tracking; `dsh-image-gen` adds a CPA-backed image gallery and generation UI.
 - **Browser, computer and mobile access** — the browser bridge exposes browser
-  tools through the companion extension, Computer Use supplies macOS automation,
-  and DSH Mobile provides protected phone access to DSH sessions.
-- **Utilities** — `dsh-spend` provides usage and cost views, while the sandbox
+  tools through the companion extension, Computer Use supplies macOS automation
+  (adapted for macOS 13, local MCP and DSH rc.1), and DSH Mobile provides protected
+  phone access to DSH sessions.
+- **Utilities** — `dsh-spend` provides usage and cost views with background scan
+  optimization to keep startup scans off the event loop, while the sandbox
   shim removes redundant sandbox fields from model-facing tool schemas.
+- **Dynamic workflows (workspace)** — the workspace also develops
+  [`@dsh-external/workflow`](https://github.com/omdsh-dev/dsh_workflow) (`dsh_workflow`),
+  a dynamic workflow engine providing KodaX-parity multi-agent orchestration and persistence.
 
 ## Plugin relationships
 
@@ -67,8 +73,8 @@ services.
 - Host baseline: DSH `0.1.2-rc.1`.
 - `dsh-taskboard` declares `>=0.1.2-rc.1 <0.2.0` and marks `0.1.2-rc.1` as
   compatible in its manifest.
-- `dsh-tool-lazy-gate`, the model providers, image generation, browser bridge and
-  Computer Use packages use rc.1-compatible peer declarations.
+- `dsh-tool-lazy-gate`, the model providers, image generation, browser bridge,
+  spend monitor and Computer Use packages use rc.1-compatible peer declarations.
 - The author's Better Sidebar `0.18.0` release uses rc.1-compatible DSH peers.
 - DSH Mobile `0.3.8` declares a compatible `0.1.2` release line through its peer
   ranges; the installed release was checked with the same host baseline.
@@ -83,16 +89,24 @@ Install a published package with the DSH plugin command:
 ```bash
 dsh plugin --profile web add dsh-better-sidebar@latest
 dsh plugin --profile web add dsh-mobile@latest
-dsh plugin --profile web add dsh-spend@latest
 ```
 
 Install one of the personal forks directly when you need the fork-specific
 features:
 
 ```bash
+dsh plugin --profile web add github:LiuRJ99/dsh-cpa-plugin
+dsh plugin --profile web add github:LiuRJ99/dsh-workbuddy-provider
+dsh plugin --profile web add github:LiuRJ99/dsh-browser#path:packages/browser/bridge-browser
+dsh plugin --profile web add github:LiuRJ99/dsh-computer-use
+dsh plugin --profile web add github:LiuRJ99/dsh-image-gen
+dsh plugin --profile web add github:LiuRJ99/dsh-spend#fix/startup-scan-performance
 dsh plugin --profile web add github:LiuRJ99/dsh-taskboard-cloader
 dsh plugin --profile web add github:LiuRJ99/dsh-tool-lazy-gate
 ```
+
+In a local development environment, plugins can also be linked directly from
+workspace folders into the profile (`dsh plugin --profile web link <path>`).
 
 Restart DSH after changing plugins. Install the CPA provider before
 `dsh-image-gen`, because image generation depends on the provider's service.
@@ -100,9 +114,13 @@ Restart DSH after changing plugins. Install the CPA provider before
 ## Maintenance boundary
 
 The LiuRJ99 forked packages in this inventory are the packages whose local
-features are intentionally retained: CPA, WorkBuddy, browser bridge, image
-generation, taskboard and lazy-gate. `dsh-better-sidebar` is different: only the
-author's published package is used, and no local maintenance is implied.
+features are intentionally retained: CPA (`dsh-cpa-plugin`), WorkBuddy
+(`dsh-workbuddy-provider`), browser bridge (`dsh-browser`), Computer Use
+(`dsh-computer-use`), image generation (`dsh-image-gen`), spend monitor
+(`dsh-spend`), taskboard (`dsh-taskboard-cloader`) and lazy-gate
+(`dsh-tool-lazy-gate`). `dsh-better-sidebar`, `dsh-mobile` and
+`dsh-sandbox-schema-shim` are different: only upstream or author-published
+packages are used, and no local maintenance is implied.
 
 ## License
 
