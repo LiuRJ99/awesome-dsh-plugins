@@ -1,7 +1,7 @@
 # Awesome DSH Plugins
 
-当前 DSH Web profile 中已启用插件的精简清单。以下版本于 2026-09-04
-按 DSH `0.1.2-rc.1` 宿主实际安装状态核对。
+当前 DSH Web profile 中已启用插件的精简清单。以下版本于 2026-09-06
+按 DSH `0.1.2-rc.1` / `0.1.3-alpha.1` 宿主实际安装状态核对。
 
 [English](README.md)
 
@@ -15,7 +15,7 @@
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | 0.1.2 | Computer Use | LiuRJ99 fork，适配 DSH 0.1.2-rc.1（本地 checkout） |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | 0.18.0 | Web UI | 作者发布版；本地不维护 fork |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | 0.4.1 | 图片生成 | LiuRJ99 fork，自 [dsh-image-gen](https://github.com/shanliuling/dsh-image-gen) 适配 |
-| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 0.3.8 | 移动访问 | saya-ch 社区版本 |
+| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 0.3.9 | 移动访问 | saya-ch 社区版本 |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | 0.1.1 | 兼容层 | 社区 monorepo 子包 |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | 0.6.2 | 用量与费用 | LiuRJ99 fork，自 [nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) 适配（`fix/startup-scan-performance` 分支） |
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | 0.6.4 | 工作流 | LiuRJ99 fork，自 [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard) 适配 |
@@ -36,10 +36,10 @@
   终端、Git、浏览器等界面，并通过 `ctx.betterSidebar` 为其他插件提供注册服务。
   本机只使用作者发布包，不维护本地 fork。
 - **模型与图片** —— CPA、WorkBuddy 注册模型供应商；CPA 插件支持 Web 端配额与账号自动静默刷新及多窗口配额统计；`dsh-image-gen` 提供基于
-  CPA 的图片生成与图库界面。
-- **浏览器、电脑与移动访问** —— 浏览器桥接配合扩展提供浏览器工具，Computer Use
-  提供 macOS 自动化（适配 macOS 13、本地 MCP 与 DSH rc.1），DSH Mobile 提供受保护的手机端会话访问。
-- **工具插件** —— `dsh-spend` 提供用量与费用视图，并通过后台扫描优化将启动统计移出主线程事件循环（避免启动卡顿）；sandbox shim 清理模型侧工具
+  CPA 的图片生成与图库界面，支持对话尾部直接渲染生图交付物并针对 GPT 自动适配宽高比。
+- **浏览器、电脑与移动访问** —— 浏览器桥接配合扩展提供浏览器工具与会话历史解包恢复，Computer Use
+  提供 macOS 自动化（适配 macOS 13、本地 MCP、DSH rc.1 及技能注册门控），DSH Mobile 提供受保护的手机端会话访问、输入栏紧凑化（适配 0.1.3-alpha.1）与远程多主机支持（Remote Host V2 MVP）。
+- **工具插件** —— `dsh-spend` 提供用量与费用视图，支持后台扫描优化、扫描缓存跨重启持久化及实时会话快照复用；sandbox shim 清理模型侧工具
   schema 中多余的沙箱字段。
 - **动态工作流（工作区）** —— 工作区还孵化维护了
   [`@dsh-external/workflow`](https://github.com/omdsh-dev/dsh_workflow)（`dsh_workflow`），
@@ -64,7 +64,7 @@ taskboard 与 lazy-gate 的关系属于集成契约，不是 npm peer：taskboar
 - lazy-gate、模型供应商、图片生成、浏览器桥接、Spend 用量监控和 Computer Use 均使用 rc.1 兼容的
   peer 声明。
 - 作者 Better Sidebar `0.18.0` 使用 rc.1 兼容的 DSH peer。
-- DSH Mobile `0.3.8` 通过 peer 范围声明兼容 `0.1.2` 发布线；已按相同宿主基线核对。
+- DSH Mobile `0.3.9` 通过 peer 范围声明兼容 `0.1.2` 与 `0.1.3-alpha.1` 发布线；已按宿主基线核对。
 
 Better Sidebar 特意只使用作者发布版。本仓库不修改、不重新发布，也不维护该项目。
 

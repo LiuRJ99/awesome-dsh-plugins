@@ -1,7 +1,7 @@
 # Awesome DSH Plugins
 
 A compact inventory of the plugins currently enabled in the DSH Web profile.
-The versions below were checked on 2026-09-04 against DSH `0.1.2-rc.1`.
+The versions below were checked on 2026-09-06 against DSH `0.1.2-rc.1` / `0.1.3-alpha.1`.
 
 [简体中文](README.zh-CN.md)
 
@@ -15,7 +15,7 @@ The versions below were checked on 2026-09-04 against DSH `0.1.2-rc.1`.
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | 0.1.2 | Computer use | LiuRJ99 fork, adapted for DSH 0.1.2-rc.1 (local checkout) |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | 0.18.0 | Web UI | Author release; used without a local fork |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | 0.4.1 | Image generation | LiuRJ99 fork of [dsh-image-gen](https://github.com/shanliuling/dsh-image-gen) |
-| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 0.3.8 | Mobile access | Community release by saya-ch |
+| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 0.3.9 | Mobile access | Community release by saya-ch |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | 0.1.1 | Compatibility shim | Community monorepo package |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | 0.6.2 | Cost and usage | LiuRJ99 fork of [nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) (`fix/startup-scan-performance`) |
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | 0.6.4 | Workflow | LiuRJ99 fork of [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard) |
@@ -42,13 +42,14 @@ upgrade does not accidentally imply that an upstream project is being forked.
   maintained as a local fork here.
 - **Model and image providers** — CPA and WorkBuddy providers register model
   sources; CPA adds automatic Web UI quota/account polling and multi-window quota
-  tracking; `dsh-image-gen` adds a CPA-backed image gallery and generation UI.
+  tracking; `dsh-image-gen` adds a CPA-backed image gallery and generation UI,
+  direct-rendering image deliverables in turn tail and auto-adapting aspect ratios for GPT engines.
 - **Browser, computer and mobile access** — the browser bridge exposes browser
-  tools through the companion extension, Computer Use supplies macOS automation
-  (adapted for macOS 13, local MCP and DSH rc.1), and DSH Mobile provides protected
-  phone access to DSH sessions.
+  tools through the companion extension with panel history unwrapping, Computer Use supplies macOS automation
+  (adapted for macOS 13, local MCP, DSH rc.1, and gated skill registration), and DSH Mobile provides protected
+  phone access to DSH sessions, compact composer dock stats (DSH 0.1.3-alpha.1), and remote multi-host runtime (Remote Host V2 MVP).
 - **Utilities** — `dsh-spend` provides usage and cost views with background scan
-  optimization to keep startup scans off the event loop, while the sandbox
+  optimization, restart-persistent scan caching and live session snapshot reuse, while the sandbox
   shim removes redundant sandbox fields from model-facing tool schemas.
 - **Dynamic workflows (workspace)** — the workspace also develops
   [`@dsh-external/workflow`](https://github.com/omdsh-dev/dsh_workflow) (`dsh_workflow`),
@@ -76,8 +77,8 @@ services.
 - `dsh-tool-lazy-gate`, the model providers, image generation, browser bridge,
   spend monitor and Computer Use packages use rc.1-compatible peer declarations.
 - The author's Better Sidebar `0.18.0` release uses rc.1-compatible DSH peers.
-- DSH Mobile `0.3.8` declares a compatible `0.1.2` release line through its peer
-  ranges; the installed release was checked with the same host baseline.
+- DSH Mobile `0.3.9` declares compatible `0.1.2` and `0.1.3-alpha.1` release lines through its peer
+  ranges; the installed release was checked with the host baseline.
 
 Better Sidebar is intentionally consumed from the author's published release.
 This repository does not patch, republish or otherwise maintain that project.
