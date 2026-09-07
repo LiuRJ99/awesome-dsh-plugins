@@ -1,7 +1,8 @@
 # Awesome DSH Plugins
 
-当前 DSH Web profile 中已启用插件的精简清单。以下版本于 2026-09-06
-按 DSH `0.1.2-rc.1` / `0.1.3-alpha.1` 宿主实际安装状态核对。
+当前 DSH Web profile 中已启用插件的精简清单。以下版本于 2026-09-07
+按实际安装状态核对：宿主为 DSH `0.1.2-rc.1`（全局 CLI），`0.1.3-alpha.1`
+发布线体现在已发布插件的 peer 范围中。
 
 [English](README.md)
 
@@ -15,9 +16,9 @@
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | 0.1.2 | Computer Use | LiuRJ99 fork，适配 DSH 0.1.2-rc.1（本地 checkout） |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | 0.18.0 | Web UI | 作者发布版；本地不维护 fork |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | 0.4.1 | 图片生成 | LiuRJ99 fork，自 [dsh-image-gen](https://github.com/shanliuling/dsh-image-gen) 适配 |
-| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 0.3.9 | 移动访问 | saya-ch 社区版本 |
+| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 0.3.12 | 移动访问 | saya-ch 社区版本 |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | 0.1.1 | 兼容层 | 社区 monorepo 子包 |
-| [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | 0.6.2 | 用量与费用 | LiuRJ99 fork，自 [nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) 适配（`fix/startup-scan-performance` 分支） |
+| [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | 0.6.3 | 用量与费用 | LiuRJ99 fork，自 [nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) 适配（改动已合回 `main`） |
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | 0.6.4 | 工作流 | LiuRJ99 fork，自 [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard) 适配 |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | 0.1.0 | 安全与能力控制 | LiuRJ99 fork |
 
@@ -31,16 +32,30 @@
   模型头像、Mermaid 懒加载、带 Cordis slot proxy 去重的会话头部操作，以及可选 Better Sidebar 页签。
   fork 以上游 `0.6.4` 为兼容基线，同时保留这些自主开发的集成。
 - **Lazy Gate** —— 会话级高权限工具门控，包含动态限制、执行拦截、Prompt 抑制，
-  并接入 taskboard 能力授权。
+  并接入 taskboard 能力授权。新增 host 侧只读 `isUnlocked(agent, skillName)`
+  查询，供可信的同进程插件（如浏览器快照注入器）按会话解锁状态控制能力内容；
+  子代理会话在每个步骤边界继承祖先会话的解锁（父会话失活时按锁定处理）。
+- **浏览器控制** —— 桥接插件配合 Chrome/Firefox 扩展已支持每会话专用标签页、
+  会话与子代理附加到既有标签（`browser_attach_tab`）、对无法注入的页面仍可
+  列出标签，并在 `browser_navigate` 时归一化可信来源。面板历史解包恢复保持不变；
+  开启 lazy gate 时，跟随页面快照的投递会等待该会话浏览器能力解锁后才进行。
 - **Better Sidebar** —— 作者的 `0.18.0` 右侧栏版本，提供资源管理器、编辑器、
   终端、Git、浏览器等界面，并通过 `ctx.betterSidebar` 为其他插件提供注册服务。
   本机只使用作者发布包，不维护本地 fork。
-- **模型与图片** —— CPA、WorkBuddy 注册模型供应商；CPA 插件支持 Web 端配额与账号自动静默刷新及多窗口配额统计；`dsh-image-gen` 提供基于
-  CPA 的图片生成与图库界面，支持对话尾部直接渲染生图交付物并针对 GPT 自动适配宽高比。
-- **浏览器、电脑与移动访问** —— 浏览器桥接配合扩展提供浏览器工具与会话历史解包恢复，Computer Use
-  提供 macOS 自动化（适配 macOS 13、本地 MCP、DSH rc.1 及技能注册门控），DSH Mobile 提供受保护的手机端会话访问、输入栏紧凑化（适配 0.1.3-alpha.1）与远程多主机支持（Remote Host V2 MVP）。
-- **工具插件** —— `dsh-spend` 提供用量与费用视图，支持后台扫描优化、扫描缓存跨重启持久化及实时会话快照复用；sandbox shim 清理模型侧工具
-  schema 中多余的沙箱字段。
+- **模型与图片** —— CPA、WorkBuddy 注册模型供应商；CPA 账号条与切换器轮询 Host
+  快照，按所选模型的家族池限定配额窗口、优先展示五小时窗口，并将刷新失败的配额
+  显式标记为过期；`dsh-image-gen` 提供基于 CPA 的图片生成与图库界面，支持对话
+  尾部直接渲染生图交付物并针对 GPT 自动适配宽高比。
+- **Computer Use 与移动访问** —— Computer Use 提供 macOS 自动化（适配 macOS 13、
+  本地 MCP、DSH rc.1 及技能注册门控），DSH Mobile 提供受保护的手机端会话访问
+  （含作者 0.3.10+ 版本的输入栏紧凑统计与工作区侧边栏行为）。
+  Mobile 只跟随作者发布版本（当前安装 `0.3.12`）；早期「Remote Host V2 MVP」
+  实验连同其本地 `dsh-mobile-remote-host` 模块与工作区目录已一并移除，
+  因此本机安装不再包含远程多主机运行时。
+- **工具插件** —— `dsh-spend`（fork 的 `main` 现为 `0.6.3`）提供用量与费用视图，
+  将统计扫描移出主线程事件循环、扫描缓存跨重启持久化、实时会话快照复用，
+  并恢复了 rc.1 兼容的 peer 声明；sandbox shim 清理模型侧工具 schema 中多余的
+  沙箱字段。
 - **动态工作流（工作区）** —— 工作区还孵化维护了
   [`@dsh-external/workflow`](https://github.com/omdsh-dev/dsh_workflow)（`dsh_workflow`），
   为 DSH 提供对标 KodaX 的持久化动态工作流引擎与多 Agent 编排治理能力。
@@ -58,13 +73,17 @@ taskboard 与 lazy-gate 的关系属于集成契约，不是 npm peer：taskboar
 
 ## 兼容性
 
-- 宿主基线：DSH `0.1.2-rc.1`。
+- 宿主基线：DSH `0.1.2-rc.1`（全局 CLI），`0.1.3-alpha.1` 发布线由
+  已发布插件的 peer 范围覆盖。
 - `dsh-taskboard` 声明 `>=0.1.2-rc.1 <0.2.0`，并在 manifest 中将
   `0.1.2-rc.1` 标记为 `compatible`。
+- `dsh-spend` `0.6.3` 声明 `dsh:compatibility ">=0.1.2-rc.1 <0.2.0"`，
+  兼容性修复把 peer 依赖移回 `^0.1.2-rc.1`。
 - lazy-gate、模型供应商、图片生成、浏览器桥接、Spend 用量监控和 Computer Use 均使用 rc.1 兼容的
   peer 声明。
 - 作者 Better Sidebar `0.18.0` 使用 rc.1 兼容的 DSH peer。
-- DSH Mobile `0.3.9` 通过 peer 范围声明兼容 `0.1.2` 与 `0.1.3-alpha.1` 发布线；已按宿主基线核对。
+- DSH Mobile `0.3.10`–`0.3.12` 通过上游源码 CI 门禁在 `0.1.3-alpha.1`
+  发布线上验证，peer 范围同时接受 `0.1.2`；当前安装版本与这些范围一致。
 
 Better Sidebar 特意只使用作者发布版。本仓库不修改、不重新发布，也不维护该项目。
 
@@ -85,7 +104,7 @@ dsh plugin --profile web add github:LiuRJ99/dsh-workbuddy-provider
 dsh plugin --profile web add github:LiuRJ99/dsh-browser#path:packages/browser/bridge-browser
 dsh plugin --profile web add github:LiuRJ99/dsh-computer-use
 dsh plugin --profile web add github:LiuRJ99/dsh-image-gen
-dsh plugin --profile web add github:LiuRJ99/dsh-spend#fix/startup-scan-performance
+dsh plugin --profile web add github:LiuRJ99/dsh-spend
 dsh plugin --profile web add github:LiuRJ99/dsh-taskboard-cloader
 dsh plugin --profile web add github:LiuRJ99/dsh-tool-lazy-gate
 ```

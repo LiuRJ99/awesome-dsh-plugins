@@ -1,7 +1,9 @@
 # Awesome DSH Plugins
 
 A compact inventory of the plugins currently enabled in the DSH Web profile.
-The versions below were checked on 2026-09-06 against DSH `0.1.2-rc.1` / `0.1.3-alpha.1`.
+The versions below were checked on 2026-09-07 against the DSH `0.1.2-rc.1` host
+(global CLI) and the `0.1.3-alpha.1` release line (peer ranges of the published
+plugins).
 
 [简体中文](README.zh-CN.md)
 
@@ -15,9 +17,9 @@ The versions below were checked on 2026-09-06 against DSH `0.1.2-rc.1` / `0.1.3-
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | 0.1.2 | Computer use | LiuRJ99 fork, adapted for DSH 0.1.2-rc.1 (local checkout) |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | 0.18.0 | Web UI | Author release; used without a local fork |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | 0.4.1 | Image generation | LiuRJ99 fork of [dsh-image-gen](https://github.com/shanliuling/dsh-image-gen) |
-| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 0.3.9 | Mobile access | Community release by saya-ch |
+| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 0.3.12 | Mobile access | Community release by saya-ch |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | 0.1.1 | Compatibility shim | Community monorepo package |
-| [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | 0.6.2 | Cost and usage | LiuRJ99 fork of [nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) (`fix/startup-scan-performance`) |
+| [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | 0.6.3 | Cost and usage | LiuRJ99 fork of [nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) (work merged back to `main`) |
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | 0.6.4 | Workflow | LiuRJ99 fork of [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard) |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | 0.1.0 | Security and capability control | LiuRJ99 fork |
 
@@ -35,22 +37,41 @@ upgrade does not accidentally imply that an upstream project is being forked.
   base while retaining these locally developed integrations.
 - **Lazy gate** — session-scoped gating for high-privilege tool families with
   dynamic restriction, execution guards, prompt suppression, and taskboard
-  capability integration.
+  capability integration. A host-side read-only `isUnlocked(agent, skillName)`
+  query lets trusted same-process plugins (such as browser snapshot injectors)
+  gate capability-owned content on the session lock state, and subagent sessions
+  inherit their ancestors' unlocks at every step boundary (failing closed when a
+  parent is no longer live).
+- **Browser control** — the bridge plugin plus companion Chrome/Firefox
+  extension now keep one dedicated tab per session, let sessions and subagents
+  attach to an existing tab (`browser_attach_tab`), list tabs even on pages the
+  extension cannot inject into, and normalize trusted origins across
+  `browser_navigate`. Panel history unwrapping is unchanged; followed-page
+  snapshot delivery now waits for the session's browser unlock when the lazy
+  gate is active.
 - **Better Sidebar** — the author's `0.18.0` right-sidebar release with explorer,
   editor, terminal, Git and browser surfaces, plus the `ctx.betterSidebar` service
   used by other plugins. This installation follows the author's package; it is not
   maintained as a local fork here.
 - **Model and image providers** — CPA and WorkBuddy providers register model
-  sources; CPA adds automatic Web UI quota/account polling and multi-window quota
-  tracking; `dsh-image-gen` adds a CPA-backed image gallery and generation UI,
-  direct-rendering image deliverables in turn tail and auto-adapting aspect ratios for GPT engines.
-- **Browser, computer and mobile access** — the browser bridge exposes browser
-  tools through the companion extension with panel history unwrapping, Computer Use supplies macOS automation
-  (adapted for macOS 13, local MCP, DSH rc.1, and gated skill registration), and DSH Mobile provides protected
-  phone access to DSH sessions, compact composer dock stats (DSH 0.1.3-alpha.1), and remote multi-host runtime (Remote Host V2 MVP).
-- **Utilities** — `dsh-spend` provides usage and cost views with background scan
-  optimization, restart-persistent scan caching and live session snapshot reuse, while the sandbox
-  shim removes redundant sandbox fields from model-facing tool schemas.
+  sources; the CPA account strip and switcher poll the Host snapshot, scope quota
+  windows to the selected model family pool, prefer the five-hour window, and mark
+  failed refreshes as visibly stale; `dsh-image-gen` adds a CPA-backed image gallery
+  and generation UI, direct-rendering image deliverables in turn tail and
+  auto-adapting aspect ratios for GPT engines.
+- **Computer use and mobile access** — Computer Use supplies macOS automation
+  (adapted for macOS 13, local MCP, DSH rc.1, and gated skill registration), and
+  DSH Mobile provides protected phone access to DSH sessions (compact composer
+  dock stats and workspace sidebar behaviors included in the author's 0.3.10+
+  releases). The mobile package is followed as a published release (installed
+  `0.3.12`); the earlier "Remote Host V2 MVP" experiment with a local
+  `dsh-mobile-remote-host` module was dropped together with its workspace
+  checkout, so no remote multi-host runtime is part of this installation
+  anymore.
+- **Utilities** — `dsh-spend` (now `0.6.3` on the fork's `main`) provides usage
+  and cost views with scans kept off the event loop, restart-persistent scan
+  caching, live session snapshot reuse, and rc.1-peer compatibility restored;
+  the sandbox shim removes redundant sandbox fields from model-facing tool schemas.
 - **Dynamic workflows (workspace)** — the workspace also develops
   [`@dsh-external/workflow`](https://github.com/omdsh-dev/dsh_workflow) (`dsh_workflow`),
   a dynamic workflow engine providing KodaX-parity multi-agent orchestration and persistence.
@@ -71,14 +92,18 @@ services.
 
 ## Compatibility
 
-- Host baseline: DSH `0.1.2-rc.1`.
+- Host baseline: DSH `0.1.2-rc.1` (global CLI) with the `0.1.3-alpha.1` line
+  covered by published peer ranges.
 - `dsh-taskboard` declares `>=0.1.2-rc.1 <0.2.0` and marks `0.1.2-rc.1` as
   compatible in its manifest.
+- `dsh-spend` `0.6.3` declares `dsh:compatibility ">=0.1.2-rc.1 <0.2.0"` and its
+  peers were moved back onto `^0.1.2-rc.1` in the compatibility fix.
 - `dsh-tool-lazy-gate`, the model providers, image generation, browser bridge,
   spend monitor and Computer Use packages use rc.1-compatible peer declarations.
 - The author's Better Sidebar `0.18.0` release uses rc.1-compatible DSH peers.
-- DSH Mobile `0.3.9` declares compatible `0.1.2` and `0.1.3-alpha.1` release lines through its peer
-  ranges; the installed release was checked with the host baseline.
+- DSH Mobile `0.3.10`–`0.3.12` is verified against the `0.1.3-alpha.1` release
+  line through the upstream-source CI gate and its peer ranges also accept
+  `0.1.2`; the installed release matches those peer ranges.
 
 Better Sidebar is intentionally consumed from the author's published release.
 This repository does not patch, republish or otherwise maintain that project.
@@ -101,7 +126,7 @@ dsh plugin --profile web add github:LiuRJ99/dsh-workbuddy-provider
 dsh plugin --profile web add github:LiuRJ99/dsh-browser#path:packages/browser/bridge-browser
 dsh plugin --profile web add github:LiuRJ99/dsh-computer-use
 dsh plugin --profile web add github:LiuRJ99/dsh-image-gen
-dsh plugin --profile web add github:LiuRJ99/dsh-spend#fix/startup-scan-performance
+dsh plugin --profile web add github:LiuRJ99/dsh-spend
 dsh plugin --profile web add github:LiuRJ99/dsh-taskboard-cloader
 dsh plugin --profile web add github:LiuRJ99/dsh-tool-lazy-gate
 ```
