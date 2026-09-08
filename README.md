@@ -5,7 +5,7 @@ The versions below were checked on 2026-09-07 against the DSH `0.1.2-rc.1` host
 (global CLI) and the `0.1.3-alpha.1` release line (peer ranges of the published
 plugins).
 
-[简体中文](README.zh-CN.md)
+[简体中文](README.zh-CN.md) · [Repository install issue log](REPOSITORY_INSTALL_ISSUES.md)
 
 ## Installed plugins
 

@@ -4,7 +4,7 @@
 按实际安装状态核对：宿主为 DSH `0.1.2-rc.1`（全局 CLI），`0.1.3-alpha.1`
 发布线体现在已发布插件的 peer 范围中。
 
-[English](README.md)
+[English](README.md) · [仓库安装问题记录](REPOSITORY_INSTALL_ISSUES.md)
 
 ## 已安装插件
 
