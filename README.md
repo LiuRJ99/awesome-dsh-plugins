@@ -1,155 +1,211 @@
 # Awesome DSH Plugins
 
-A compact inventory of the plugins currently enabled in the DSH Web profile.
-The versions below were checked on 2026-09-07 against the DSH `0.1.2-rc.1` host
-(global CLI) and the `0.1.3-alpha.1` release line (peer ranges of the published
-plugins).
+The current DSH Web plugin catalog and the installation standard for this profile.
+This file describes the present installation contract only. It is not a changelog,
+incident report, or archive of previous installation attempts.
 
-[简体中文](README.zh-CN.md) · [Repository install issue log](REPOSITORY_INSTALL_ISSUES.md)
+[简体中文](README.zh-CN.md)
 
-## Installed plugins
+## Current baseline
 
-| Plugin | Version | Category | Maintainer / source |
+- DSH Host: `0.1.2-rc.1`
+- Node.js: `24.19.0` on the verified machine
+- Formal Web profile pnpm: `10.6.4`
+- Install profile plugins with `dsh plugin --profile <profile> add ...`.
+- Use a candidate profile before changing the formal `web` profile.
+- Never copy another machine's profile, lockfile, `node_modules`, or absolute paths.
+- The formal profile currently has one intentional local-link exception:
+  `@yuxianglin/dsh-bridge-browser`, because its official installer builds and
+  registers a bridge together with a browser extension.
+
+## Current plugin catalog
+
+| Plugin | Capability | Current delivery | Prerequisites / dependency |
 | --- | --- | --- | --- |
-| [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | 0.4.0 | Model provider | LiuRJ99 fork of [dsh-cliproxyapi-provider](https://github.com/router-for-me/dsh-cliproxyapi-provider) |
-| [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | 0.2.1 | Model provider | LiuRJ99 fork |
-| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 0.0.5 | Browser control | LiuRJ99 fork of [dsh-browser](https://github.com/Lum1104/dsh-browser) |
-| [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | 0.1.2 | Computer use | LiuRJ99 fork, adapted for DSH 0.1.2-rc.1 (local checkout) |
-| [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | 0.18.0 | Web UI | Author release; used without a local fork |
-| [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | 0.4.1 | Image generation | LiuRJ99 fork of [dsh-image-gen](https://github.com/shanliuling/dsh-image-gen) |
-| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 0.3.12 | Mobile access | Community release by saya-ch |
-| [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | 0.1.1 | Compatibility shim | Community monorepo package |
-| [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | 0.6.3 | Cost and usage | LiuRJ99 fork of [nonewind/dsh-spend](https://github.com/nonewind/dsh-spend) (work merged back to `main`) |
-| [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | 0.6.4 | Workflow | LiuRJ99 fork of [cloader/dsh-taskboard](https://github.com/cloader/dsh-taskboard) |
-| [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | 0.1.0 | Security and capability control | LiuRJ99 fork |
+| [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, account/quota UI, speed modes, image-generation service | Git release `v0.4.1` | DSH peer services; CPA endpoint and credentials are configured by the user |
+| [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | WorkBuddy local model provider | Private Git release `v0.2.1` over SSH | GitHub SSH access; WorkBuddy local service |
+| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | Browser release `v0.1.4` plus the repository installer; local bridge link is intentional | Clean browser checkout, Node/pnpm, Chrome or Firefox; bridge and extension are one product |
+| [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | Git release `v0.1.2` | macOS, Xcode Command Line Tools, Accessibility and Screen Recording permissions |
+| [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.18.0` | Optional service for Taskboard and ImageGen |
+| [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA-backed image generation, model catalog, image editing, Gallery and workspace save | Release `v0.5.0` tarball asset, staged to a persistent local file before `dsh plugin add` | Install CPA first; source build requires a CPA sibling; do not install the source checkout directly from Git |
+| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | Protected mobile access to DSH sessions | Exact registry version `0.3.12` | Web Host and the mobile patch; mobile access remains disabled until configured |
+| [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | Removes redundant sandbox fields from model-facing tool schemas | Git release tag `sandbox-schema-shim-v0.1.1`, package path `/packages/sandbox-schema-shim` | DSH base profile |
+| [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token usage, statistics, billing-plan detection and spend views | Git release `v0.6.4` | DSH session, credentials and Web UI peer services |
+| [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host-authoritative tasks, task tools, workspace claims, scheduling and kanban UI | Git release `v0.6.5` | Optional Better Sidebar integration; advertises capability metadata to Lazy Gate |
+| [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | Session-scoped gating for browser and computer-use tool families | Git release `v0.1.0` | Uses Taskboard capability metadata when available |
 
-The table reflects the active installation, not every plugin that exists in the
-ecosystem. Personal forks and upstream packages are labelled separately so an
-upgrade does not accidentally imply that an upstream project is being forked.
+DSH base and Web Host bundles are host layers, not community plugin entries in
+this catalog.
 
-## Notable capabilities
+## Dependency map
 
-- **Taskboard** — host-authoritative tasks and `taskboard_*` tools, workspace claim
-  boundaries, per-task model execution, cron scheduling, optional git-worktree
-  isolation, live kanban updates, clickable file links, model avatars, lazy
-  Mermaid rendering, session-header actions with Cordis slot proxy deduplication,
-  and optional Better Sidebar tabs. The fork uses upstream `0.6.4` as its compatibility
-  base while retaining these locally developed integrations.
-- **Lazy gate** — session-scoped gating for high-privilege tool families with
-  dynamic restriction, execution guards, prompt suppression, and taskboard
-  capability integration. A host-side read-only `isUnlocked(agent, skillName)`
-  query lets trusted same-process plugins (such as browser snapshot injectors)
-  gate capability-owned content on the session lock state, and subagent sessions
-  inherit their ancestors' unlocks at every step boundary (failing closed when a
-  parent is no longer live).
-- **Browser control** — the bridge plugin plus companion Chrome/Firefox
-  extension now keep one dedicated tab per session, let sessions and subagents
-  attach to an existing tab (`browser_attach_tab`), list tabs even on pages the
-  extension cannot inject into, and normalize trusted origins across
-  `browser_navigate`. Panel history unwrapping is unchanged; followed-page
-  snapshot delivery now waits for the session's browser unlock when the lazy
-  gate is active.
-- **Better Sidebar** — the author's `0.18.0` right-sidebar release with explorer,
-  editor, terminal, Git and browser surfaces, plus the `ctx.betterSidebar` service
-  used by other plugins. This installation follows the author's package; it is not
-  maintained as a local fork here.
-- **Model and image providers** — CPA and WorkBuddy providers register model
-  sources; the CPA account strip and switcher poll the Host snapshot, scope quota
-  windows to the selected model family pool, prefer the five-hour window, and mark
-  failed refreshes as visibly stale; `dsh-image-gen` adds a CPA-backed image gallery
-  and generation UI, direct-rendering image deliverables in turn tail and
-  auto-adapting aspect ratios for GPT engines.
-- **Computer use and mobile access** — Computer Use supplies macOS automation
-  (adapted for macOS 13, local MCP, DSH rc.1, and gated skill registration), and
-  DSH Mobile provides protected phone access to DSH sessions (compact composer
-  dock stats and workspace sidebar behaviors included in the author's 0.3.10+
-  releases). The mobile package is followed as a published release (installed
-  `0.3.12`); the earlier "Remote Host V2 MVP" experiment with a local
-  `dsh-mobile-remote-host` module was dropped together with its workspace
-  checkout, so no remote multi-host runtime is part of this installation
-  anymore.
-- **Utilities** — `dsh-spend` (now `0.6.3` on the fork's `main`) provides usage
-  and cost views with scans kept off the event loop, restart-persistent scan
-  caching, live session snapshot reuse, and rc.1-peer compatibility restored;
-  the sandbox shim removes redundant sandbox fields from model-facing tool schemas.
-- **Dynamic workflows (workspace)** — the workspace also develops
-  [`@dsh-external/workflow`](https://github.com/omdsh-dev/dsh_workflow) (`dsh_workflow`),
-  a dynamic workflow engine providing KodaX-parity multi-agent orchestration and persistence.
-
-## Plugin relationships
-
-The installed manifests declare one required plugin dependency and two optional
-UI integrations:
-
-- `dsh-image-gen` requires `@LiuRJ99/dsh-cpa-plugin` in the range `>=0.3.0 <0.5.0`.
-- `dsh-taskboard` optionally integrates with `dsh-better-sidebar` `^0.18.0`.
-- `dsh-image-gen` optionally integrates with the same Better Sidebar service.
-
-The taskboard/lazy-gate connection is an integration contract, not an npm peer:
-the taskboard advertises its capability metadata and the gate controls the
-corresponding tools. The remaining plugins are independent or consume DSH-host
-services.
-
-## Compatibility
-
-- Host baseline: DSH `0.1.2-rc.1` (global CLI) with the `0.1.3-alpha.1` line
-  covered by published peer ranges.
-- `dsh-taskboard` declares `>=0.1.2-rc.1 <0.2.0` and marks `0.1.2-rc.1` as
-  compatible in its manifest.
-- `dsh-spend` `0.6.3` declares `dsh:compatibility ">=0.1.2-rc.1 <0.2.0"` and its
-  peers were moved back onto `^0.1.2-rc.1` in the compatibility fix.
-- `dsh-tool-lazy-gate`, the model providers, image generation, browser bridge,
-  spend monitor and Computer Use packages use rc.1-compatible peer declarations.
-- The author's Better Sidebar `0.18.0` release uses rc.1-compatible DSH peers.
-- DSH Mobile `0.3.10`–`0.3.12` is verified against the `0.1.3-alpha.1` release
-  line through the upstream-source CI gate and its peer ranges also accept
-  `0.1.2`; the installed release matches those peer ranges.
-
-Better Sidebar is intentionally consumed from the author's published release.
-This repository does not patch, republish or otherwise maintain that project.
-
-## Install
-
-Install a published package with the DSH plugin command:
-
-```bash
-dsh plugin --profile web add dsh-better-sidebar@latest
-dsh plugin --profile web add dsh-mobile@latest
+```text
+DSH base + DSH Web Host
+├─ Better Sidebar ── optional UI service ──┬─ Taskboard
+│                                         └─ ImageGen
+├─ CPA Provider ── required runtime service ── ImageGen
+├─ Taskboard ── capability metadata contract ── Lazy Gate
+├─ Browser bridge ↔ Chrome/Firefox extension
+└─ Computer Use JS bundle ↔ macOS native daemon + TCC permissions
 ```
 
-Install one of the personal forks directly when you need the fork-specific
-features:
+Independent plugins:
+
+- WorkBuddy provider
+- Spend
+- Mobile
+- Sandbox schema shim
+
+## Installation modes
+
+### Stable or cross-machine installation
+
+Use a candidate profile first. Every source must be exact:
+
+- registry package with an exact version;
+- protected Git release tag;
+- verified release tarball built from a fixed source commit.
+
+Do not use `latest`, `main`, an unpinned branch, or another machine's `link:`.
+
+### Local development
+
+A `link:` is allowed only in a machine-local `web-dev` profile after the source
+checkout has been built and its runtime entries have been checked. It is not a
+portable installation format and it does not run the target package's build.
+
+### Special products
+
+- **Browser:** do not use a plain `dsh plugin add` for the bridge package. Check out
+  Browser release `v0.1.4` and run `scripts/install.sh` (or the Windows installer).
+  It builds the bridge, registers the local bridge, builds the extension and copies
+  it to the DSH-managed extension directory.
+- **ImageGen:** build CPA first, then build ImageGen and create or download the
+  `v0.5.0` release tarball. Stage it at a persistent local path before installing;
+  do not let pnpm save GitHub's temporary signed redirect URL.
+- **Computer Use:** install the `v0.1.2` release tag, then run its setup CLI and
+  grant Accessibility / Screen Recording separately.
+- **WorkBuddy:** use the private `v0.2.1` SSH release tag and ensure the DSH/pnpm
+  process can authenticate to GitHub over SSH.
+
+## Installation procedure
+
+The following order is the current Web profile order. Replace placeholders with
+artifacts prepared for the target machine.
 
 ```bash
-dsh plugin --profile web add github:LiuRJ99/dsh-cpa-plugin
-dsh plugin --profile web add github:LiuRJ99/dsh-workbuddy-provider
-dsh plugin --profile web add github:LiuRJ99/dsh-browser#path:packages/browser/bridge-browser
-dsh plugin --profile web add github:LiuRJ99/dsh-computer-use
-dsh plugin --profile web add github:LiuRJ99/dsh-image-gen
-dsh plugin --profile web add github:LiuRJ99/dsh-spend
-dsh plugin --profile web add github:LiuRJ99/dsh-taskboard-cloader
-dsh plugin --profile web add github:LiuRJ99/dsh-tool-lazy-gate
+# Optional: initialize a disposable candidate profile with the Web Host.
+dsh plugin --profile web-candidate add @deepseek-ai/dsh-web-app@0.1.2-rc.1
+
+# Providers first.
+dsh plugin --profile web-candidate add \
+  "github:LiuRJ99/dsh-cpa-plugin#v0.4.1"
+dsh plugin --profile web-candidate add \
+  "git+ssh://git@github.com/LiuRJ99/dsh-workbuddy-provider.git#v0.2.1"
+
+# Download the v0.5.0 release asset to a persistent local path first.
+dsh plugin --profile web-candidate add /path/to/dsh-image-gen-0.5.0.tgz
+
+# Other release tags or exact registry versions.
+dsh plugin --profile web-candidate add \
+  "git+https://github.com/LiuRJ99/dsh-computer-use.git#v0.1.2"
+dsh plugin --profile web-candidate add dsh-better-sidebar@0.18.0
+dsh plugin --profile web-candidate add dsh-mobile@0.3.12
+dsh plugin --profile web-candidate add \
+  "github:xiaohj233/dsh-compat-shims#sandbox-schema-shim-v0.1.1&path:/packages/sandbox-schema-shim"
+dsh plugin --profile web-candidate add \
+  "github:LiuRJ99/dsh-spend#v0.6.4"
+dsh plugin --profile web-candidate add \
+  "github:LiuRJ99/dsh-taskboard-cloader#v0.6.5"
+dsh plugin --profile web-candidate add \
+  "github:LiuRJ99/dsh-tool-lazy-gate#v0.1.0"
+
+# Inspect the composed profile before promoting it.
+dsh --profile web-candidate --dump-config
 ```
 
-In a local development environment, plugins can also be linked directly from
-workspace folders into the profile (`dsh plugin --profile web link <path>`).
+For a formal profile, use the same verified materials with `--profile web`.
+Install CPA before ImageGen. Do not manually edit `dsh.profile.bundles`; let DSH
+reconcile bundles after each successful `dsh plugin add`.
 
-Restart DSH after changing plugins. Install the CPA provider before
-`dsh-image-gen`, because image generation depends on the provider's service.
+## ImageGen source build contract
 
-## Maintenance boundary
+The source repository uses a sibling CPA checkout only during build:
 
-The LiuRJ99 forked packages in this inventory are the packages whose local
-features are intentionally retained: CPA (`dsh-cpa-plugin`), WorkBuddy
-(`dsh-workbuddy-provider`), browser bridge (`dsh-browser`), Computer Use
-(`dsh-computer-use`), image generation (`dsh-image-gen`), spend monitor
-(`dsh-spend`), taskboard (`dsh-taskboard-cloader`) and lazy-gate
-(`dsh-tool-lazy-gate`). `dsh-better-sidebar`, `dsh-mobile` and
-`dsh-sandbox-schema-shim` are different: only upstream or author-published
-packages are used, and no local maintenance is implied.
+```text
+staging/
+  dsh-cpa-plugin/
+  dsh-image-gen/
+```
+
+```bash
+cd staging/dsh-cpa-plugin
+pnpm install --frozen-lockfile
+pnpm run typecheck
+pnpm run bundle
+
+cd ../dsh-image-gen
+PNPM_CONFIG_IGNORE_SCRIPTS=true pnpm install --frozen-lockfile
+pnpm run typecheck
+pnpm run test
+pnpm run build
+pnpm run pack:check
+pnpm run pack:artifact -- --pack-destination /tmp/dsh-image-gen-artifacts
+```
+
+The resulting tarball is uploaded as the `v0.5.0` Release asset:
+
+```text
+https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.0/dsh-image-gen-0.5.0.tgz
+```
+
+It is the cross-machine material. Download it to a stable local path before
+running `dsh plugin add`; GitHub redirects Release downloads through temporary
+signed URLs, and those URLs must not be written into a long-lived profile
+lockfile:
+
+```bash
+curl -fL \
+  https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.0/dsh-image-gen-0.5.0.tgz \
+  -o /stable/path/dsh-image-gen-0.5.0.tgz
+dsh plugin --profile web-candidate add /stable/path/dsh-image-gen-0.5.0.tgz
+```
+
+Do not copy the source checkout into a profile and do not hand-edit the tarball.
+
+## Verification and update rules
+
+A plugin update is complete only when all of these pass:
+
+```bash
+dsh --profile web-candidate --dump-config
+```
+
+- the package source is the expected release tag/exact version/release tarball;
+- `main`, `exports`, `bin` and `dsh.bundle.patch` exist in the installed material;
+- required provider services are installed before consumers;
+- no unexpected machine-local `link:` remains;
+- Web Host loads without a pending plugin entry;
+- browser extension/native setup is completed for those special products;
+- the formal profile is changed only after the candidate passes.
+
+After changing the formal profile, restart DSH manually. Do not copy its
+`package.json`, lockfile or `node_modules` to another machine.
+
+## Current profile exceptions
+
+- `@yuxianglin/dsh-bridge-browser` intentionally remains a local bridge link
+  after installing Browser release `v0.1.4`, because the repository installer
+  must build and register the bridge together with its extension. The browser
+  repository checkout is clean and the extension is built under
+  `~/.dsh/browser-extension`.
+- The current profile emits a non-fatal warning for the old
+  `dsh-mobile-remote-host` patch entry. It is a stale profile patch, not a
+  dependency of the current `dsh-mobile` package.
+- pnpm `10.6.4` may warn that `@google/genai` and `protobufjs` install hooks are
+  ignored. The profile's build policy is separate from a plugin repository's
+  workspace policy; approve only exact scripts after verifying their purpose.
 
 ## License
 
-This index is MIT. Each plugin keeps its own license: taskboard and DSH Mobile
-are Apache-2.0; the other listed plugins are MIT unless their upstream project
-states otherwise.
+This catalog is MIT. Each plugin retains its own upstream license.
