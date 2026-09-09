@@ -24,7 +24,7 @@ incident report, or archive of previous installation attempts.
 | --- | --- | --- | --- |
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, account/quota UI, speed modes, image-generation service | Git release `v0.4.1` | DSH peer services; CPA endpoint and credentials are configured by the user |
 | [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | WorkBuddy local model provider | Private Git release `v0.2.1` over SSH | GitHub SSH access; WorkBuddy local service |
-| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | Browser release `v0.1.4` plus the repository installer; local bridge link is intentional | Clean browser checkout, Node/pnpm, Chrome or Firefox; bridge and extension are one product |
+| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | Browser release `v0.1.5` plus the repository installer; local bridge link is intentional | Clean browser checkout, Node/pnpm, Chrome or Firefox; bridge and extension are one product |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | Git release `v0.1.2` | macOS, Xcode Command Line Tools, Accessibility and Screen Recording permissions |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.18.0` | Optional service for Taskboard and ImageGen |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA-backed image generation, model catalog, image editing, Gallery and workspace save | Release `v0.5.0` tarball asset, staged to a persistent local file before `dsh plugin add` | Install CPA first; source build requires a CPA sibling; do not install the source checkout directly from Git |
@@ -77,7 +77,7 @@ portable installation format and it does not run the target package's build.
 ### Special products
 
 - **Browser:** do not use a plain `dsh plugin add` for the bridge package. Check out
-  Browser release `v0.1.4` and run `scripts/install.sh` (or the Windows installer).
+  Browser release `v0.1.5` and run `scripts/install.sh` (or the Windows installer).
   It builds the bridge, registers the local bridge, builds the extension and copies
   it to the DSH-managed extension directory.
 - **ImageGen:** build CPA first, then build ImageGen and create or download the
@@ -195,7 +195,7 @@ After changing the formal profile, restart DSH manually. Do not copy its
 ## Current profile exceptions
 
 - `@yuxianglin/dsh-bridge-browser` intentionally remains a local bridge link
-  after installing Browser release `v0.1.4`, because the repository installer
+  after installing Browser release `v0.1.5`, because the repository installer
   must build and register the bridge together with its extension. The browser
   repository checkout is clean and the extension is built under
   `~/.dsh/browser-extension`.

@@ -22,7 +22,7 @@
 | --- | --- | --- | --- |
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、账号/配额界面、速度模式、图片生成服务 | Git release `v0.4.1` | DSH peer 服务；用户配置 CPA 地址和凭据 |
 | [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | WorkBuddy 本地模型供应商 | 私有 Git release `v0.2.1`（SSH） | GitHub SSH 访问权限；WorkBuddy 本地服务 |
-| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展 | Browser release `v0.1.4` + 仓库专用安装器；本地 bridge link 是有意设计 | 干净的浏览器 checkout、Node/pnpm、Chrome 或 Firefox；bridge 与扩展是一体产品 |
+| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展 | Browser release `v0.1.5` + 仓库专用安装器；本地 bridge link 是有意设计 | 干净的浏览器 checkout、Node/pnpm、Chrome 或 Firefox；bridge 与扩展是一体产品 |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | Git release `v0.1.2` | macOS、Xcode Command Line Tools、Accessibility 和 Screen Recording 权限 |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.18.0` | Taskboard 和 ImageGen 的可选 UI 服务 |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA 图片生成、图片模型目录、图片编辑、Gallery 和工作区保存 | Release `v0.5.0` tarball asset，先落到本机稳定文件再 `dsh plugin add` | 先安装 CPA；源码构建需要 CPA sibling；不要直接从 Git 安装源码 checkout |
@@ -73,7 +73,7 @@ DSH base + DSH Web Host
 ### 特殊产品
 
 - **Browser：** 不要把 bridge 当作普通 package 直接 `dsh plugin add`。检出 Browser
-  release `v0.1.4`，运行 `scripts/install.sh`（Windows 使用对应 installer）。它会构建
+  release `v0.1.5`，运行 `scripts/install.sh`（Windows 使用对应 installer）。它会构建
   bridge、注册本地 bridge、构建扩展，并复制到 DSH 管理的扩展目录。
 - **ImageGen：** 先构建 CPA，再构建 ImageGen 并生成或下载 `v0.5.0` release tarball。
   先落到本机稳定路径再安装；不要让 pnpm 把 GitHub 临时签名重定向 URL 写入长期 lockfile。
@@ -182,7 +182,7 @@ dsh --profile web-candidate --dump-config
 
 ## 当前例外
 
-- `@yuxianglin/dsh-bridge-browser` 在安装 Browser release `v0.1.4` 后，仍因官方安装器必须构建并注册 bridge 与扩展，
+- `@yuxianglin/dsh-bridge-browser` 在安装 Browser release `v0.1.5` 后，仍因官方安装器必须构建并注册 bridge 与扩展，
   有意保留本地 bridge link。仓库 clean，扩展已构建到 `~/.dsh/browser-extension`。
 - 当前 profile 使用 pnpm `10.6.4` 时，安装可能提示 `@google/genai` 和 `protobufjs`
   的脚本被忽略。插件仓库的 workspace policy 不会自动传给 DSH profile；只对确认过用途的精确脚本授权。
