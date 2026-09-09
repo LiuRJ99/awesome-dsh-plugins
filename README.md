@@ -199,9 +199,6 @@ After changing the formal profile, restart DSH manually. Do not copy its
   must build and register the bridge together with its extension. The browser
   repository checkout is clean and the extension is built under
   `~/.dsh/browser-extension`.
-- The current profile emits a non-fatal warning for the old
-  `dsh-mobile-remote-host` patch entry. It is a stale profile patch, not a
-  dependency of the current `dsh-mobile` package.
 - pnpm `10.6.4` may warn that `@google/genai` and `protobufjs` install hooks are
   ignored. The profile's build policy is separate from a plugin repository's
   workspace policy; approve only exact scripts after verifying their purpose.

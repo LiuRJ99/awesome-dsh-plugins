@@ -184,8 +184,6 @@ dsh --profile web-candidate --dump-config
 
 - `@yuxianglin/dsh-bridge-browser` 在安装 Browser release `v0.1.4` 后，仍因官方安装器必须构建并注册 bridge 与扩展，
   有意保留本地 bridge link。仓库 clean，扩展已构建到 `~/.dsh/browser-extension`。
-- 当前 profile 的旧 `dsh-mobile-remote-host` patch entry 会产生非致命 warning。
-  这是 profile 中的旧 patch，不是当前 `dsh-mobile` package 的依赖。
 - 当前 profile 使用 pnpm `10.6.4` 时，安装可能提示 `@google/genai` 和 `protobufjs`
   的脚本被忽略。插件仓库的 workspace policy 不会自动传给 DSH profile；只对确认过用途的精确脚本授权。
 
