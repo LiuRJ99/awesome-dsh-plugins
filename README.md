@@ -147,7 +147,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.4` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.19.0` | Optional UI service for Taskboard and ImageGen; `0.19.0` declares DSH `>=0.1.5-rc.1` (older `0.18.x` targeted `0.1.2-rc.1`) |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | Official GitHub MCP server bridge (`mcp__github__*`) plus a REST file reader | Exact Git commit `fb03257c4c0dcfe4fa97c1c693d4eacd9184127c` (upstream publishes no tags) | `GITHUB_TOKEN` in the DSH process environment; DSH commonly loads it from `$DSH_HOME/.env` |
-| [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA-backed image generation, model catalog, image editing, Gallery and workspace save | GitHub Release `v0.5.1` tarball asset; SHA-256 `209e178d9771679d0f6e94b03349774f294b40c38dc976eedc7554957a110b32` | Install CPA first; the repository gitignores `lib/`, so a Git install ships no entry point |
+| [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA-backed image generation, model catalog, image editing, Gallery and workspace save | GitHub Release `v0.5.2` tarball asset; SHA-256 `10b78576cd280a2c26ddd25fed79ab4df2ad65814930a2e73683dcb18d553af5` | Install CPA first; the repository gitignores `lib/`, so a Git install ships no entry point |
 | [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | Access to DSH sessions from a mobile device | Exact registry version `0.3.15` | LAN access is separate from optional remote access; remote is off by default, paired devices are fully trusted, LAN uses a pinned local CA, and remote uses the provider's HTTPS endpoint. `0.3.15` supports DSH `0.1.5-rc.1` (older `0.3.12` targeted `0.1.2-rc.1`) |
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` tools and the `open-record-replay` skill for recording a demonstrated desktop workflow | GitHub Release `v0.3.1` | macOS and Xcode Command Line Tools; exact fork [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`, wired through a profile patch |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | Removes redundant sandbox fields from model-facing tool schemas | Git tag `sandbox-schema-shim-v0.1.1`, package path `/packages/sandbox-schema-shim` | DSH base profile |
@@ -362,10 +362,10 @@ pnpm run pack:check
 pnpm run pack:artifact -- --pack-destination /tmp/dsh-image-gen-artifacts
 ```
 
-The resulting tarball is published as the `v0.5.1` Release asset:
+The resulting tarball is published as the `v0.5.2` Release asset:
 
 ```text
-https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.1/dsh-image-gen-0.5.1.tgz
+https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.2/dsh-image-gen-0.5.2.tgz
 ```
 
 Download it to a stable local path before installing, so the temporary signed
@@ -373,11 +373,11 @@ redirect URL is never written into a long-lived profile lockfile:
 
 ```bash
 curl -fL \
-  https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.1/dsh-image-gen-0.5.1.tgz \
-  -o /stable/path/dsh-image-gen-0.5.1.tgz
-shasum -a 256 /stable/path/dsh-image-gen-0.5.1.tgz
-# Expect 209e178d9771679d0f6e94b03349774f294b40c38dc976eedc7554957a110b32
-dsh plugin --profile <candidate-profile> add /stable/path/dsh-image-gen-0.5.1.tgz
+  https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.2/dsh-image-gen-0.5.2.tgz \
+  -o /stable/path/dsh-image-gen-0.5.2.tgz
+shasum -a 256 /stable/path/dsh-image-gen-0.5.2.tgz
+# Expect 10b78576cd280a2c26ddd25fed79ab4df2ad65814930a2e73683dcb18d553af5
+dsh plugin --profile <candidate-profile> add /stable/path/dsh-image-gen-0.5.2.tgz
 ```
 
 ## macOS services outside the plugin directory
