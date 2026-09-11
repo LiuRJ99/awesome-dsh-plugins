@@ -151,7 +151,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | Access to DSH sessions from a mobile device | Exact registry version `0.3.12` | LAN access is separate from optional remote access; remote is off by default, paired devices are fully trusted, LAN uses a pinned local CA, and remote uses the provider's HTTPS endpoint. Do **not** take `0.3.13`: it registers only the renamed `rightbar` seat, which the `0.1.2-rc.1` host does not expose, so the mobile right panel renders empty. `0.3.14` registers both seat names and is the first later release that can work here |
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` tools and the `open-record-replay` skill for recording a demonstrated desktop workflow | GitHub Release `v0.3.1` | macOS and Xcode Command Line Tools; exact fork [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`, wired through a profile patch |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | Removes redundant sandbox fields from model-facing tool schemas | Git tag `sandbox-schema-shim-v0.1.1`, package path `/packages/sandbox-schema-shim` | DSH base profile |
-| [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token usage, statistics, billing-plan detection and spend views | GitHub Release `v0.6.4` | DSH session, credentials and Web UI peer services |
+| [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token usage, statistics, billing-plan detection and spend views | GitHub Release `v0.6.5` | DSH session, credentials and Web UI peer services |
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host-authoritative tasks, task tools, workspace claims, scheduling and kanban UI | GitHub Release `v0.6.7` | Optional Better Sidebar integration; publishes capability metadata to Lazy Gate |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | Session-scoped gating for browser and computer-use by default, plus configured Taskboard/recorder families | Git tag `v0.1.1` (no GitHub Release) | Browser/computer are built-in defaults; Taskboard and Record/Replay require capability config plus the adapted skill metadata |
 
@@ -204,7 +204,7 @@ dsh plugin --profile <candidate-profile> add \
 dsh plugin --profile <candidate-profile> add \
   "github:xiaohj233/dsh-compat-shims#ba4088c1a7b77b1c73fd5d5438f46800720d6bcd&path:/packages/sandbox-schema-shim"
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-spend#cf0aa92052ab0ee2f9467721aa57e5dea0909fae"
+  "github:LiuRJ99/dsh-spend#f4852a14e0a6889356b7f87ab9f07c769dddd2c3"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-taskboard-cloader#995161c9a95f6a6b01e7f43cb0ce301462f46c2a"
 dsh plugin --profile <candidate-profile> add \

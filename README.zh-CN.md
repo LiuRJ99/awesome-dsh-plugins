@@ -126,7 +126,7 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 | [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.3.12` | 局域网与可选远程访问分别控制；远程默认关闭，已配对设备完全受信，局域网使用固定本地 CA，远程使用 provider 的 HTTPS 端点。**不要**选 `0.3.13`：它只注册改名后的 `rightbar` 槽，而 `0.1.2-rc.1` Host 不暴露该槽，移动端右栏会渲染为空。`0.3.14` 同时注册两个槽名，是后续版本中第一个可在此 Host 上工作的 |
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` 工具与 `open-record-replay` skill，用于录制并回放桌面操作 | GitHub Release `v0.3.1` | macOS 与 Xcode Command Line Tools；使用精确的 fork 版 [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`，通过 profile patch 指定 |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | 清理模型侧工具 schema 中多余的沙箱字段 | Git tag `sandbox-schema-shim-v0.1.1`，package path `/packages/sandbox-schema-shim` | DSH base profile |
-| [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token 用量、统计、计费计划识别和费用视图 | GitHub Release `v0.6.4` | DSH session、credentials 和 Web UI peer 服务 |
+| [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token 用量、统计、计费计划识别和费用视图 | GitHub Release `v0.6.5` | DSH session、credentials 和 Web UI peer 服务 |
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host 权威任务、任务工具、工作区认领、调度和看板 UI | GitHub Release `v0.6.7` | Better Sidebar 为可选集成；向 Lazy Gate 发布能力元数据 |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | 默认门控 browser 与 computer-use，并可按配置门控 Taskboard/录制器工具族 | Git tag `v0.1.1`（无 GitHub Release） | browser/computer 是内置默认；Taskboard 与 Record/Replay 需要 capability 配置和 adapted skill 元数据 |
 
@@ -170,7 +170,7 @@ dsh plugin --profile <candidate-profile> add \
 dsh plugin --profile <candidate-profile> add \
   "github:xiaohj233/dsh-compat-shims#ba4088c1a7b77b1c73fd5d5438f46800720d6bcd&path:/packages/sandbox-schema-shim"
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-spend#cf0aa92052ab0ee2f9467721aa57e5dea0909fae"
+  "github:LiuRJ99/dsh-spend#f4852a14e0a6889356b7f87ab9f07c769dddd2c3"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-taskboard-cloader#995161c9a95f6a6b01e7f43cb0ce301462f46c2a"
 dsh plugin --profile <candidate-profile> add \
