@@ -142,7 +142,8 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 
 | Plugin | Capability | Install from | Prerequisites |
 | --- | --- | --- | --- |
-| [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, account/quota UI, speed modes, image-generation service | GitHub Release `v0.4.2` | DSH peer services; CPA endpoint and credentials configured by the user |
+| [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, account/quota UI, speed modes, image-generation service | Git tag `v0.4.3` (no GitHub Release) | DSH peer services; CPA endpoint and credentials configured by the user |
+| [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | Local Tencent WorkBuddy/CodeBuddy model provider for OpenAI-compatible DSH requests | Git tag `v0.2.5` (no GitHub Release) | Node `>=20.18.1`; an authenticated WorkBuddy/CodeBuddy desktop session; the local bridge defaults to `127.0.0.1:8318` |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | Browser workspace tag `v0.1.6` via the repository installer; the bridge subpackage itself is `0.0.7` | Node/pnpm; the tagged installer path builds Chrome; Firefox needs the manual Firefox build and token setup described below |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.4` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.19.0` | Optional UI service for Taskboard and ImageGen; `0.19.0` declares DSH `>=0.1.5-rc.1` (older `0.18.x` targeted `0.1.2-rc.1`) |
@@ -153,7 +154,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | Removes redundant sandbox fields from model-facing tool schemas | Git tag `sandbox-schema-shim-v0.1.1`, package path `/packages/sandbox-schema-shim` | DSH base profile |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token usage, statistics, billing-plan detection and spend views | GitHub Release `v0.6.5` | DSH session, credentials and Web UI peer services |
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host-authoritative tasks, task tools, workspace claims, scheduling and kanban UI | GitHub Release `v0.6.9` | Optional Better Sidebar integration; publishes capability metadata to Lazy Gate |
-| [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | Session-scoped gating for browser and computer-use by default, plus configured Taskboard/recorder families | Git tag `v0.1.1` (no GitHub Release) | Browser/computer are built-in defaults; Taskboard and Record/Replay require capability config plus the adapted skill metadata |
+| [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | Session-scoped gating for browser and computer-use by default, plus configured Taskboard/recorder families | Git tag `v0.1.2` (no GitHub Release) | Browser/computer are built-in defaults; Taskboard and Record/Replay require capability config plus the adapted skill metadata; includes the DSH 0.1.5 Web connection workaround |
 
 ### Compatibility note
 
@@ -164,17 +165,16 @@ unanswered `allowBuilds: esbuild: set this to true or false` placeholder in
 `ERR_PNPM_IGNORED_BUILDS`.
 
 The exact peer range in each package's `package.json` is authoritative; do not
-infer compatibility from a plugin version alone. The public artifacts listed here
-primarily target the DSH `0.1.2-rc.1` line. CPA and Computer Use require Node
-`>=22.19`; Browser and Mobile documentation require `^22.19 || >=24`, while
-ImageGen's manifest declares that range; Spend and Taskboard declare Node `>=22`.
-ImageGen
-additionally requires CPA `>=0.4.0 <0.5.0`, React 18, and `sharp ^0.35.4`;
-Better Sidebar `0.18.x` is the optional peer used by
-Taskboard and ImageGen on the older host line. Record/Replay intentionally uses
-wildcard DSH peer ranges, so its compatibility must be tested against the target
-Host rather than inferred from the manifest. Re-check all peer ranges before
-moving to a newer DSH Host.
+infer compatibility from a plugin version alone. The adapted artifacts listed here
+target the DSH `0.1.5-rc.1` line unless a row says otherwise. CPA and Computer Use
+require Node `>=22.19`; WorkBuddy requires Node `>=20.18.1`; Browser and Mobile
+documentation require `^22.19 || >=24`, while ImageGen's manifest declares that
+range; Spend and Taskboard declare Node `>=22`. ImageGen additionally requires
+CPA `>=0.4.0 <0.5.0`, React 18, and `sharp ^0.35.4`; Better Sidebar `0.18.x` is
+the optional peer used by Taskboard and ImageGen on the older host line.
+Record/Replay intentionally uses wildcard DSH peer ranges, so its compatibility
+must be tested against the target Host rather than inferred from the manifest.
+Re-check all peer ranges before moving to a newer DSH Host.
 
 DSH base and the Web Host bundles are host layers, not community plugin entries
 in this catalog.
@@ -186,9 +186,11 @@ must already provide the official DSH Web Host bundle; it is not a community
 plugin in this catalog. These commands use only public, exact sources:
 
 ```bash
-# Provider first (v0.4.2 tag target).
+# Providers first (exact v0.4.3 and v0.2.5 tag commits).
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-cpa-plugin#518f864470212cac41e564a3396c01f07658b3a7"
+  "github:LiuRJ99/dsh-cpa-plugin#31b3facddb8b7108331f52a1260e0a033eb38d83"
+dsh plugin --profile <candidate-profile> add \
+  "github:LiuRJ99/dsh-workbuddy-provider#01cd78018c13166fadfa82a0e4f46ed30f3d5e56"
 
 # Exact registry versions.
 dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.19.0
@@ -208,7 +210,7 @@ dsh plugin --profile <candidate-profile> add \
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-taskboard-cloader#1598ee859e0e6f4792b9adf96b231be661d31d1c"
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-tool-lazy-gate#b01d02cb300c777ce9841041461cf55d73e34284"
+  "github:LiuRJ99/dsh-tool-lazy-gate#aca0e79edb624ea803da2272c135bb6eaf3cfbbf"
 
 # Inspect the composed candidate before promoting it.
 dsh --profile <candidate-profile> --dump-config
@@ -225,6 +227,7 @@ DSH base + DSH Web Host
 ├─ Better Sidebar ── optional UI service ──┬─ Taskboard
 │                                         └─ ImageGen
 ├─ CPA Provider ── required runtime service ── ImageGen
+├─ WorkBuddy Provider ── local WorkBuddy/CodeBuddy model bridge
 ├─ Taskboard ── capability metadata contract ── Lazy Gate
 ├─ Record/Replay ── capability metadata contract ── Lazy Gate
 ├─ Record/Replay ── invokes bin/orr.js ── forked open-record-replay checkout
@@ -257,7 +260,7 @@ Assess each upstream release against the host you actually run before adopting i
 | --- | --- | --- |
 | `dsh-cpa-plugin` | `router-for-me/dsh-cliproxyapi-provider` | No GitHub Releases; compare upstream commits before merging |
 | `dsh-spend` | `nonewind/dsh-spend` | The fork adds an explicit DSH compatibility range; upstream `main` is `v0.6.3` and does not declare that field |
-| `dsh-computer-use` | `geohotstan/dsh-computer-use` | Public origin has tags `v0.1.1` and `v0.1.2` but no GitHub Releases; fork `v0.1.3` carries the host and security fixes |
+| `dsh-computer-use` | `geohotstan/dsh-computer-use` | Public origin has tags `v0.1.1` and `v0.1.2` but no GitHub Releases; fork `v0.1.4` carries the host peer-range and security fixes |
 | `dsh-record-replay` | `humblebanana/dsh-record-replay` | Upstream stops at `0.2.0`, no longer typechecks against DSH ≥ `0.1.2-rc.1`, and has no gate association. The fork also depends on the exact `v0.1.1` tag of [`LiuRJ99/open-record-replay`](https://github.com/LiuRJ99/open-record-replay) for the recorder CLI |
 | `dsh-taskboard` | `cloader/dsh-taskboard` | Fork tag `v0.6.8` absorbs upstream `v0.6.7` features (`0.6.6` DoD/Windows-caption fixes, `0.6.7` localized templates and optional session archiving) and fixes the Better Sidebar header link file path bug (`openTab` ENOENT); fork tag `v0.6.9` fixes the session-header 看板 toggle for Better Sidebar `0.19.0` — the old `[data-dsh-panel]` / `panelHidden` / `aria-label*="折叠"` probe had been reused by the companion's bottom workbench, so the second click toggled the bottom panel instead of collapsing the right sidebar; the fix reads DSH's native `ctx.sidebarRight` and scopes the legacy fallback. Both preserve fork enhancements and the compatibility range |
 | `dsh-browser` | `Lum1104/dsh-browser` | Upstream's latest public tag is `v0.1.3`; fork tag `v0.1.6` is a merge, not a reason to discard the fork's installer and host fixes |
@@ -292,10 +295,10 @@ These need more than a `dsh plugin add`.
   path builds Chrome. Firefox is a separate manual build: run
   `pnpm --filter dsh-browser-extension run build:firefox`, complete its extension
   token setup, and then load the generated add-on.
-- **ImageGen** — build CPA from its exact `v0.4.2` tag first, then ImageGen from
-  its exact `v0.5.1` tag, and use the published `v0.5.1` release tarball. Its
+- **ImageGen** — build CPA from its exact `v0.4.3` tag first, then ImageGen from
+  its exact `v0.5.3` tag, and use the published `v0.5.3` release tarball. Its
   asset SHA-256 is
-  `209e178d9771679d0f6e94b03349774f294b40c38dc976eedc7554957a110b32`.
+  `8bfa3c71fe7eb77e919e558d2d2f7f0730ec5187b0b2763673d8de4fa4c1c4ab`.
   Download it to a stable local path before `dsh plugin add`; GitHub serves
   Release downloads through temporary signed redirect URLs, and those must not end
   up in a long-lived lockfile. Do not copy the source checkout into a profile or
@@ -328,9 +331,9 @@ These need more than a `dsh plugin add`.
 ### ImageGen source build
 
 The source repository uses a sibling CPA checkout during build only. Pin both
-checkouts before installing dependencies; the example below uses CPA `v0.4.2`
-(commit `518f864470212cac41e564a3396c01f07658b3a7`) and ImageGen `v0.5.1`
-(commit `13fc447c912186c172f856c8610d554842efabff`):
+checkouts before installing dependencies; the example below uses CPA `v0.4.3`
+(commit `31b3facddb8b7108331f52a1260e0a033eb38d83`) and ImageGen `v0.5.3`
+(commit `423b979f84edb477512439ef7eb5458fa958c9af`):
 
 ```text
 staging/
@@ -339,14 +342,14 @@ staging/
 ```
 
 ```bash
-git clone --branch v0.4.2 --depth 1 \
+git clone --branch v0.4.3 --depth 1 \
   https://github.com/LiuRJ99/dsh-cpa-plugin.git staging/dsh-cpa-plugin
-git clone --branch v0.5.1 --depth 1 \
+git clone --branch v0.5.3 --depth 1 \
   https://github.com/LiuRJ99/dsh-image-gen.git staging/dsh-image-gen
 test "$(git -C staging/dsh-cpa-plugin rev-parse HEAD)" = \
-  518f864470212cac41e564a3396c01f07658b3a7
+  31b3facddb8b7108331f52a1260e0a033eb38d83
 test "$(git -C staging/dsh-image-gen rev-parse HEAD)" = \
-  13fc447c912186c172f856c8610d554842efabff
+  423b979f84edb477512439ef7eb5458fa958c9af
 
 cd staging/dsh-cpa-plugin
 pnpm install --frozen-lockfile
