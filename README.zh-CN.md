@@ -118,7 +118,7 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 | 插件 | 能力 | 安装来源 | 前置条件 |
 | --- | --- | --- | --- |
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、账号/配额界面、速度模式、图片生成服务 | GitHub Release `v0.4.2` | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
-| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | Browser workspace tag `v0.1.5`，通过仓库安装器；bridge 子包自身版本为 `0.0.6` | Node/pnpm；tag 安装器构建 Chrome；Firefox 需要下文的手动 Firefox 构建和 token 配置 |
+| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | Browser workspace tag `v0.1.6`，通过仓库安装器；bridge 子包自身版本为 `0.0.7` | Node/pnpm；tag 安装器构建 Chrome；Firefox 需要下文的手动 Firefox 构建和 token 配置 |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.4` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.19.0` | Taskboard 和 ImageGen 的可选 UI 服务；`0.19.0` 声明需要 DSH `≥0.1.5-rc.1`（较旧的 `0.18.x` 面向 `0.1.2-rc.1`） |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | GitHub 官方 MCP server 桥接（`mcp__github__*`）与 REST 文件读取 | 精确 Git commit `fb03257c4c0dcfe4fa97c1c693d4eacd9184127c`（上游未发布 tag） | DSH 进程环境中的 `GITHUB_TOKEN`；DSH 通常从 `$DSH_HOME/.env` 加载 |
@@ -221,7 +221,7 @@ skill 元数据后，也可以门控 `taskboard` 和 `recorder`。每个门控�
 | `dsh-computer-use` | `geohotstan/dsh-computer-use` | 公开源有 `v0.1.1`、`v0.1.2` tag，但没有 GitHub Release；fork `v0.1.3` 携带 Host 与安全修复 |
 | `dsh-record-replay` | `humblebanana/dsh-record-replay` | 上游停在 `0.2.0`，已无法对 DSH `≥0.1.2-rc.1` 通过类型检查，也没有门控关联。本 fork 还依赖 [`LiuRJ99/open-record-replay`](https://github.com/LiuRJ99/open-record-replay) 的精确 `v0.1.1` tag 提供录制 CLI |
 | `dsh-taskboard` | `cloader/dsh-taskboard` | 上游 `v0.6.7` 带有 fork tag 尚不具备的两项功能（`0.6.6` 的 DoD／Windows 标题栏修复，`0.6.7` 的内置模板本地化与可选的执行会话归档），且仍声明兼容 `0.1.2-rc.1`，可以采纳。上游也已吸收 Better Sidebar 顶栏避让规则，因此只有本 fork 自己的 `dsh.compatibility.dsh` 范围需要重新叠加——该字段上游依然没有 |
-| `dsh-browser` | `Lum1104/dsh-browser` | 上游公开最新 tag 是 `v0.1.3`；fork 的 `v0.1.5` 是一次合并，不是丢弃本 fork 安装器和 Host 修复的理由 |
+| `dsh-browser` | `Lum1104/dsh-browser` | 上游公开最新 tag 是 `v0.1.3`；fork 的 `v0.1.6` 是一次合并，不是丢弃本 fork 安装器和 Host 修复的理由 |
 | `dsh-image-gen` | `shanliuling/dsh-image-gen` | 上游放宽了 peer 范围，而本 fork 固定精确 Host 版本，合并时必须重新对齐 peer 契约 |
 
 规则：
@@ -236,13 +236,13 @@ skill 元数据后，也可以门控 `taskboard` 和 `recorder`。每个门控�
 这些插件的安装不止一条 `dsh plugin add`。
 
 - **Browser** —— 不要把 bridge 当作普通 package 直接安装。为了可复现，检出 Browser workspace 的
-  **tag** `v0.1.5`，运行本地 `scripts/install.sh`（Windows 使用对应 installer）。它会构建 bridge、
+  **tag** `v0.1.6`，运行本地 `scripts/install.sh`（Windows 使用对应 installer）。它会构建 bridge、
   注册 bridge、构建 Chrome 扩展，并把扩展复制到 DSH 管理的扩展目录：
   ```bash
-  git clone --branch v0.1.5 --depth 1 https://github.com/LiuRJ99/dsh-browser.git
+  git clone --branch v0.1.6 --depth 1 https://github.com/LiuRJ99/dsh-browser.git
   cd dsh-browser
   test "$(git rev-parse HEAD)" = \
-    0f1ee137190d28b95e0a95639101591212059549
+    2e7e38d56ac08f1369db4396cffed762a39ff90a
   ./scripts/install.sh
   ```
   没有完整 checkout 时，远程 convenience installer 会下载 `main`；这条路径有意不算固定安装。

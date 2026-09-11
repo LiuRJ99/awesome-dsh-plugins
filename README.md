@@ -143,7 +143,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | Plugin | Capability | Install from | Prerequisites |
 | --- | --- | --- | --- |
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, account/quota UI, speed modes, image-generation service | GitHub Release `v0.4.2` | DSH peer services; CPA endpoint and credentials configured by the user |
-| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | Browser workspace tag `v0.1.5` via the repository installer; the bridge subpackage itself is `0.0.6` | Node/pnpm; the tagged installer path builds Chrome; Firefox needs the manual Firefox build and token setup described below |
+| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | Browser workspace tag `v0.1.6` via the repository installer; the bridge subpackage itself is `0.0.7` | Node/pnpm; the tagged installer path builds Chrome; Firefox needs the manual Firefox build and token setup described below |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.4` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.19.0` | Optional UI service for Taskboard and ImageGen; `0.19.0` declares DSH `>=0.1.5-rc.1` (older `0.18.x` targeted `0.1.2-rc.1`) |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | Official GitHub MCP server bridge (`mcp__github__*`) plus a REST file reader | Exact Git commit `fb03257c4c0dcfe4fa97c1c693d4eacd9184127c` (upstream publishes no tags) | `GITHUB_TOKEN` in the DSH process environment; DSH commonly loads it from `$DSH_HOME/.env` |
@@ -260,7 +260,7 @@ Assess each upstream release against the host you actually run before adopting i
 | `dsh-computer-use` | `geohotstan/dsh-computer-use` | Public origin has tags `v0.1.1` and `v0.1.2` but no GitHub Releases; fork `v0.1.3` carries the host and security fixes |
 | `dsh-record-replay` | `humblebanana/dsh-record-replay` | Upstream stops at `0.2.0`, no longer typechecks against DSH ≥ `0.1.2-rc.1`, and has no gate association. The fork also depends on the exact `v0.1.1` tag of [`LiuRJ99/open-record-replay`](https://github.com/LiuRJ99/open-record-replay) for the recorder CLI |
 | `dsh-taskboard` | `cloader/dsh-taskboard` | Upstream `v0.6.7` ships two features the fork tag does not (`0.6.6` DoD/Windows-caption fixes, `0.6.7` localized templates and optional execution-session archiving) and still declares `0.1.2-rc.1` compatible, so it is adoptable. Upstream has also absorbed the Better Sidebar top-bar avoidance rule, so only the fork's own `dsh.compatibility.dsh` range needs re-applying — that field is still absent upstream |
-| `dsh-browser` | `Lum1104/dsh-browser` | Upstream's latest public tag is `v0.1.3`; fork tag `v0.1.5` is a merge, not a reason to discard the fork's installer and host fixes |
+| `dsh-browser` | `Lum1104/dsh-browser` | Upstream's latest public tag is `v0.1.3`; fork tag `v0.1.6` is a merge, not a reason to discard the fork's installer and host fixes |
 | `dsh-image-gen` | `shanliuling/dsh-image-gen` | Upstream relaxed its peer ranges while this fork pins exact host versions, so a merge must re-align the peer contract |
 
 Rules:
@@ -276,15 +276,15 @@ Rules:
 These need more than a `dsh plugin add`.
 
 - **Browser** — do not add the bridge package directly. For a reproducible install,
-  check out the Browser workspace **tag** `v0.1.5` and run its local
+  check out the Browser workspace **tag** `v0.1.6` and run its local
   `scripts/install.sh` (or the Windows installer). It builds the bridge, registers
   it, builds the Chrome extension, and copies the extension into the DSH-managed
   extension directory:
   ```bash
-  git clone --branch v0.1.5 --depth 1 https://github.com/LiuRJ99/dsh-browser.git
+  git clone --branch v0.1.6 --depth 1 https://github.com/LiuRJ99/dsh-browser.git
   cd dsh-browser
   test "$(git rev-parse HEAD)" = \
-    0f1ee137190d28b95e0a95639101591212059549
+    2e7e38d56ac08f1369db4396cffed762a39ff90a
   ./scripts/install.sh
   ```
   The convenience remote installer downloads `main` when no complete checkout is
