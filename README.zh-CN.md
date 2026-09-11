@@ -117,13 +117,13 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 
 | 插件 | 能力 | 安装来源 | 前置条件 |
 | --- | --- | --- | --- |
-| [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、账号/配额界面、速度模式、图片生成服务 | GitHub Release `v0.4.1` | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
+| [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、账号/配额界面、速度模式、图片生成服务 | GitHub Release `v0.4.2` | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | Browser workspace tag `v0.1.5`，通过仓库安装器；bridge 子包自身版本为 `0.0.6` | Node/pnpm；tag 安装器构建 Chrome；Firefox 需要下文的手动 Firefox 构建和 token 配置 |
-| [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.3` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
-| [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.18.0`（`0.18.1` 的 Host 范围相同） | Taskboard 和 ImageGen 的可选 UI 服务；`0.18.x` 面向较旧的 DSH `0.1.2-rc.1` 线，`0.19.0` 声明需要 DSH `≥0.1.5-rc.1` |
+| [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.4` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
+| [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.19.0` | Taskboard 和 ImageGen 的可选 UI 服务；`0.19.0` 声明需要 DSH `≥0.1.5-rc.1`（较旧的 `0.18.x` 面向 `0.1.2-rc.1`） |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | GitHub 官方 MCP server 桥接（`mcp__github__*`）与 REST 文件读取 | 精确 Git commit `fb03257c4c0dcfe4fa97c1c693d4eacd9184127c`（上游未发布 tag） | DSH 进程环境中的 `GITHUB_TOKEN`；DSH 通常从 `$DSH_HOME/.env` 加载 |
-| [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA 图片生成、图片模型目录、图片编辑、Gallery 和工作区保存 | GitHub Release `v0.5.0` tarball asset；SHA-256 `3a2d64efb3b1ba132c2e1ffccc7dc44b8aaba9036dfe98cb02c88095a5fac7cd` | 先安装 CPA；该仓库 `.gitignore` 了 `lib/`，从 Git 安装会没有入口 |
-| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.3.12` | 局域网与可选远程访问分别控制；远程默认关闭，已配对设备完全受信，局域网使用固定本地 CA，远程使用 provider 的 HTTPS 端点。**不要**选 `0.3.13`：它只注册改名后的 `rightbar` 槽，而 `0.1.2-rc.1` Host 不暴露该槽，移动端右栏会渲染为空。`0.3.14` 同时注册两个槽名，是后续版本中第一个可在此 Host 上工作的 |
+| [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA 图片生成、图片模型目录、图片编辑、Gallery 和工作区保存 | GitHub Release `v0.5.1` tarball asset；SHA-256 `209e178d9771679d0f6e94b03349774f294b40c38dc976eedc7554957a110b32` | 先安装 CPA；该仓库 `.gitignore` 了 `lib/`，从 Git 安装会没有入口 |
+| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.3.15` | 局域网与可选远程访问分别控制；远程默认关闭，已配对设备完全受信，局域网使用固定本地 CA，远程使用 provider 的 HTTPS 端点。`0.3.15` 支持 DSH `0.1.5-rc.1`（较旧的 `0.3.12` 面向 `0.1.2-rc.1`） |
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` 工具与 `open-record-replay` skill，用于录制并回放桌面操作 | GitHub Release `v0.3.1` | macOS 与 Xcode Command Line Tools；使用精确的 fork 版 [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`，通过 profile patch 指定 |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | 清理模型侧工具 schema 中多余的沙箱字段 | Git tag `sandbox-schema-shim-v0.1.1`，package path `/packages/sandbox-schema-shim` | DSH base profile |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token 用量、统计、计费计划识别和费用视图 | GitHub Release `v0.6.5` | DSH session、credentials 和 Web UI peer 服务 |
@@ -152,17 +152,17 @@ DSH base 和 Web Host bundle 是宿主层，不作为社区插件列在本目录
 它不是本目录中的社区插件。下面只使用公开且精确的来源：
 
 ```bash
-# 先安装 provider（v0.4.1 tag 对应的 commit）。
+# 先安装 provider（v0.4.2 tag 对应的 commit）。
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-cpa-plugin#fe42385a076349b8fa549fb5e2fd2b1b973ba369"
+  "github:LiuRJ99/dsh-cpa-plugin#518f864470212cac41e564a3396c01f07658b3a7"
 
 # 精确 registry 版本。
-dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.18.0
-dsh plugin --profile <candidate-profile> add dsh-mobile@0.3.12
+dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.19.0
+dsh plugin --profile <candidate-profile> add dsh-mobile@0.3.15
 
 # 将 GitHub Release/tag 解析为精确 commit。
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-computer-use#bce81354747c5afcf20b8943c2a63c1f1551a2bf"
+  "github:LiuRJ99/dsh-computer-use#7270fdd7aea46913ceec38eb7934073b9bfada7d"
 dsh plugin --profile <candidate-profile> add \
   "github:GitRuozhi/dsh-github-mcp#fb03257c4c0dcfe4fa97c1c693d4eacd9184127c"
 dsh plugin --profile <candidate-profile> add \
@@ -248,12 +248,12 @@ skill 元数据后，也可以门控 `taskboard` 和 `recorder`。每个门控�
   没有完整 checkout 时，远程 convenience installer 会下载 `main`；这条路径有意不算固定安装。
   安装器路径构建 Chrome。Firefox 需要单独手动构建：运行
   `pnpm --filter dsh-browser-extension run build:firefox`，完成扩展 token 配置后再加载生成的 add-on。
-- **ImageGen** —— 先从精确的 `v0.4.1` tag 构建 CPA，再从精确的 `v0.5.0` tag 构建 ImageGen，
-  并使用发布的 `v0.5.0` release tarball。asset 的 SHA-256 是
-  `3a2d64efb3b1ba132c2e1ffccc7dc44b8aaba9036dfe98cb02c88095a5fac7cd`。
+- **ImageGen** —— 先从精确的 `v0.4.2` tag 构建 CPA，再从精确的 `v0.5.1` tag 构建 ImageGen，
+  并使用发布的 `v0.5.1` release tarball。asset 的 SHA-256 是
+  `209e178d9771679d0f6e94b03349774f294b40c38dc976eedc7554957a110b32`。
   先下载到本机稳定路径再执行 `dsh plugin add`；GitHub 的 Release 下载会重定向到临时签名 URL，
   不能让它进入长期 lockfile。不要把源码 checkout 复制进 profile，也不要手工修改 tarball。
-- **Computer Use** —— 安装 GitHub Release `v0.1.3` 后，用包自带 setup CLI 重建 native daemon，
+- **Computer Use** —— 安装 GitHub Release `v0.1.4` 后，用包自带 setup CLI 重建 native daemon，
   并单独授予 Accessibility / Screen Recording 权限。
 - **Record/Replay** —— 安装 GitHub Release `v0.3.1`，然后把 profile patch 的 `repoRoot` 或
   `cliPath` 指向 [fork 版录制器](https://github.com/LiuRJ99/open-record-replay) 的精确 `v0.1.1` tag。
@@ -271,9 +271,9 @@ skill 元数据后，也可以门控 `taskboard` 和 `recorder`。每个门控�
 
 ### ImageGen 源码构建
 
-源码仓库只在构建阶段使用相邻 CPA checkout。安装依赖前先固定两个 checkout；下面示例使用 CPA `v0.4.1`
-（commit `fe42385a076349b8fa549fb5e2fd2b1b973ba369`）和 ImageGen `v0.5.0`
-（commit `4991fb5a7977dcc0a1a08cc544795095b029124d`）：
+源码仓库只在构建阶段使用相邻 CPA checkout。安装依赖前先固定两个 checkout；下面示例使用 CPA `v0.4.2`
+（commit `518f864470212cac41e564a3396c01f07658b3a7`）和 ImageGen `v0.5.1`
+（commit `13fc447c912186c172f856c8610d554842efabff`）：
 
 ```text
 staging/
@@ -282,14 +282,14 @@ staging/
 ```
 
 ```bash
-git clone --branch v0.4.1 --depth 1 \
+git clone --branch v0.4.2 --depth 1 \
   https://github.com/LiuRJ99/dsh-cpa-plugin.git staging/dsh-cpa-plugin
-git clone --branch v0.5.0 --depth 1 \
+git clone --branch v0.5.1 --depth 1 \
   https://github.com/LiuRJ99/dsh-image-gen.git staging/dsh-image-gen
 test "$(git -C staging/dsh-cpa-plugin rev-parse HEAD)" = \
-  fe42385a076349b8fa549fb5e2fd2b1b973ba369
+  518f864470212cac41e564a3396c01f07658b3a7
 test "$(git -C staging/dsh-image-gen rev-parse HEAD)" = \
-  4991fb5a7977dcc0a1a08cc544795095b029124d
+  13fc447c912186c172f856c8610d554842efabff
 
 cd staging/dsh-cpa-plugin
 pnpm install --frozen-lockfile
@@ -305,21 +305,21 @@ pnpm run pack:check
 pnpm run pack:artifact -- --pack-destination /tmp/dsh-image-gen-artifacts
 ```
 
-生成的 tarball 会作为 `v0.5.0` Release asset 发布：
+生成的 tarball 会作为 `v0.5.1` Release asset 发布：
 
 ```text
-https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.0/dsh-image-gen-0.5.0.tgz
+https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.1/dsh-image-gen-0.5.1.tgz
 ```
 
 先下载到本机稳定路径再安装，这样临时签名重定向 URL 不会被写入长期 profile lockfile：
 
 ```bash
 curl -fL \
-  https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.0/dsh-image-gen-0.5.0.tgz \
-  -o /stable/path/dsh-image-gen-0.5.0.tgz
-shasum -a 256 /stable/path/dsh-image-gen-0.5.0.tgz
-# 应为 3a2d64efb3b1ba132c2e1ffccc7dc44b8aaba9036dfe98cb02c88095a5fac7cd
-dsh plugin --profile <candidate-profile> add /stable/path/dsh-image-gen-0.5.0.tgz
+  https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.1/dsh-image-gen-0.5.1.tgz \
+  -o /stable/path/dsh-image-gen-0.5.1.tgz
+shasum -a 256 /stable/path/dsh-image-gen-0.5.1.tgz
+# 应为 209e178d9771679d0f6e94b03349774f294b40c38dc976eedc7554957a110b32
+dsh plugin --profile <candidate-profile> add /stable/path/dsh-image-gen-0.5.1.tgz
 ```
 
 ## 插件目录之外的 macOS 服务
