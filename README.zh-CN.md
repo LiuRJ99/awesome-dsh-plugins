@@ -118,7 +118,7 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 | 插件 | 能力 | 安装来源 | 前置条件 |
 | --- | --- | --- | --- |
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、GPT/Codex Responses 路由、账号/配额界面、速度模式、图片生成服务 | Git tag `v0.4.5`（无 GitHub Release） | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
-| [`@LiuRJ99/dsh-codex-shim`](https://github.com/LiuRJ99/dsh-codex-shim) | Codex 兼容的 GPT 工具路由、计划卡片、网页/搜索渲染、图片槽位和模型设置集成 | Git tag `v0.1.3`（无 GitHub Release） | DSH `0.1.5-rc.1`；先安装 CPA provider；默认匹配 `gpt-5.6-*`、`gpt-6` 和 `gpt-6-*` |
+| [`@opentritium/dsh-codex-shim`](https://github.com/LiuRJ99/dsh-codex-shim) | Codex 兼容的 GPT 工具路由、计划卡片、网页/搜索渲染、图片槽位和模型设置集成 | Git tag `v0.1.3`（无 GitHub Release） | DSH `0.1.5-rc.1`；先安装 CPA provider；默认匹配 `gpt-5.6-*`、`gpt-6` 和 `gpt-6-*` |
 | [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | 将本地 Tencent WorkBuddy/CodeBuddy 模型接入 DSH 的 OpenAI 兼容 provider | Git tag `v0.2.5`（无 GitHub Release） | Node `≥20.18.1`；已登录的 WorkBuddy/CodeBuddy 桌面会话；本地 bridge 默认监听 `127.0.0.1:8318` |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | Browser workspace tag `v0.1.6`，通过仓库安装器；bridge 子包自身版本为 `0.0.7` | Node/pnpm；tag 安装器构建 Chrome；Firefox 需要下文的手动 Firefox 构建和 token 配置 |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.4` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
