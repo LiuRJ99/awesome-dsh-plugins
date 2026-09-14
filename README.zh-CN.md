@@ -122,10 +122,10 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 | [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | 将本地 Tencent WorkBuddy/CodeBuddy 模型接入 DSH 的 OpenAI 兼容 provider | Git tag `v0.2.5`（无 GitHub Release） | Node `≥20.18.1`；已登录的 WorkBuddy/CodeBuddy 桌面会话；本地 bridge 默认监听 `127.0.0.1:8318` |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | Browser workspace tag `v0.1.6`，通过仓库安装器；bridge 子包自身版本为 `0.0.7` | Node/pnpm；tag 安装器构建 Chrome；Firefox 需要下文的手动 Firefox 构建和 token 配置 |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.4` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
-| [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.19.0` | Taskboard 和 ImageGen 的可选 UI 服务；`0.19.0` 声明需要 DSH `≥0.1.5-rc.1`（较旧的 `0.18.x` 面向 `0.1.2-rc.1`） |
+| [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.19.1` | Taskboard 和 ImageGen 的可选 UI 服务；`0.19.1` 声明需要 DSH `≥0.1.5-rc.1`（较旧的 `0.18.x` 面向 `0.1.2-rc.1`） |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | GitHub 官方 MCP server 桥接（`mcp__github__*`）与 REST 文件读取 | 精确 Git commit `fb03257c4c0dcfe4fa97c1c693d4eacd9184127c`（上游未发布 tag） | DSH 进程环境中的 `GITHUB_TOKEN`；DSH 通常从 `$DSH_HOME/.env` 加载 |
-| [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA 图片生成、图片模型目录、图片编辑、Gallery 和工作区保存 | GitHub Release `v0.5.4` tarball asset；SHA-256 `91ff5c002e665e1076de6494f6239418bf75855880c05edbc7c332e902dcfc75` | 先安装 CPA；该仓库 `.gitignore` 了 `lib/`，从 Git 安装会没有入口 |
-| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.3.15` | 局域网与可选远程访问分别控制；远程默认关闭，已配对设备完全受信，局域网使用固定本地 CA，远程使用 provider 的 HTTPS 端点。`0.3.15` 支持 DSH `0.1.5-rc.1`（较旧的 `0.3.12` 面向 `0.1.2-rc.1`） |
+| [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA 图片生成、图片模型目录、图片编辑、Gallery 和工作区保存 | GitHub Release `v0.5.4` tarball asset；SHA-256 `91ff5c002e665e1076de6494f6239418bf75855880c05edbc7c332e902dcfc75` | 先安装 CPA（该版本对齐的正是 CPA `v0.4.5` 契约）；该仓库 `.gitignore` 了 `lib/`，从 Git 安装会没有入口 |
+| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.4.0` | 局域网与可选远程访问分别控制；远程默认关闭，已配对设备完全受信，局域网使用固定本地 CA，远程使用 provider 的 HTTPS 端点。`0.4.0` 支持 DSH `0.1.5-rc.1`（较旧的 `0.3.15` 同样面向 `0.1.5-rc.1`，`0.3.12` 面向 `0.1.2-rc.1`） |
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` 工具与 `open-record-replay` skill，用于录制并回放桌面操作 | GitHub Release `v0.3.1` | macOS 与 Xcode Command Line Tools；使用精确的 fork 版 [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`，通过 profile patch 指定 |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | 清理模型侧工具 schema 中多余的沙箱字段 | Git tag `sandbox-schema-shim-v0.1.1`，package path `/packages/sandbox-schema-shim` | DSH base profile |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token 用量、统计、计费计划识别和费用视图 | GitHub Release `v0.6.5` | DSH session、credentials 和 Web UI peer 服务 |
@@ -146,6 +146,11 @@ Spend 和 Taskboard 声明 Node `>=22`。ImageGen 另外要求 CPA `>=0.4.0 <0.5
 在较旧 Host 线上，Taskboard 和 ImageGen 使用可选 peer Better Sidebar `0.18.x`。Record/Replay 有意把 DSH peer
 范围写成通配符，因此必须针对目标 Host 实测兼容性，不能只根据 manifest 推断。迁移到更新 DSH Host 前必须重新检查所有 peer 范围。
 
+ImageGen `v0.5.4` 是一次契约对齐版本：它把安装说明与相邻 `devDependency` 指向已发布的 CPA `v0.4.5`，
+而运行时 peer 范围仍是 `@LiuRJ99/dsh-cpa-plugin >=0.4.0 <0.5.0`。CPA `v0.4.5` 本身是一次上游同步，
+其 fork 增量（动态 CPA 图片模型、参考图编辑、配额刷新修复）在此前的 fork tag 中已经包含，
+因此 `v0.4.5` 是合并点，而不是 fork 专属构建。
+
 DSH base 和 Web Host bundle 是宿主层，不作为社区插件列在本目录中。
 
 ## 固定安装示例
@@ -165,8 +170,8 @@ dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-codex-shim#d7bf6417190e5fc268b3b9b871bd2f441282e604"
 
 # 精确 registry 版本。
-dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.19.0
-dsh plugin --profile <candidate-profile> add dsh-mobile@0.3.15
+dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.19.1
+dsh plugin --profile <candidate-profile> add dsh-mobile@0.4.0
 
 # 将 GitHub Release/tag 解析为精确 commit。
 dsh plugin --profile <candidate-profile> add \
