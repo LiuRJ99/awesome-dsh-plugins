@@ -142,8 +142,8 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 
 | Plugin | Capability | Install from | Prerequisites |
 | --- | --- | --- | --- |
-| [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, Codex Responses GPT routing, account/quota UI, speed modes, image-generation service | Git tag `v0.4.4` (no GitHub Release) | DSH peer services; CPA endpoint and credentials configured by the user |
-| [`@LiuRJ99/dsh-codex-shim`](https://github.com/LiuRJ99/dsh-codex-shim) | Codex-compatible GPT tool routing, plan cards, web/search rendering, image slots and model settings integration | Git tag `v0.1.2` (no GitHub Release) | DSH `0.1.5-rc.1`; install the CPA provider first; defaults to `gpt-5.6-*` |
+| [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, Codex Responses GPT routing, account/quota UI, speed modes, image-generation service | Git tag `v0.4.5` (no GitHub Release) | DSH peer services; CPA endpoint and credentials configured by the user |
+| [`@LiuRJ99/dsh-codex-shim`](https://github.com/LiuRJ99/dsh-codex-shim) | Codex-compatible GPT tool routing, plan cards, web/search rendering, image slots and model settings integration | Git tag `v0.1.3` (no GitHub Release) | DSH `0.1.5-rc.1`; install the CPA provider first; defaults to `gpt-5.6-*`, `gpt-6`, and `gpt-6-*` |
 | [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | Local Tencent WorkBuddy/CodeBuddy model provider for OpenAI-compatible DSH requests | Git tag `v0.2.5` (no GitHub Release) | Node `>=20.18.1`; an authenticated WorkBuddy/CodeBuddy desktop session; the local bridge defaults to `127.0.0.1:8318` |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | Browser workspace tag `v0.1.6` via the repository installer; the bridge subpackage itself is `0.0.7` | Node/pnpm; the tagged installer path builds Chrome; Firefox needs the manual Firefox build and token setup described below |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.4` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
@@ -187,9 +187,9 @@ must already provide the official DSH Web Host bundle; it is not a community
 plugin in this catalog. These commands use only public, exact sources:
 
 ```bash
-# Providers first (exact v0.4.4 and v0.2.5 tag commits).
+# Providers first (exact v0.4.5 and v0.2.5 tag commits).
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-cpa-plugin#1aef0db815078798d70879bfaac8c0f83eb4efa3"
+  "github:LiuRJ99/dsh-cpa-plugin#664714a309ec17aa2a5f980722465a3b0672ea59"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-workbuddy-provider#01cd78018c13166fadfa82a0e4f46ed30f3d5e56"
 
@@ -296,7 +296,7 @@ These need more than a `dsh plugin add`.
   path builds Chrome. Firefox is a separate manual build: run
   `pnpm --filter dsh-browser-extension run build:firefox`, complete its extension
   token setup, and then load the generated add-on.
-- **ImageGen** — build CPA from its exact `v0.4.4` tag first, then ImageGen from
+- **ImageGen** — build CPA from its exact `v0.4.5` tag first, then ImageGen from
   its exact `v0.5.3` tag, and use the published `v0.5.3` release tarball. Its
   asset SHA-256 is
   `8bfa3c71fe7eb77e919e558d2d2f7f0730ec5187b0b2763673d8de4fa4c1c4ab`.
@@ -332,8 +332,8 @@ These need more than a `dsh plugin add`.
 ### ImageGen source build
 
 The source repository uses a sibling CPA checkout during build only. Pin both
-checkouts before installing dependencies; the example below uses CPA `v0.4.4`
-(commit `1aef0db815078798d70879bfaac8c0f83eb4efa3`) and ImageGen `v0.5.3`
+checkouts before installing dependencies; the example below uses CPA `v0.4.5`
+(commit `664714a309ec17aa2a5f980722465a3b0672ea59`) and ImageGen `v0.5.3`
 (commit `423b979f84edb477512439ef7eb5458fa958c9af`):
 
 ```text
@@ -343,12 +343,12 @@ staging/
 ```
 
 ```bash
-git clone --branch v0.4.4 --depth 1 \
+git clone --branch v0.4.5 --depth 1 \
   https://github.com/LiuRJ99/dsh-cpa-plugin.git staging/dsh-cpa-plugin
 git clone --branch v0.5.3 --depth 1 \
   https://github.com/LiuRJ99/dsh-image-gen.git staging/dsh-image-gen
 test "$(git -C staging/dsh-cpa-plugin rev-parse HEAD)" = \
-  1aef0db815078798d70879bfaac8c0f83eb4efa3
+  664714a309ec17aa2a5f980722465a3b0672ea59
 test "$(git -C staging/dsh-image-gen rev-parse HEAD)" = \
   423b979f84edb477512439ef7eb5458fa958c9af
 
