@@ -117,7 +117,7 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 
 | 插件 | 能力 | 安装来源 | 前置条件 |
 | --- | --- | --- | --- |
-| [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、账号/配额界面、速度模式、图片生成服务 | Git tag `v0.4.3`（无 GitHub Release） | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
+| [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、GPT/Codex Responses 路由、账号/配额界面、速度模式、图片生成服务 | Git tag `v0.4.4`（无 GitHub Release） | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
 | [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | 将本地 Tencent WorkBuddy/CodeBuddy 模型接入 DSH 的 OpenAI 兼容 provider | Git tag `v0.2.5`（无 GitHub Release） | Node `≥20.18.1`；已登录的 WorkBuddy/CodeBuddy 桌面会话；本地 bridge 默认监听 `127.0.0.1:8318` |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | Browser workspace tag `v0.1.6`，通过仓库安装器；bridge 子包自身版本为 `0.0.7` | Node/pnpm；tag 安装器构建 Chrome；Firefox 需要下文的手动 Firefox 构建和 token 配置 |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.4` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
@@ -153,9 +153,9 @@ DSH base 和 Web Host bundle 是宿主层，不作为社区插件列在本目录
 它不是本目录中的社区插件。下面只使用公开且精确的来源：
 
 ```bash
-# 先安装 provider（v0.4.3 与 v0.2.5 tag 对应的 commit）。
+# 先安装 provider（v0.4.4 与 v0.2.5 tag 对应的 commit）。
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-cpa-plugin#31b3facddb8b7108331f52a1260e0a033eb38d83"
+  "github:LiuRJ99/dsh-cpa-plugin#1aef0db815078798d70879bfaac8c0f83eb4efa3"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-workbuddy-provider#01cd78018c13166fadfa82a0e4f46ed30f3d5e56"
 
@@ -252,7 +252,7 @@ skill 元数据后，也可以门控 `taskboard` 和 `recorder`。每个门控�
   没有完整 checkout 时，远程 convenience installer 会下载 `main`；这条路径有意不算固定安装。
   安装器路径构建 Chrome。Firefox 需要单独手动构建：运行
   `pnpm --filter dsh-browser-extension run build:firefox`，完成扩展 token 配置后再加载生成的 add-on。
-- **ImageGen** —— 先从精确的 `v0.4.3` tag 构建 CPA，再从精确的 `v0.5.3` tag 构建 ImageGen，
+- **ImageGen** —— 先从精确的 `v0.4.4` tag 构建 CPA，再从精确的 `v0.5.3` tag 构建 ImageGen，
   并使用发布的 `v0.5.3` release tarball。asset 的 SHA-256 是
   `8bfa3c71fe7eb77e919e558d2d2f7f0730ec5187b0b2763673d8de4fa4c1c4ab`。
   先下载到本机稳定路径再执行 `dsh plugin add`；GitHub 的 Release 下载会重定向到临时签名 URL，
@@ -275,8 +275,8 @@ skill 元数据后，也可以门控 `taskboard` 和 `recorder`。每个门控�
 
 ### ImageGen 源码构建
 
-源码仓库只在构建阶段使用相邻 CPA checkout。安装依赖前先固定两个 checkout；下面示例使用 CPA `v0.4.3`
-（commit `31b3facddb8b7108331f52a1260e0a033eb38d83`）和 ImageGen `v0.5.3`
+源码仓库只在构建阶段使用相邻 CPA checkout。安装依赖前先固定两个 checkout；下面示例使用 CPA `v0.4.4`
+（commit `1aef0db815078798d70879bfaac8c0f83eb4efa3`）和 ImageGen `v0.5.3`
 （commit `423b979f84edb477512439ef7eb5458fa958c9af`）：
 
 ```text
@@ -286,12 +286,12 @@ staging/
 ```
 
 ```bash
-git clone --branch v0.4.3 --depth 1 \
+git clone --branch v0.4.4 --depth 1 \
   https://github.com/LiuRJ99/dsh-cpa-plugin.git staging/dsh-cpa-plugin
 git clone --branch v0.5.3 --depth 1 \
   https://github.com/LiuRJ99/dsh-image-gen.git staging/dsh-image-gen
 test "$(git -C staging/dsh-cpa-plugin rev-parse HEAD)" = \
-  31b3facddb8b7108331f52a1260e0a033eb38d83
+  1aef0db815078798d70879bfaac8c0f83eb4efa3
 test "$(git -C staging/dsh-image-gen rev-parse HEAD)" = \
   423b979f84edb477512439ef7eb5458fa958c9af
 
