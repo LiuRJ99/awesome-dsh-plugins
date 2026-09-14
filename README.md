@@ -149,7 +149,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.4` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.19.0` | Optional UI service for Taskboard and ImageGen; `0.19.0` declares DSH `>=0.1.5-rc.1` (older `0.18.x` targeted `0.1.2-rc.1`) |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | Official GitHub MCP server bridge (`mcp__github__*`) plus a REST file reader | Exact Git commit `fb03257c4c0dcfe4fa97c1c693d4eacd9184127c` (upstream publishes no tags) | `GITHUB_TOKEN` in the DSH process environment; DSH commonly loads it from `$DSH_HOME/.env` |
-| [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA-backed image generation, model catalog, image editing, Gallery and workspace save | GitHub Release `v0.5.3` tarball asset; SHA-256 `8bfa3c71fe7eb77e919e558d2d2f7f0730ec5187b0b2763673d8de4fa4c1c4ab` | Install CPA first; the repository gitignores `lib/`, so a Git install ships no entry point |
+| [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA-backed image generation, model catalog, image editing, Gallery and workspace save | GitHub Release `v0.5.4` tarball asset; SHA-256 `91ff5c002e665e1076de6494f6239418bf75855880c05edbc7c332e902dcfc75` | Install CPA first; the repository gitignores `lib/`, so a Git install ships no entry point |
 | [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | Access to DSH sessions from a mobile device | Exact registry version `0.3.15` | LAN access is separate from optional remote access; remote is off by default, paired devices are fully trusted, LAN uses a pinned local CA, and remote uses the provider's HTTPS endpoint. `0.3.15` supports DSH `0.1.5-rc.1` (older `0.3.12` targeted `0.1.2-rc.1`) |
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` tools and the `open-record-replay` skill for recording a demonstrated desktop workflow | GitHub Release `v0.3.1` | macOS and Xcode Command Line Tools; exact fork [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`, wired through a profile patch |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | Removes redundant sandbox fields from model-facing tool schemas | Git tag `sandbox-schema-shim-v0.1.1`, package path `/packages/sandbox-schema-shim` | DSH base profile |
@@ -297,9 +297,9 @@ These need more than a `dsh plugin add`.
   `pnpm --filter dsh-browser-extension run build:firefox`, complete its extension
   token setup, and then load the generated add-on.
 - **ImageGen** — build CPA from its exact `v0.4.5` tag first, then ImageGen from
-  its exact `v0.5.3` tag, and use the published `v0.5.3` release tarball. Its
+  its exact `v0.5.4` tag, and use the published `v0.5.4` release tarball. Its
   asset SHA-256 is
-  `8bfa3c71fe7eb77e919e558d2d2f7f0730ec5187b0b2763673d8de4fa4c1c4ab`.
+  `91ff5c002e665e1076de6494f6239418bf75855880c05edbc7c332e902dcfc75`.
   Download it to a stable local path before `dsh plugin add`; GitHub serves
   Release downloads through temporary signed redirect URLs, and those must not end
   up in a long-lived lockfile. Do not copy the source checkout into a profile or
@@ -333,8 +333,8 @@ These need more than a `dsh plugin add`.
 
 The source repository uses a sibling CPA checkout during build only. Pin both
 checkouts before installing dependencies; the example below uses CPA `v0.4.5`
-(commit `664714a309ec17aa2a5f980722465a3b0672ea59`) and ImageGen `v0.5.3`
-(commit `423b979f84edb477512439ef7eb5458fa958c9af`):
+(commit `664714a309ec17aa2a5f980722465a3b0672ea59`) and ImageGen `v0.5.4`
+(commit `35ff71539cd3817e4d1d4593b9c628ed84acd79d`):
 
 ```text
 staging/
@@ -345,12 +345,12 @@ staging/
 ```bash
 git clone --branch v0.4.5 --depth 1 \
   https://github.com/LiuRJ99/dsh-cpa-plugin.git staging/dsh-cpa-plugin
-git clone --branch v0.5.3 --depth 1 \
+git clone --branch v0.5.4 --depth 1 \
   https://github.com/LiuRJ99/dsh-image-gen.git staging/dsh-image-gen
 test "$(git -C staging/dsh-cpa-plugin rev-parse HEAD)" = \
   664714a309ec17aa2a5f980722465a3b0672ea59
 test "$(git -C staging/dsh-image-gen rev-parse HEAD)" = \
-  423b979f84edb477512439ef7eb5458fa958c9af
+  35ff71539cd3817e4d1d4593b9c628ed84acd79d
 
 cd staging/dsh-cpa-plugin
 pnpm install --frozen-lockfile
@@ -366,10 +366,10 @@ pnpm run pack:check
 pnpm run pack:artifact -- --pack-destination /tmp/dsh-image-gen-artifacts
 ```
 
-The resulting tarball is published as the `v0.5.3` Release asset:
+The resulting tarball is published as the `v0.5.4` Release asset:
 
 ```text
-https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.3/dsh-image-gen-0.5.3.tgz
+https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.4/dsh-image-gen-0.5.4.tgz
 ```
 
 Download it to a stable local path before installing, so the temporary signed
@@ -377,11 +377,11 @@ redirect URL is never written into a long-lived profile lockfile:
 
 ```bash
 curl -fL \
-  https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.3/dsh-image-gen-0.5.3.tgz \
-  -o /stable/path/dsh-image-gen-0.5.3.tgz
-shasum -a 256 /stable/path/dsh-image-gen-0.5.3.tgz
-# Expect 8bfa3c71fe7eb77e919e558d2d2f7f0730ec5187b0b2763673d8de4fa4c1c4ab
-dsh plugin --profile <candidate-profile> add /stable/path/dsh-image-gen-0.5.3.tgz
+  https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.4/dsh-image-gen-0.5.4.tgz \
+  -o /stable/path/dsh-image-gen-0.5.4.tgz
+shasum -a 256 /stable/path/dsh-image-gen-0.5.4.tgz
+# Expect 91ff5c002e665e1076de6494f6239418bf75855880c05edbc7c332e902dcfc75
+dsh plugin --profile <candidate-profile> add /stable/path/dsh-image-gen-0.5.4.tgz
 ```
 
 ## macOS services outside the plugin directory
@@ -408,7 +408,7 @@ explicitly after changing the plugin version.
 ## Verification checklist
 
 **Source provenance:** the commit identities and ImageGen asset digest in this
-catalog were checked on `2026-09-11`. They describe the reviewed material, not a
+catalog were checked on `2026-09-14`. They describe the reviewed material, not a
 claim about any machine's current installation; re-resolve them whenever a source
 or release changes.
 
