@@ -193,6 +193,10 @@ dsh plugin --profile <candidate-profile> add \
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-workbuddy-provider#01cd78018c13166fadfa82a0e4f46ed30f3d5e56"
 
+# Codex Shim consumer (exact v0.1.3 tag commit; install CPA first).
+dsh plugin --profile <candidate-profile> add \
+  "github:LiuRJ99/dsh-codex-shim#d7bf6417190e5fc268b3b9b871bd2f441282e604"
+
 # Exact registry versions.
 dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.19.0
 dsh plugin --profile <candidate-profile> add dsh-mobile@0.3.15
