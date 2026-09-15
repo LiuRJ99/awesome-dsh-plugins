@@ -118,18 +118,17 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 | 插件 | 能力 | 安装来源 | 前置条件 |
 | --- | --- | --- | --- |
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、GPT/Codex Responses 路由、账号/配额界面、速度模式、图片生成服务 | Git tag `v0.4.5`（无 GitHub Release） | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
-| [`@opentritium/dsh-codex-shim`](https://github.com/LiuRJ99/dsh-codex-shim) | Codex 兼容的 GPT 工具路由、计划卡片、网页/搜索渲染、图片槽位和模型设置集成 | Git tag `v0.1.3`（无 GitHub Release） | DSH `0.1.5-rc.1`；先安装 CPA provider；默认匹配 `gpt-5.6-*`、`gpt-6` 和 `gpt-6-*` |
 | [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | 将本地 Tencent WorkBuddy/CodeBuddy 模型接入 DSH 的 OpenAI 兼容 provider | Git tag `v0.2.5`（无 GitHub Release） | Node `≥20.18.1`；已登录的 WorkBuddy/CodeBuddy 桌面会话；本地 bridge 默认监听 `127.0.0.1:8318` |
-| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | Browser workspace tag `v0.1.6`，通过仓库安装器；bridge 子包自身版本为 `0.0.7` | Node/pnpm；tag 安装器构建 Chrome；Firefox 需要下文的手动 Firefox 构建和 token 配置 |
+| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | Browser workspace tag `v0.1.7`，通过仓库安装器；bridge 子包自身版本为 `0.0.8` | Node/pnpm；tag 安装器构建 Chrome；Firefox 需要下文的手动 Firefox 构建和 token 配置 |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.4` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.19.1` | Taskboard 和 ImageGen 的可选 UI 服务；`0.19.1` 声明需要 DSH `≥0.1.5-rc.1`（较旧的 `0.18.x` 面向 `0.1.2-rc.1`） |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | GitHub 官方 MCP server 桥接（`mcp__github__*`）与 REST 文件读取 | 精确 Git commit `fb03257c4c0dcfe4fa97c1c693d4eacd9184127c`（上游未发布 tag） | DSH 进程环境中的 `GITHUB_TOKEN`；DSH 通常从 `$DSH_HOME/.env` 加载 |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA 图片生成、图片模型目录、图片编辑、Gallery 和工作区保存 | GitHub Release `v0.5.4` tarball asset；SHA-256 `91ff5c002e665e1076de6494f6239418bf75855880c05edbc7c332e902dcfc75` | 先安装 CPA（该版本对齐的正是 CPA `v0.4.5` 契约）；该仓库 `.gitignore` 了 `lib/`，从 Git 安装会没有入口 |
-| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.4.0` | 局域网与可选远程访问分别控制；远程默认关闭，已配对设备完全受信，局域网使用固定本地 CA，远程使用 provider 的 HTTPS 端点。`0.4.0` 支持 DSH `0.1.5-rc.1`（较旧的 `0.3.15` 同样面向 `0.1.5-rc.1`，`0.3.12` 面向 `0.1.2-rc.1`） |
+| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.4.0` | 局域网与可选远程访问分别控制；远程默认关闭，已配对设备完全受信，局域网使用固定本地 CA，远程使用 provider 的 HTTPS 端点。`0.4.0` 支持 DSH `0.1.5-rc.1`；多设备管理需同步使用 Android App `0.4.0`（较旧的 `0.3.15` 同样面向 `0.1.5-rc.1`，`0.3.12` 面向 `0.1.2-rc.1`） |
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` 工具与 `open-record-replay` skill，用于录制并回放桌面操作 | GitHub Release `v0.3.1` | macOS 与 Xcode Command Line Tools；使用精确的 fork 版 [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`，通过 profile patch 指定 |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | 清理模型侧工具 schema 中多余的沙箱字段 | Git tag `sandbox-schema-shim-v0.1.1`，package path `/packages/sandbox-schema-shim` | DSH base profile |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token 用量、统计、计费计划识别和费用视图 | GitHub Release `v0.6.5` | DSH session、credentials 和 Web UI peer 服务 |
-| [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host 权威任务、任务工具、工作区认领、调度和看板 UI | GitHub Release `v0.6.9` | Better Sidebar 为可选集成；向 Lazy Gate 发布能力元数据 |
+| [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host 权威任务、任务工具、工作区认领、调度和看板 UI | GitHub Release `v0.7.0` | Better Sidebar 为可选集成；向 Lazy Gate 发布能力元数据 |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | 默认门控 browser 与 computer-use，并可按配置门控 Taskboard/录制器工具族 | Git tag `v0.1.2`（无 GitHub Release） | browser/computer 是内置默认；Taskboard 与 Record/Replay 需要 capability 配置和 adapted skill 元数据；包含 DSH 0.1.5 Web connection workaround |
 
 ### 兼容性说明
@@ -165,10 +164,6 @@ dsh plugin --profile <candidate-profile> add \
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-workbuddy-provider#01cd78018c13166fadfa82a0e4f46ed30f3d5e56"
 
-# Codex Shim 消费者（固定 v0.1.3 tag 对应 commit；先安装 CPA）。
-dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-codex-shim#d7bf6417190e5fc268b3b9b871bd2f441282e604"
-
 # 精确 registry 版本。
 dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.19.1
 dsh plugin --profile <candidate-profile> add dsh-mobile@0.4.0
@@ -185,7 +180,7 @@ dsh plugin --profile <candidate-profile> add \
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-spend#f4852a14e0a6889356b7f87ab9f07c769dddd2c3"
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-taskboard-cloader#1598ee859e0e6f4792b9adf96b231be661d31d1c"
+  "github:LiuRJ99/dsh-taskboard-cloader#c331ef038d3baabc21c05c7af82a5573ae523b0f"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-tool-lazy-gate#aca0e79edb624ea803da2272c135bb6eaf3cfbbf"
 
@@ -234,8 +229,8 @@ skill 元数据后，也可以门控 `taskboard` 和 `recorder`。每个门控�
 | `dsh-spend` | `nonewind/dsh-spend` | fork 增加了明确的 DSH 兼容范围；上游 `main` 为 `v0.6.3`，没有声明该字段 |
 | `dsh-computer-use` | `geohotstan/dsh-computer-use` | 公开源有 `v0.1.1`、`v0.1.2` tag，但没有 GitHub Release；fork `v0.1.4` 携带 Host peer 范围与安全修复 |
 | `dsh-record-replay` | `humblebanana/dsh-record-replay` | 上游停在 `0.2.0`，已无法对 DSH `≥0.1.2-rc.1` 通过类型检查，也没有门控关联。本 fork 还依赖 [`LiuRJ99/open-record-replay`](https://github.com/LiuRJ99/open-record-replay) 的精确 `v0.1.1` tag 提供录制 CLI |
-| `dsh-taskboard` | `cloader/dsh-taskboard` | Fork tag `v0.6.8` 已完整吸收上游 `v0.6.7` 特性（DoD 清单项地址化、Windows 标题栏排版、内置模板双语本地化、执行会话联动归档），并修复了会话顶部直达看板在 Better Sidebar 上的文件路径解析报错（`openTab` ENOENT）；fork tag `v0.6.9` 进一步修复 Better Sidebar `0.19.0` 原生右侧栏下的会话顶部「看板」切换，保留本 fork 专有增强与兼容声明 |
-| `dsh-browser` | `Lum1104/dsh-browser` | 上游公开最新 tag 是 `v0.1.3`；fork 的 `v0.1.6` 是一次合并，不是丢弃本 fork 安装器和 Host 修复的理由 |
+| `dsh-taskboard` | `cloader/dsh-taskboard` | Fork tag `v0.7.0` 包含此前已吸收的上游 `v0.6.7` 特性、本 fork 的 Better Sidebar 顶栏修复，并新增图片附件、可配置且 crash-safe 的数据目录迁移、工具提前注册与 Better Sidebar `0.19` 兼容；保留多仓库、权限和调度增强 |
+| `dsh-browser` | `Lum1104/dsh-browser` | 上游公开最新 tag 是 `v0.1.3`；fork tag `v0.1.7` 保留本 fork 安装器和 Host 修复，并加入富文本输入、桥重启会话恢复与依赖安全修复 |
 | `dsh-image-gen` | `shanliuling/dsh-image-gen` | 上游放宽了 peer 范围，而本 fork 固定精确 Host 版本，合并时必须重新对齐 peer 契约 |
 
 规则：
@@ -250,13 +245,13 @@ skill 元数据后，也可以门控 `taskboard` 和 `recorder`。每个门控�
 这些插件的安装不止一条 `dsh plugin add`。
 
 - **Browser** —— 不要把 bridge 当作普通 package 直接安装。为了可复现，检出 Browser workspace 的
-  **tag** `v0.1.6`，运行本地 `scripts/install.sh`（Windows 使用对应 installer）。它会构建 bridge、
+  **tag** `v0.1.7`，运行本地 `scripts/install.sh`（Windows 使用对应 installer）。它会构建 bridge、
   注册 bridge、构建 Chrome 扩展，并把扩展复制到 DSH 管理的扩展目录：
   ```bash
-  git clone --branch v0.1.6 --depth 1 https://github.com/LiuRJ99/dsh-browser.git
+  git clone --branch v0.1.7 --depth 1 https://github.com/LiuRJ99/dsh-browser.git
   cd dsh-browser
   test "$(git rev-parse HEAD)" = \
-    2e7e38d56ac08f1369db4396cffed762a39ff90a
+    84e860349c9022bf2000cd7a661a87871b7bc90e
   ./scripts/install.sh
   ```
   没有完整 checkout 时，远程 convenience installer 会下载 `main`；这条路径有意不算固定安装。
