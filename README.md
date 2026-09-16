@@ -153,7 +153,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` tools and the `open-record-replay` skill for recording a demonstrated desktop workflow | GitHub Release `v0.3.1` | macOS and Xcode Command Line Tools; exact fork [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`, wired through a profile patch |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | Removes redundant sandbox fields from model-facing tool schemas | Git tag `sandbox-schema-shim-v0.1.1`, package path `/packages/sandbox-schema-shim` | DSH base profile |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token usage, statistics, billing-plan detection and spend views | GitHub Release `v0.6.5` | DSH session, credentials and Web UI peer services |
-| [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host-authoritative tasks, task tools, workspace claims, scheduling and kanban UI | GitHub Release `v0.7.0` | Optional Better Sidebar integration; publishes capability metadata to Lazy Gate |
+| [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host-authoritative tasks, task tools, workspace claims, scheduling and kanban UI | GitHub Release `v0.7.1` | Optional Better Sidebar integration; publishes capability metadata to Lazy Gate |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | Session-scoped gating for browser and computer-use by default, plus configured Taskboard/recorder families | Git tag `v0.1.2` (no GitHub Release) | Browser/computer are built-in defaults; Taskboard and Record/Replay require capability config plus the adapted skill metadata; includes the DSH 0.1.5 Web connection workaround |
 
 ### Compatibility note
@@ -215,7 +215,7 @@ dsh plugin --profile <candidate-profile> add \
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-spend#f4852a14e0a6889356b7f87ab9f07c769dddd2c3"
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-taskboard-cloader#c331ef038d3baabc21c05c7af82a5573ae523b0f"
+  "github:LiuRJ99/dsh-taskboard-cloader#9d0fdfacd9034dc1a639aebf1734b355826a046a"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-tool-lazy-gate#aca0e79edb624ea803da2272c135bb6eaf3cfbbf"
 
@@ -269,7 +269,7 @@ Assess each upstream release against the host you actually run before adopting i
 | `dsh-spend` | `nonewind/dsh-spend` | The fork adds an explicit DSH compatibility range; upstream `main` is `v0.6.3` and does not declare that field |
 | `dsh-computer-use` | `geohotstan/dsh-computer-use` | Public origin has tags `v0.1.1` and `v0.1.2` but no GitHub Releases; fork `v0.1.4` carries the host peer-range and security fixes |
 | `dsh-record-replay` | `humblebanana/dsh-record-replay` | Upstream stops at `0.2.0`, no longer typechecks against DSH ≥ `0.1.2-rc.1`, and has no gate association. The fork also depends on the exact `v0.1.1` tag of [`LiuRJ99/open-record-replay`](https://github.com/LiuRJ99/open-record-replay) for the recorder CLI |
-| `dsh-taskboard` | `cloader/dsh-taskboard` | Fork tag `v0.7.0` includes the previously absorbed upstream `v0.6.7` features, the fork's Better Sidebar header fixes, image attachments, crash-safe configurable data-directory migration, eager tool registration, and Better Sidebar `0.19` compatibility; it preserves the fork's multi-repo, permission and scheduling enhancements |
+| `dsh-taskboard` | `cloader/dsh-taskboard` | Fork tag `v0.7.1` includes the previously absorbed upstream `v0.6.7` features, the fork's Better Sidebar header fixes, image attachments, crash-safe configurable data-directory migration, eager tool registration, Better Sidebar `0.19` compatibility, and first-SSE-handshake reconciliation for agent-created tasks; it preserves the fork's multi-repo, permission and scheduling enhancements |
 | `dsh-browser` | `Lum1104/dsh-browser` | Upstream's latest public tag is `v0.1.3`; fork tag `v0.1.7` includes the fork installer and Host fixes plus rich-text input, bridge-restart resume and dependency-security fixes |
 | `dsh-image-gen` | `shanliuling/dsh-image-gen` | Upstream relaxed its peer ranges while this fork pins exact host versions, so a merge must re-align the peer contract |
 
