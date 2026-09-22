@@ -147,6 +147,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | Browser workspace tag `v0.1.8` via the repository installer; the bridge subpackage itself is `0.0.9` | Node/pnpm; the tagged installer path builds Chrome; Firefox needs the manual Firefox build and token setup described below |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.4` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.19.1` | Optional UI service for Taskboard and ImageGen; `0.19.1` declares DSH `>=0.1.5-rc.1` (older `0.18.x` targeted `0.1.2-rc.1`) |
+| [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | Model-agnostic low-latency decision layer for DSH: pluggable Decision Engine and Providers, finite-candidate decision protocol, and Browser / Computer / Custom environment adapters | Git tag `v0.1.1` (no GitHub Release) | DSH peer services; optional `@receptron/laya` for local inference; requires corresponding host tools/plugins if browser/computer adapters are enabled |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | Official GitHub MCP server bridge (`mcp__github__*`) plus a REST file reader | Exact Git commit `fb03257c4c0dcfe4fa97c1c693d4eacd9184127c` (upstream publishes no tags) | `GITHUB_TOKEN` in the DSH process environment; DSH commonly loads it from `$DSH_HOME/.env` |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA-backed image generation, model catalog, image editing, Gallery and workspace save | GitHub Release `v0.5.4` tarball asset; SHA-256 `91ff5c002e665e1076de6494f6239418bf75855880c05edbc7c332e902dcfc75` | Install CPA first (its `v0.4.5` contracts are what this release aligns to); the repository gitignores `lib/`, so a Git install ships no entry point |
 | [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | Access to DSH sessions from a mobile device | Exact registry version `0.4.2` | LAN access is separate from optional remote access; remote is off by default, paired devices are fully trusted, LAN uses a pinned local CA, and remote uses the provider's HTTPS endpoint. `0.4.2` supports the DSH `0.1.5` line and requires Node `^22.19 || >=24`; use Android App `0.4.2` for the matching remote-provider and device-management behavior |
@@ -166,10 +167,10 @@ unanswered `allowBuilds: esbuild: set this to true or false` placeholder in
 
 The exact peer range in each package's `package.json` is authoritative; do not
 infer compatibility from a plugin version alone. The adapted artifacts listed here
-target the DSH `0.1.5-rc.2` line unless a row says otherwise. CPA and Computer Use
-require Node `>=22.19`; WorkBuddy requires Node `>=20.18.1`; Browser and Mobile
-documentation require `^22.19 || >=24`, while ImageGen's manifest declares that
-range; Spend and Taskboard declare Node `>=22`. ImageGen additionally requires
+target the DSH `0.1.5-rc.2` line unless a row says otherwise. CPA, Computer Use,
+and Decision Engine require Node `>=22.19`; WorkBuddy requires Node `>=20.18.1`;
+Browser and Mobile documentation require `^22.19 || >=24`, while ImageGen's
+manifest declares that range; Spend and Taskboard declare Node `>=22`. ImageGen additionally requires
 CPA `>=0.4.0 <0.5.0`, React 18, and `sharp ^0.35.4`; Better Sidebar `0.18.x` is
 the optional peer used by Taskboard and ImageGen on the older host line.
 Record/Replay intentionally uses wildcard DSH peer ranges, so its compatibility
@@ -204,6 +205,8 @@ dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.19.1
 dsh plugin --profile <candidate-profile> add dsh-mobile@0.4.2
 
 # GitHub Release/tag targets resolved to exact commits.
+dsh plugin --profile <candidate-profile> add \
+  "github:LiuRJ99/dsh-decision-engine#800848973987896a67b08b9c8e163c47565ac32c"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-computer-use#7270fdd7aea46913ceec38eb7934073b9bfada7d"
 dsh plugin --profile <candidate-profile> add \
@@ -252,6 +255,7 @@ own initiative**.
 
 Independent plugins (no entry in the map above other than the host):
 
+- Decision Engine
 - Spend
 - Mobile
 - Sandbox schema shim
