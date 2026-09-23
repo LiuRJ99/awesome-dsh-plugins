@@ -290,7 +290,7 @@ Rules:
 These need more than a `dsh plugin add`.
 
 - **Browser** — do not add the bridge package directly. For a reproducible install,
-  check out the Browser workspace **tag** `v0.1.9` and run its local
+  check out the Browser workspace **tag** `v0.1.10` and run its local
   `scripts/install.sh` (or the Windows installer). It builds the bridge, registers
   it, builds the Chrome extension, and copies the extension into the DSH-managed
   extension directory:
@@ -417,10 +417,9 @@ explicitly after changing the plugin version.
 
 ## Verification checklist
 
-**Source provenance:** the commit identities and ImageGen asset digest in this
-catalog were checked on `2026-09-14`. They describe the reviewed material, not a
-claim about any machine's current installation; re-resolve them whenever a source
-or release changes.
+**Source provenance:** the commit identities and ImageGen asset digest describe
+reviewed release material, not any machine's current installation. Re-resolve
+them whenever a source or release changes.
 
 A plugin install or update is complete only when all of these hold:
 
