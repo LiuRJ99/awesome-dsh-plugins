@@ -144,10 +144,10 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | --- | --- | --- | --- |
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, Codex Responses GPT routing, account/quota UI, speed modes, image-generation service | Git tag `v0.4.5` (no GitHub Release) | DSH peer services; CPA endpoint and credentials configured by the user |
 | [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | Local Tencent WorkBuddy/CodeBuddy model provider for OpenAI-compatible DSH requests | Git tag `v0.2.5` (no GitHub Release) | Node `>=20.18.1`; an authenticated WorkBuddy/CodeBuddy desktop session; the local bridge defaults to `127.0.0.1:8318` |
-| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | Browser workspace tag `v0.1.8` via the repository installer; the bridge subpackage itself is `0.0.9` | Node/pnpm; the tagged installer path builds Chrome; Firefox needs the manual Firefox build and token setup described below |
+| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | Browser workspace tag `v0.1.9` via the repository installer; the bridge subpackage itself is `0.0.9` | Node/pnpm; the tagged installer path builds Chrome; Firefox needs the manual Firefox build and token setup described below |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.4` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.19.1` | Optional UI service for Taskboard and ImageGen; `0.19.1` declares DSH `>=0.1.5-rc.1` (older `0.18.x` targeted `0.1.2-rc.1`) |
-| [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | Model-agnostic low-latency decision layer for DSH: pluggable Decision Engine and Providers, finite-candidate decision protocol, and Browser / Computer / Custom environment adapters | Git tag `v0.2.0` (no GitHub Release) | DSH peer services; optional `@receptron/laya` for local inference; requires corresponding host tools/plugins if browser/computer adapters are enabled |
+| [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | Model-agnostic low-latency decision layer for DSH: pluggable Decision Engine and Providers, finite-candidate decision protocol, and Browser / Computer / Custom environment adapters | Git tag `v0.2.4` (no GitHub Release) | DSH peer services; optional `@receptron/laya` for local inference; requires corresponding host tools/plugins if browser/computer adapters are enabled |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | Official GitHub MCP server bridge (`mcp__github__*`) plus a REST file reader | Exact Git commit `fb03257c4c0dcfe4fa97c1c693d4eacd9184127c` (upstream publishes no tags) | `GITHUB_TOKEN` in the DSH process environment; DSH commonly loads it from `$DSH_HOME/.env` |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA-backed image generation, model catalog, image editing, Gallery and workspace save | GitHub Release `v0.5.4` tarball asset; SHA-256 `91ff5c002e665e1076de6494f6239418bf75855880c05edbc7c332e902dcfc75` | Install CPA first (its `v0.4.5` contracts are what this release aligns to); the repository gitignores `lib/`, so a Git install ships no entry point |
 | [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | Access to DSH sessions from a mobile device | Exact registry version `0.4.2` | LAN access is separate from optional remote access; remote is off by default, paired devices are fully trusted, LAN uses a pinned local CA, and remote uses the provider's HTTPS endpoint. `0.4.2` supports the DSH `0.1.5` line and requires Node `^22.19 || >=24`; use Android App `0.4.2` for the matching remote-provider and device-management behavior |
@@ -206,7 +206,7 @@ dsh plugin --profile <candidate-profile> add dsh-mobile@0.4.2
 
 # GitHub Release/tag targets resolved to exact commits.
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-decision-engine#2ea217dcae9c0ed801fa317879abcae0e5ea58d0"
+  "github:LiuRJ99/dsh-decision-engine#13fbe47725755c70109be37c43b3032252cd8457"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-computer-use#7270fdd7aea46913ceec38eb7934073b9bfada7d"
 dsh plugin --profile <candidate-profile> add \
@@ -274,7 +274,7 @@ Assess each upstream release against the host you actually run before adopting i
 | `dsh-computer-use` | `geohotstan/dsh-computer-use` | Public origin has tags `v0.1.1` and `v0.1.2` but no GitHub Releases; fork `v0.1.4` carries the host peer-range and security fixes |
 | `dsh-record-replay` | `humblebanana/dsh-record-replay` | Upstream stops at `0.2.0`, no longer typechecks against DSH ≥ `0.1.2-rc.1`, and has no gate association. The fork also depends on the exact `v0.1.1` tag of [`LiuRJ99/open-record-replay`](https://github.com/LiuRJ99/open-record-replay) for the recorder CLI |
 | `dsh-taskboard` | `cloader/dsh-taskboard` | Fork tag `v0.7.2` includes the previously absorbed upstream `v0.6.7` features, recurring scheduled-session reuse, the fork's Better Sidebar header fixes, image attachments, crash-safe configurable data-directory migration, eager tool registration, Better Sidebar `0.19` compatibility, and first-SSE-handshake reconciliation for agent-created tasks; it preserves the fork's multi-repo, permission and speed-routing enhancements |
-| `dsh-browser` | `Lum1104/dsh-browser` | Upstream's latest public tag is `v0.1.3`; fork tag `v0.1.8` includes the fork installer and Host fixes plus rich-text input, bridge-restart resume, dependency-security fixes, and prioritized controls for visible dialogs |
+| `dsh-browser` | `Lum1104/dsh-browser` | Upstream's latest public tag is `v0.1.3`; fork tag `v0.1.9` includes the fork installer and Host fixes plus rich-text input, bridge-restart resume, dependency-security fixes, and prioritized controls for visible dialogs |
 | `dsh-image-gen` | `shanliuling/dsh-image-gen` | Upstream relaxed its peer ranges while this fork pins exact host versions, so a merge must re-align the peer contract |
 
 Rules:
@@ -290,15 +290,15 @@ Rules:
 These need more than a `dsh plugin add`.
 
 - **Browser** — do not add the bridge package directly. For a reproducible install,
-  check out the Browser workspace **tag** `v0.1.8` and run its local
+  check out the Browser workspace **tag** `v0.1.9` and run its local
   `scripts/install.sh` (or the Windows installer). It builds the bridge, registers
   it, builds the Chrome extension, and copies the extension into the DSH-managed
   extension directory:
   ```bash
-  git clone --branch v0.1.8 --depth 1 https://github.com/LiuRJ99/dsh-browser.git
+  git clone --branch v0.1.9 --depth 1 https://github.com/LiuRJ99/dsh-browser.git
   cd dsh-browser
   test "$(git rev-parse HEAD)" = \
-    3578c778060e0768b913dbada45c2b4a0edd3c6d
+    f7010eadfc3992be605e56004cf19c07ae6ab8e8
   ./scripts/install.sh
   ```
   The convenience remote installer downloads `main` when no complete checkout is

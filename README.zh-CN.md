@@ -119,10 +119,10 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 | --- | --- | --- | --- |
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、GPT/Codex Responses 路由、账号/配额界面、速度模式、图片生成服务 | Git tag `v0.4.5`（无 GitHub Release） | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
 | [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | 将本地 Tencent WorkBuddy/CodeBuddy 模型接入 DSH 的 OpenAI 兼容 provider | Git tag `v0.2.5`（无 GitHub Release） | Node `≥20.18.1`；已登录的 WorkBuddy/CodeBuddy 桌面会话；本地 bridge 默认监听 `127.0.0.1:8318` |
-| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | Browser workspace tag `v0.1.7`，通过仓库安装器；bridge 子包自身版本为 `0.0.8` | Node/pnpm；tag 安装器构建 Chrome；Firefox 需要下文的手动 Firefox 构建和 token 配置 |
+| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | Browser workspace tag `v0.1.9`，通过仓库安装器；bridge 子包自身版本为 `0.0.9` | Node/pnpm；tag 安装器构建 Chrome；Firefox 需要下文的手动 Firefox 构建和 token 配置 |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.4` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.19.1` | Taskboard 和 ImageGen 的可选 UI 服务；`0.19.1` 声明需要 DSH `≥0.1.5-rc.1`（较旧的 `0.18.x` 面向 `0.1.2-rc.1`） |
-| [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | 面向 DSH 的模型中立低延迟决策层：提供可插拔决策引擎与 Provider、有限候选集决策协议，以及 Browser / Computer / Custom 环境适配器 | Git tag `v0.2.0`（无 GitHub Release） | DSH peer 服务；可选 `@receptron/laya` 提供本地推理；若启用 browser/computer 适配器需相应宿主工具/插件支持 |
+| [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | 面向 DSH 的模型中立低延迟决策层：提供可插拔决策引擎与 Provider、有限候选集决策协议，以及 Browser / Computer / Custom 环境适配器 | Git tag `v0.2.4`（无 GitHub Release） | DSH peer 服务；可选 `@receptron/laya` 提供本地推理；若启用 browser/computer 适配器需相应宿主工具/插件支持 |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | GitHub 官方 MCP server 桥接（`mcp__github__*`）与 REST 文件读取 | 精确 Git commit `fb03257c4c0dcfe4fa97c1c693d4eacd9184127c`（上游未发布 tag） | DSH 进程环境中的 `GITHUB_TOKEN`；DSH 通常从 `$DSH_HOME/.env` 加载 |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA 图片生成、图片模型目录、图片编辑、Gallery 和工作区保存 | GitHub Release `v0.5.4` tarball asset；SHA-256 `91ff5c002e665e1076de6494f6239418bf75855880c05edbc7c332e902dcfc75` | 先安装 CPA（该版本对齐的正是 CPA `v0.4.5` 契约）；该仓库 `.gitignore` 了 `lib/`，从 Git 安装会没有入口 |
 | [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.4.0` | 局域网与可选远程访问分别控制；远程默认关闭，已配对设备完全受信，局域网使用固定本地 CA，远程使用 provider 的 HTTPS 端点。`0.4.0` 支持 DSH `0.1.5-rc.1`；多设备管理需同步使用 Android App `0.4.0`（较旧的 `0.3.15` 同样面向 `0.1.5-rc.1`，`0.3.12` 面向 `0.1.2-rc.1`） |
@@ -171,7 +171,7 @@ dsh plugin --profile <candidate-profile> add dsh-mobile@0.4.0
 
 # 将 GitHub Release/tag 解析为精确 commit。
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-decision-engine#2ea217dcae9c0ed801fa317879abcae0e5ea58d0"
+  "github:LiuRJ99/dsh-decision-engine#13fbe47725755c70109be37c43b3032252cd8457"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-computer-use#7270fdd7aea46913ceec38eb7934073b9bfada7d"
 dsh plugin --profile <candidate-profile> add \
@@ -234,7 +234,7 @@ skill 元数据后，也可以门控 `taskboard` 和 `recorder`。每个门控�
 | `dsh-computer-use` | `geohotstan/dsh-computer-use` | 公开源有 `v0.1.1`、`v0.1.2` tag，但没有 GitHub Release；fork `v0.1.4` 携带 Host peer 范围与安全修复 |
 | `dsh-record-replay` | `humblebanana/dsh-record-replay` | 上游停在 `0.2.0`，已无法对 DSH `≥0.1.2-rc.1` 通过类型检查，也没有门控关联。本 fork 还依赖 [`LiuRJ99/open-record-replay`](https://github.com/LiuRJ99/open-record-replay) 的精确 `v0.1.1` tag 提供录制 CLI |
 | `dsh-taskboard` | `cloader/dsh-taskboard` | Fork tag `v0.7.0` 包含此前已吸收的上游 `v0.6.7` 特性、本 fork 的 Better Sidebar 顶栏修复，并新增图片附件、可配置且 crash-safe 的数据目录迁移、工具提前注册与 Better Sidebar `0.19` 兼容；保留多仓库、权限和调度增强 |
-| `dsh-browser` | `Lum1104/dsh-browser` | 上游公开最新 tag 是 `v0.1.3`；fork tag `v0.1.7` 保留本 fork 安装器和 Host 修复，并加入富文本输入、桥重启会话恢复与依赖安全修复 |
+| `dsh-browser` | `Lum1104/dsh-browser` | 上游公开最新 tag 是 `v0.1.3`；fork tag `v0.1.9` 保留本 fork 安装器和 Host 修复，并加入富文本输入、桥重启会话恢复、依赖安全修复、可见对话框优先排序，以及「不读页面上没渲染的内容」的正文提取修复 |
 | `dsh-image-gen` | `shanliuling/dsh-image-gen` | 上游放宽了 peer 范围，而本 fork 固定精确 Host 版本，合并时必须重新对齐 peer 契约 |
 
 规则：
@@ -249,13 +249,13 @@ skill 元数据后，也可以门控 `taskboard` 和 `recorder`。每个门控�
 这些插件的安装不止一条 `dsh plugin add`。
 
 - **Browser** —— 不要把 bridge 当作普通 package 直接安装。为了可复现，检出 Browser workspace 的
-  **tag** `v0.1.7`，运行本地 `scripts/install.sh`（Windows 使用对应 installer）。它会构建 bridge、
+  **tag** `v0.1.9`，运行本地 `scripts/install.sh`（Windows 使用对应 installer）。它会构建 bridge、
   注册 bridge、构建 Chrome 扩展，并把扩展复制到 DSH 管理的扩展目录：
   ```bash
-  git clone --branch v0.1.7 --depth 1 https://github.com/LiuRJ99/dsh-browser.git
+  git clone --branch v0.1.9 --depth 1 https://github.com/LiuRJ99/dsh-browser.git
   cd dsh-browser
   test "$(git rev-parse HEAD)" = \
-    84e860349c9022bf2000cd7a661a87871b7bc90e
+    f7010eadfc3992be605e56004cf19c07ae6ab8e8
   ./scripts/install.sh
   ```
   没有完整 checkout 时，远程 convenience installer 会下载 `main`；这条路径有意不算固定安装。
