@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "runtime": {
+    "package": "@deepseek-ai/dsh",
+    "version": "0.2.0-rc.2",
+    "validationNode": "24.19.0",
+    "profilePnpm": "11.7.0",
+    "computerUseSourcePnpm": "11.21.0",
+    "validatedPlatform": "linux-x64"
+  },
+  "evidence": {
+    "pluginTestsPassed": 737,
+    "recorderNodeTestsPassed": 10,
+    "hostActivePlugins": 13,
+    "modelCalls": "not-tested",
+    "nativeMacOS": "not-tested",
+    "desktop": "not-tested",
+    "alphaRuntime": "not-tested"
+  },
+  "plugins": [
+    {
+      "name": "@LiuRJ99/dsh-cpa-plugin",
+      "label": "CPA",
+      "version": "0.4.8",
+      "source": {
+        "repository": "https://github.com/LiuRJ99/dsh-cpa-plugin",
+        "type": "git",
+        "commit": "bd0d80adaac42046a2b54dcf9dc72ce881be5caf",
+        "installSpec": "github:LiuRJ99/dsh-cpa-plugin#bd0d80adaac42046a2b54dcf9dc72ce881be5caf"
+      },
+      "hostCheck": "active",
+      "endToEndStatus": "requires-local-validation"
+    },
+    {
+      "name": "@LiuRJ99/dsh-workbuddy-provider",
+      "label": "WorkBuddy",
+      "version": "0.2.7",
+      "source": {
+        "repository": "https://github.com/LiuRJ99/dsh-workbuddy-provider",
+        "type": "git",
+        "commit": "4033d36714714e5da01d022cf0930ecd20d739b2",
+        "installSpec": "github:LiuRJ99/dsh-workbuddy-provider#4033d36714714e5da01d022cf0930ecd20d739b2"
+      },
+      "hostCheck": "active",
+      "endToEndStatus": "requires-local-validation"
+    },
+    {
+      "name": "@yuxianglin/dsh-bridge-browser",
+      "label": "Browser",
+      "version": "0.0.12-dev.1",
+      "source": {
+        "repository": "https://github.com/LiuRJ99/dsh-browser",
+        "type": "git",
+        "commit": "15b05576ecdb1188fc90d4829a49e843a39bbcd6",
+        "installMethod": "build-and-pack",
+        "packagePath": "packages/browser/bridge-browser",
+        "workspaceVersion": "0.1.12-dev.1"
+      },
+      "hostCheck": "active",
+      "endToEndStatus": "requires-local-validation"
+    },
+    {
+      "name": "@zibokapi/dsh-codex-computer-use",
+      "label": "Computer Use",
+      "version": "0.1.6-dev.1",
+      "source": {
+        "repository": "https://github.com/LiuRJ99/dsh-computer-use",
+        "type": "git",
+        "commit": "b02691c79772fcfd64c96b2fb3f85b11abb31f1a",
+        "installSpec": "github:LiuRJ99/dsh-computer-use#b02691c79772fcfd64c96b2fb3f85b11abb31f1a"
+      },
+      "hostCheck": "native-rows-disabled-on-linux",
+      "endToEndStatus": "requires-local-validation",
+      "disabledRowsOnLinux": [
+        "computer-engine",
+        "computer-tools",
+        "computer-policy"
+      ]
+    },
+    {
+      "name": "dsh-better-sidebar",
+      "label": "Better Sidebar",
+      "version": "0.24.1",
+      "source": {
+        "repository": "https://github.com/omdsh-dev/DSH-better-sidebar",
+        "type": "npm",
+        "installSpec": "dsh-better-sidebar@0.24.1"
+      },
+      "hostCheck": "active",
+      "endToEndStatus": "requires-local-validation"
+    },
+    {
+      "name": "dsh-decision-engine",
+      "label": "Decision Engine",
+      "version": "0.4.17",
+      "source": {
+        "repository": "https://github.com/LiuRJ99/dsh-decision-engine",
+        "type": "git",
+        "commit": "160deeba902e158eb5a6186a7b7343fabf1544c2",
+        "installSpec": "github:LiuRJ99/dsh-decision-engine#160deeba902e158eb5a6186a7b7343fabf1544c2"
+      },
+      "hostCheck": "active",
+      "endToEndStatus": "requires-local-validation"
+    },
+    {
+      "name": "dsh-github-mcp",
+      "label": "GitHub MCP",
+      "version": "1.1.0",
+      "source": {
+        "repository": "https://github.com/GitRuozhi/dsh-github-mcp",
+        "type": "git",
+        "commit": "5be9077d46bfed66b76843bbcc7bdc459990b3af",
+        "installSpec": "github:GitRuozhi/dsh-github-mcp#5be9077d46bfed66b76843bbcc7bdc459990b3af"
+      },
+      "hostCheck": "active",
+      "endToEndStatus": "requires-local-validation"
+    },
+    {
+      "name": "dsh-image-gen",
+      "label": "ImageGen",
+      "version": "0.5.7",
+      "source": {
+        "repository": "https://github.com/LiuRJ99/dsh-image-gen",
+        "type": "release-tarball",
+        "url": "https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.7/dsh-image-gen-0.5.7.tgz",
+        "sha256": "df77802b5647b7c6a2373ff19bae5702c83f4a701514e74393f7f4be3ac1cf98"
+      },
+      "hostCheck": "active",
+      "endToEndStatus": "requires-local-validation",
+      "optionalPeerWarning": {
+        "package": "dsh-better-sidebar",
+        "declaredRange": "^0.21.1",
+        "candidateVersion": "0.24.1",
+        "uiIntegration": "untested"
+      }
+    },
+    {
+      "name": "dsh-mobile",
+      "label": "Mobile",
+      "version": "0.6.1",
+      "source": {
+        "repository": "https://github.com/saya-ch/dsh-mobile",
+        "type": "npm",
+        "installSpec": "dsh-mobile@0.6.1"
+      },
+      "hostCheck": "active",
+      "endToEndStatus": "requires-local-validation"
+    },
+    {
+      "name": "dsh-record-replay",
+      "label": "Record/Replay",
+      "version": "0.3.3-dev.1",
+      "source": {
+        "repository": "https://github.com/LiuRJ99/dsh-record-replay",
+        "type": "git",
+        "commit": "277a05b527ccfaf8e555933209e70886bf1e545d",
+        "installSpec": "github:LiuRJ99/dsh-record-replay#277a05b527ccfaf8e555933209e70886bf1e545d"
+      },
+      "hostCheck": "active",
+      "endToEndStatus": "requires-local-validation"
+    },
+    {
+      "name": "dsh-sandbox-schema-shim",
+      "label": "Sandbox schema shim",
+      "version": "0.1.1",
+      "source": {
+        "repository": "https://github.com/xiaohj233/dsh-compat-shims",
+        "type": "git",
+        "commit": "ba4088c1a7b77b1c73fd5d5438f46800720d6bcd",
+        "installSpec": "github:xiaohj233/dsh-compat-shims#ba4088c1a7b77b1c73fd5d5438f46800720d6bcd&path:/packages/sandbox-schema-shim",
+        "packagePath": "packages/sandbox-schema-shim"
+      },
+      "hostCheck": "active",
+      "endToEndStatus": "requires-local-validation"
+    },
+    {
+      "name": "dsh-spend",
+      "label": "Spend",
+      "version": "0.6.7-dev.1",
+      "source": {
+        "repository": "https://github.com/LiuRJ99/dsh-spend",
+        "type": "git",
+        "commit": "040acce812bfc51154ad0310cfc2bc1e5d10faae",
+        "installSpec": "github:LiuRJ99/dsh-spend#040acce812bfc51154ad0310cfc2bc1e5d10faae"
+      },
+      "hostCheck": "active",
+      "endToEndStatus": "requires-local-validation"
+    },
+    {
+      "name": "dsh-taskboard",
+      "label": "Taskboard",
+      "version": "0.7.3",
+      "source": {
+        "repository": "https://github.com/LiuRJ99/dsh-taskboard-cloader",
+        "type": "git",
+        "commit": "7c1849a4a483a7ddc56ec6fe0277c1de33bdf1b9",
+        "installSpec": "github:LiuRJ99/dsh-taskboard-cloader#7c1849a4a483a7ddc56ec6fe0277c1de33bdf1b9"
+      },
+      "hostCheck": "active",
+      "endToEndStatus": "requires-local-validation",
+      "optionalPeerWarning": {
+        "package": "dsh-better-sidebar",
+        "declaredRange": "^0.21.1",
+        "candidateVersion": "0.24.1",
+        "uiIntegration": "untested"
+      }
+    },
+    {
+      "name": "dsh-tool-lazy-gate",
+      "label": "Lazy Gate",
+      "version": "0.1.4",
+      "source": {
+        "repository": "https://github.com/LiuRJ99/dsh-tool-lazy-gate",
+        "type": "git",
+        "commit": "3e8ebe3edbd7db86549fd3bee3ab7b1256e5d2aa",
+        "installSpec": "github:LiuRJ99/dsh-tool-lazy-gate#3e8ebe3edbd7db86549fd3bee3ab7b1256e5d2aa"
+      },
+      "hostCheck": "active",
+      "endToEndStatus": "requires-local-validation"
+    }
+  ]
+}
