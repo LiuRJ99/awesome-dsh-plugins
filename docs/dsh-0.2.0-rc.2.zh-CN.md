@@ -11,19 +11,19 @@
 | CPA | 0.4.8 | 保留插件；候选 profile 精确 overrides 统一官方依赖 | Host 激活 | CPA 连通、模型和图片服务 |
 | WorkBuddy | 0.2.7 | 保留固定 Git 提交，锁文件固定实际提交 | Host 激活 | 登录会话、bridge、模型 |
 | Browser | workspace 0.1.12-dev.1 / bridge 0.0.12-dev.1 | DSH peers、开发依赖、锁文件改为 0.2.0-rc.2；CI 使用完整官方 npm Host | 532 测试、类型检查、Chrome 构建、真实 Host 烟雾测试 | 加载扩展、真实页面工具、Firefox（本轮未测） |
-| Computer Use | 0.1.6-dev.1 | DSH peers、开发依赖、锁文件；fake-daemon 平台夹具及 Linux 拒绝加载测试；CI 目标同步 | 153 测试、类型检查、JS/声明构建 | macOS native、TCC 权限、真实应用；Linux 禁用三个原生条目 |
+| Computer Use | 0.1.6-dev.2 | DSH peers、开发依赖、锁文件；fake-daemon 平台夹具及 Linux 拒绝加载测试；CI 目标同步 | 153 测试、类型检查、JS/声明构建 | macOS native、TCC 权限、真实应用；Linux 禁用三个原生条目 |
 | Better Sidebar | 0.24.1 | 从 0.21.1 升级为 DSH 0.2 peer 版本 | Host 激活、客户端资源 | 编辑器、终端、Git、与消费者的 UI 集成 |
-| Decision Engine | 0.4.17 | 保留固定 Git 提交 | Host 激活 | 模型、可选 Laya SDK、browser/computer 适配器 |
+| Decision Engine | 0.4.18 | 保留固定 Git 提交 | Host 激活 | 模型、可选 Laya SDK、browser/computer 适配器 |
 | GitHub MCP | 1.1.0 | 更新固定上游提交 | Host 激活 | 凭据、MCP 和文件读取 |
-| ImageGen | 0.5.7 | 保留 checksum 已核对的 Release tarball | Host 激活 | 生成/编辑、Gallery、Sidebar 集成 |
+| ImageGen | 0.5.8 | 保留 checksum 已核对的 Release tarball | Host 激活 | 生成/编辑、Gallery、Sidebar 集成 |
 | Mobile | 0.6.1 | 从 0.4.6 升级 | Host 激活 | 移动客户端、配对、远程连接 |
 | Record/Replay | 0.3.3-dev.1 | 精确 DSH peers/compatibility；开发工具固定 pnpm 11.7.0 | 26 测试、构建、Host 激活 | macOS recorder native、权限、用户手动录制与回放 |
 | Sandbox schema shim | 0.1.1 | 保留固定 Git 提交与包子路径 | Host 激活 | 模型工具 schema |
-| Spend | 0.6.7-dev.1 | 精确 DSH peers/compatibility、锁文件；固定 pnpm 和 CI 工具 | 26 测试、真实 usageStats/query RPC | 真实模型用量、计费与完整 UI |
-| Taskboard | 0.7.3 | 保留固定 Git 提交 | Host 激活、客户端资源 | CRUD、调度、Lazy Gate、Sidebar 集成 |
+| Spend | 0.6.7-dev.2 | 精确 DSH peers/compatibility、锁文件；固定 pnpm 和 CI 工具 | 26 测试、真实 usageStats/query RPC | 真实模型用量、计费与完整 UI |
+| Taskboard | 0.7.4 | 保留固定 Git 提交 | Host 激活、客户端资源 | CRUD、调度、Lazy Gate、Sidebar 集成 |
 | Lazy Gate | 0.1.4 | 保留固定 Git 提交 | Host 激活 | 用户手势解锁、完整会话门控、Taskboard/recorder 元数据 |
 
-四个 `dev.1` 已提交并推送源码，没有发布新的 npm 包、tag 或 GitHub Release。
+Browser `v0.1.12-dev.1`、Computer Use `v0.1.6-dev.2` 与 Spend `v0.6.7-dev.2` 已发布固定 GitHub Release；Record/Replay 仍使用精确 commit。
 插件测试共 **737 项通过**（532 + 153 + 26 + 26）。录制器 fork `open-record-replay@v0.1.1` 另有 10 项 Node 测试通过；其完整安装和 Swift 构建需要 macOS。
 
 Web 基础检查验证了认证 HTML、7 个应用/插件资源、13 个 active 插件、全部启用条目的激活状态、Spend 统计 RPC 和 Browser 桥发现接口。
@@ -36,9 +36,9 @@ Browser 烟雾测试覆盖发现、token 认证、会话 create/list/history 和
 | 仓库 | 提交 |
 | --- | --- |
 | LiuRJ99/dsh-browser | `15b05576ecdb1188fc90d4829a49e843a39bbcd6` |
-| LiuRJ99/dsh-computer-use | `b02691c79772fcfd64c96b2fb3f85b11abb31f1a` |
+| LiuRJ99/dsh-computer-use | `189ec1ca73c98c4dc3b7413635351369ec54bc9c` |
 | LiuRJ99/dsh-record-replay | `277a05b527ccfaf8e555933209e70886bf1e545d` |
-| LiuRJ99/dsh-spend | `040acce812bfc51154ad0310cfc2bc1e5d10faae` |
+| LiuRJ99/dsh-spend | `592db2d44adb7f416a399f65c79e5255c680cf90` |
 
 已有 checkout 请先检查未提交改动，再 `git fetch origin`、在本地 `main` 上 `git pull --ff-only`。
 远端后续可能继续更新；复现本轮请核对上表提交，必要时另行 clone 并 checkout 精确 commit。不要 reset、clean 或丢弃已有改动。
@@ -142,14 +142,14 @@ pnpm 的 SHA-512 校验应与该仓库 `packageManager` 一致。操作 profile 
 
 先用 README 的固定来源安装 CPA、WorkBuddy，然后安装 Sidebar/Mobile、其他插件和本地适配包。不要裸装同名冲突的包。
 ImageGen 从 README 指定的公开 Release 下载，检查 SHA-256 为
-`df77802b5647b7c6a2373ff19bae5702c83f4a701514e74393f7f4be3ac1cf98` 后再从稳定本地路径安装。
+`c7caf43f195d1ff6861c67ec839a0fc47dfe8ebd61fec09fca559aef46a73b59` 后再从稳定本地路径安装。
 
 ```bash
-dsh plugin --profile candidate-0.2 add "$DSH_VALIDATION_ROOT/artifacts/dsh-spend-0.6.7-dev.1.tgz"
+dsh plugin --profile candidate-0.2 add "$DSH_VALIDATION_ROOT/artifacts/dsh-spend-0.6.7-dev.2.tgz"
 dsh plugin --profile candidate-0.2 add "$DSH_VALIDATION_ROOT/artifacts/dsh-record-replay-0.3.3-dev.1.tgz"
 dsh plugin --profile candidate-0.2 add "$DSH_VALIDATION_ROOT/artifacts/yuxianglin-dsh-bridge-browser-0.0.12-dev.1.tgz"
 # 以下原生包仅在 macOS daemon 和权限准备好后启用：
-dsh plugin --profile candidate-0.2 add "$DSH_VALIDATION_ROOT/artifacts/zibokapi-dsh-codex-computer-use-0.1.6-dev.1.tgz"
+dsh plugin --profile candidate-0.2 add "$DSH_VALIDATION_ROOT/artifacts/zibokapi-dsh-codex-computer-use-0.1.6-dev.2.tgz"
 dsh --profile candidate-0.2 --no-open --host 127.0.0.1 --port 3080
 ```
 
@@ -175,3 +175,9 @@ Taskboard 和 ImageGen 的可选 Better Sidebar peer 仍声明 `^0.21.1`，与 `
 
 最终输出表格：插件、实际版本、Host 版本、加载状态、功能验证、错误或警告、后续动作。
 源码推送不代表 npm 发布，也不代表 GitHub Actions 或上述本地端到端测试已经通过。
+
+## 后续发布修复
+
+Taskboard `v0.7.4` 修复 DSH 0.2 producer-owned 调度消息；ImageGen `v0.5.8` 修复 settings entry id；Spend `v0.6.7-dev.2` 修复悬浮组件遮挡 Taskboard 弹窗；Decision Engine `v0.4.18` 在 Web Server 就绪后注册 provider 路由；Computer Use `v0.1.6-dev.2` 修复 AppKit 启动通知与首个 AX 窗口的等待。
+
+上述源码及 Browser、Record/Replay 的测试共 1636 项通过，另有录制器 10 项 Node 测试和 Computer Use 30 项 Swift 测试通过。Taskboard/ImageGen 的旧 Sidebar `^0.21.1` 可选 peer 声明尚未解决；实际 UI 验证不构成版本豁免。Laya SDK/模型、图像编辑的 provider 网络调用，以及用户手动录制仍需按部署环境验证。

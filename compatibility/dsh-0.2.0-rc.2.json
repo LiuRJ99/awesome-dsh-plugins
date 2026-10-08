@@ -15,7 +15,8 @@
     "modelCalls": "not-tested",
     "nativeMacOS": "not-tested",
     "desktop": "not-tested",
-    "alphaRuntime": "not-tested"
+    "alphaRuntime": "not-tested",
+    "scope": "Historical Linux validation snapshot; release checks are listed separately."
   },
   "plugins": [
     {
@@ -50,11 +51,15 @@
       "version": "0.0.12-dev.1",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-browser",
-        "type": "git",
+        "type": "release-tarball",
         "commit": "15b05576ecdb1188fc90d4829a49e843a39bbcd6",
         "installMethod": "build-and-pack",
         "packagePath": "packages/browser/bridge-browser",
-        "workspaceVersion": "0.1.12-dev.1"
+        "workspaceVersion": "0.1.12-dev.1",
+        "tag": "v0.1.12-dev.1",
+        "url": "https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.12-dev.1/yuxianglin-dsh-bridge-browser-0.0.12-dev.1.tgz",
+        "sha256": "fdee86f9724dc99642cd61c930c3be267deb38c35b15d8eee1428621ff97a777",
+        "chromeExtensionAsset": "dsh-browser-extension-0.1.12-dev.1.zip"
       },
       "hostCheck": "active",
       "endToEndStatus": "requires-local-validation"
@@ -62,12 +67,15 @@
     {
       "name": "@zibokapi/dsh-codex-computer-use",
       "label": "Computer Use",
-      "version": "0.1.6-dev.1",
+      "version": "0.1.6-dev.2",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-computer-use",
         "type": "git",
-        "commit": "b02691c79772fcfd64c96b2fb3f85b11abb31f1a",
-        "installSpec": "github:LiuRJ99/dsh-computer-use#b02691c79772fcfd64c96b2fb3f85b11abb31f1a"
+        "commit": "189ec1ca73c98c4dc3b7413635351369ec54bc9c",
+        "tag": "v0.1.6-dev.2",
+        "url": "https://github.com/LiuRJ99/dsh-computer-use/releases/download/v0.1.6-dev.2/zibokapi-dsh-codex-computer-use-0.1.6-dev.2.tgz",
+        "sha256": "2d37b6a9385e5d2724c1d2feb0a96c44fbbb179ed4a64391b2ef8054810c3e5a",
+        "installSpec": "github:LiuRJ99/dsh-computer-use#v0.1.6-dev.2"
       },
       "hostCheck": "native-rows-disabled-on-linux",
       "endToEndStatus": "requires-local-validation",
@@ -92,12 +100,15 @@
     {
       "name": "dsh-decision-engine",
       "label": "Decision Engine",
-      "version": "0.4.17",
+      "version": "0.4.18",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-decision-engine",
         "type": "git",
-        "commit": "160deeba902e158eb5a6186a7b7343fabf1544c2",
-        "installSpec": "github:LiuRJ99/dsh-decision-engine#160deeba902e158eb5a6186a7b7343fabf1544c2"
+        "commit": "fce257567b8e843a7f19a3376c52c7aac3d46a11",
+        "tag": "v0.4.18",
+        "url": "https://github.com/LiuRJ99/dsh-decision-engine/releases/download/v0.4.18/dsh-decision-engine-0.4.18.tgz",
+        "sha256": "f29208ec373c65650098f7403f3d5266a5a6a05698473bc17f40fc7051191535",
+        "installSpec": "github:LiuRJ99/dsh-decision-engine#v0.4.18"
       },
       "hostCheck": "active",
       "endToEndStatus": "requires-local-validation"
@@ -118,12 +129,14 @@
     {
       "name": "dsh-image-gen",
       "label": "ImageGen",
-      "version": "0.5.7",
+      "version": "0.5.8",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-image-gen",
         "type": "release-tarball",
-        "url": "https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.7/dsh-image-gen-0.5.7.tgz",
-        "sha256": "df77802b5647b7c6a2373ff19bae5702c83f4a701514e74393f7f4be3ac1cf98"
+        "url": "https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.8/dsh-image-gen-0.5.8.tgz",
+        "sha256": "c7caf43f195d1ff6861c67ec839a0fc47dfe8ebd61fec09fca559aef46a73b59",
+        "tag": "v0.5.8",
+        "commit": "501381cd8a7b01d5ee4af89fe5915b8ca91c6991"
       },
       "hostCheck": "active",
       "endToEndStatus": "requires-local-validation",
@@ -176,12 +189,15 @@
     {
       "name": "dsh-spend",
       "label": "Spend",
-      "version": "0.6.7-dev.1",
+      "version": "0.6.7-dev.2",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-spend",
         "type": "git",
-        "commit": "040acce812bfc51154ad0310cfc2bc1e5d10faae",
-        "installSpec": "github:LiuRJ99/dsh-spend#040acce812bfc51154ad0310cfc2bc1e5d10faae"
+        "commit": "592db2d44adb7f416a399f65c79e5255c680cf90",
+        "tag": "v0.6.7-dev.2",
+        "url": "https://github.com/LiuRJ99/dsh-spend/releases/download/v0.6.7-dev.2/dsh-spend-0.6.7-dev.2.tgz",
+        "sha256": "738f10fd9229c8d80e1902c0a5571d7d988da48dae514501d5090e492951f581",
+        "installSpec": "github:LiuRJ99/dsh-spend#v0.6.7-dev.2"
       },
       "hostCheck": "active",
       "endToEndStatus": "requires-local-validation"
@@ -189,12 +205,15 @@
     {
       "name": "dsh-taskboard",
       "label": "Taskboard",
-      "version": "0.7.3",
+      "version": "0.7.4",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-taskboard-cloader",
         "type": "git",
-        "commit": "7c1849a4a483a7ddc56ec6fe0277c1de33bdf1b9",
-        "installSpec": "github:LiuRJ99/dsh-taskboard-cloader#7c1849a4a483a7ddc56ec6fe0277c1de33bdf1b9"
+        "commit": "576ddd69173455b66a91988b9fc38dd6d8f26ab2",
+        "tag": "v0.7.4",
+        "url": "https://github.com/LiuRJ99/dsh-taskboard-cloader/releases/download/v0.7.4/dsh-taskboard-0.7.4.tgz",
+        "sha256": "4169897f579778fb054f809b7d577236b4eb85a0d42564982dba1bc4c00dd640",
+        "installSpec": "github:LiuRJ99/dsh-taskboard-cloader#v0.7.4"
       },
       "hostCheck": "active",
       "endToEndStatus": "requires-local-validation",
@@ -218,5 +237,20 @@
       "hostCheck": "active",
       "endToEndStatus": "requires-local-validation"
     }
-  ]
+  ],
+  "releaseValidation": {
+    "hostVersion": "0.2.0-rc.2",
+    "nodeMajor": 24,
+    "pluginSourceTestsPassed": 1636,
+    "recorderNodeTestsPassed": 10,
+    "nativeSwiftTestsPassed": 30,
+    "optionalSidebarPeerWarning": "unresolved",
+    "patches": [
+      "Taskboard producer-owned message source",
+      "ImageGen settings entry id",
+      "Spend modal stacking",
+      "Decision Engine deferred Web route",
+      "Computer Use launch notifications and first window wait"
+    ]
+  }
 }
