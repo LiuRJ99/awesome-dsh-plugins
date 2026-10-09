@@ -57,9 +57,11 @@ private credentials, or a claim that a particular version is currently installed
 - [Pinned install examples](#pinned-install-examples)
 - [Dependency map](#dependency-map)
 - [Desktop deployment](#desktop-deployment)
-- [Release and upstream checks](docs/release-source-checks.zh-CN.md)
+- [Candidate dependency overrides](#candidate-dependency-overrides)
+- [Release and upstream checks](#release-and-upstream-checks)
 - [Upstream relation](#upstream-relation)
 - [Special products](#special-products)
+- [Adapted plugin source builds](#adapted-plugin-source-builds)
 - [macOS services outside the plugin directory](#macos-services-outside-the-plugin-directory)
 - [Verification checklist](#verification-checklist)
 - [License](#license)
@@ -146,7 +148,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | --- | --- | --- | --- |
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, Codex Responses GPT routing, account/quota UI (including Kimi Code), speed modes, image-generation service | GitHub Release `v0.4.8` | DSH peer services; CPA endpoint and credentials configured by the user |
 | [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | Local Tencent WorkBuddy/CodeBuddy model provider for OpenAI-compatible DSH requests | GitHub Release `v0.2.7` | Node `>=20.18.1`; an authenticated WorkBuddy/CodeBuddy desktop session; the local bridge defaults to `127.0.0.1:8318` |
-| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | GitHub Release `v0.1.13-dev.1`: bridge tarball + Chrome extension zip; bridge `0.0.13-dev.1` | Node/pnpm; build both bridge and Chrome extension; Firefox needs a separate build and token setup |
+| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | GitHub Release `v0.1.13-dev.1`: bridge tarball + Chrome extension zip; bridge `0.0.13-dev.1` | Matching bridge and Chrome extension assets; rebuild both only for source installation; Firefox needs a separate build and token setup |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.6-dev.2` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.24.1` | Optional UI service for Taskboard and ImageGen; `0.24.1` declares DSH `^0.2.0-rc.1` peers; see the consumer compatibility notes below |
 | [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | Model-agnostic low-latency decision layer for DSH: pluggable Decision Engine and Providers, finite-candidate decision protocol, and Browser / Computer / Custom environment adapters | GitHub Release `v0.4.19` | DSH peer services; optional pinned SDK `@receptron/laya@0.1.1` for local inference; requires corresponding host tools/plugins if browser/computer adapters are enabled |
@@ -163,18 +165,24 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 
 This candidate targets official `@deepseek-ai/dsh@0.2.0-rc.2`; `0.2.1-alpha.1` is untested.
 Browser, Computer Use and Spend use the fixed GitHub Releases above. Record/Replay `0.3.3-dev.1` still uses its exact commit. Do not install forks by colliding bare npm names.
-See the [change table and local validation guide](docs/dsh-0.2.0-rc.2.zh-CN.md) and [local validation prompt](docs/local-validation-prompt.zh-CN.md).
+Installation, release provenance, source builds and Desktop validation are consolidated in this README and its Chinese translation.
 
 737 plugin tests passed. Linux CLI/Web checks verified 13 active plugins while the three native Computer Use rows were disabled.
 This historical Linux evidence does not certify model calls, live browser operations, mobile pairing, native macOS recording or complete UI interactions.
-Subsequent [Desktop coverage for the same Host target](docs/desktop-0.2.0-rc.2.zh-CN.md) is recorded separately; these are not one all-platform test run.
+Subsequent [Desktop coverage for the same Host target](#desktop-validation) is recorded separately; these are not one all-platform test run.
 
 Each package's peer ranges and `dsh.compatibility` are authoritative. Host peer evaluation uses `includePrerelease: true`:
 `>=0.1.7-rc.1 <0.2.0` accepts `0.2.0-rc.2`, whereas `^0.1.7-rc.1` does not. The four adapted repositories pin the exact tested Host.
 Node 24 was used for validation; still satisfy every package's `engines`.
 
-CPA `v0.4.8` can pull older Host settings/config-editor dependencies. Apply the guide's precise overrides in the candidate profile to keep the relevant official packages at `0.2.0-rc.2`; never patch plugin node_modules.
+CPA `v0.4.8` can pull older Host settings/config-editor dependencies. Merge the [candidate overrides](#candidate-dependency-overrides) to keep the relevant official packages at `0.2.0-rc.2`; never patch plugin node_modules.
 The current fork releases selectively adapt upstream fixes: Browser supports `browser_open_tab({ active: false })` while retaining per-session bindings and approval checks; Taskboard durably queues due windows with serialized FIFO dispatch and one-second spacing; ImageGen reports failed gallery writes and retries persistence without regenerating. Existing Sidebar 0.24.1 integration remains. Automatic successor cards, bulk purge, studio/OAuth and batch ZIP are deferred.
+
+These targets also retain earlier integration fixes: producer-owned Taskboard dispatch messages,
+ImageGen's settings entry identity, Spend's floating widget avoiding Taskboard dialogs,
+Decision Engine routes registered after Web Server readiness, and Computer Use waiting for
+AppKit startup and the first accessibility window. Lazy Gate synchronizes the already-collected
+Host tool catalog during prompt assembly, including same-turn user unlock; it does not grant permissions.
 
 Taskboard `v0.7.7` and ImageGen `v0.5.10` explicitly cover optional Better Sidebar `^0.21.1 || 0.24.1` peers. Host activation, resource requests and the Taskboard/Gallery sidebar surfaces were validated. Model-backed functions and permissions still require deployment-specific checks; no version exemptions are used.
 
@@ -182,11 +190,41 @@ The Record/Replay candidate retains the packaging fix from `v0.3.1`; avoid `v0.3
 ImageGen `v0.5.10` was built with CPA `v0.4.8` and requires CPA `>=0.4.0 <0.5.0`. Use the checksum-verified release tarball because Git omits `lib/`.
 DSH base and Web Host bundles are host layers, not community plugin entries.
 
+### Candidate dependency overrides
+
+For the tested Host `0.2.0-rc.2`, merge the following into the candidate profile's
+`$DSH_HOME/profiles/<candidate-profile>/pnpm-workspace.yaml` before installing CPA.
+Preserve existing fields and overrides; do not apply these pins to a different Host without validation.
+
+```yaml
+nodeLinker: hoisted
+autoInstallPeers: false
+allowBuilds:
+  '@google/genai': true
+  protobufjs: true
+overrides:
+  '@deepseek-ai/dsh-atomic-write': 0.2.0-rc.2
+  '@deepseek-ai/dsh-brand': 0.2.0-rc.2
+  '@deepseek-ai/dsh-config-editor': 0.2.0-rc.2
+  '@deepseek-ai/dsh-credentials': 0.2.0-rc.2
+  '@deepseek-ai/dsh-llm': 0.2.0-rc.2
+  '@deepseek-ai/dsh-settings': 0.2.0-rc.2
+  '@deepseek-ai/dsh-timeout': 0.2.0-rc.2
+  '@deepseek-ai/dsh-typert-protocol': 0.2.0-rc.2
+  '@deepseek-ai/dsh-util-crypto': 0.2.0-rc.2
+  '@deepseek-ai/dsh-util-values': 0.2.0-rc.2
+```
+
+With pnpm 11, build approvals live in this workspace YAML. Inspect any additional
+build scripts before approving them; do not globally allow builds or use version exemptions.
+Evaluate only `@deepseek-ai/dsh-*` on the Host version line, with prereleases included;
+Cordis and Schemastery use separate version lines.
+
 ## Pinned install examples
 
 Use a newly created `<candidate-profile>` for the first pass. The target profile
 must already provide the official DSH Web Host bundle; it is not a community
-plugin in this catalog. Merge the guide's profile overrides before installing CPA.
+plugin in this catalog. Merge the candidate overrides above before installing CPA.
 Enable Computer Use only after its macOS native prerequisites are ready; skip that line elsewhere.
 These commands use only public, exact sources:
 
@@ -261,11 +299,137 @@ Independent plugins (no entry in the map above other than the host):
 ## Desktop deployment
 
 Official Desktop uses its own Host and Plugin Manager. Installing into a CLI/Web profile does not install into Desktop.
-The [Desktop guide](docs/desktop-0.2.0-rc.2.zh-CN.md) covers Chrome bridge settings, native helper permissions, migration checks and known limitations.
+Verify Desktop's actual Host, Home and profile before installing. Validate in an independent
+candidate Home, preserve existing configuration and data, then promote and restart the formal Desktop.
+Finder launches need a supported Home configuration; do not assume they inherit terminal exports.
+Use Desktop's Plugin Manager and the pinned catalog sources, with providers installed first and CPA overrides merged.
 The official app is sufficient as the entry point: Browser needs no extra launcher, while Computer Use still requires the helper referenced by its active provider.
 
-[Release provenance and PR-first checks](docs/release-source-checks.zh-CN.md) distinguish a released source, a catalog target and absorbed upstream changes.
-Record/Replay `0.3.3-dev.1` is delivered by a public exact commit, without a matching Release. Laya is an optional SDK; Mobile is an optional client.
+Browser consists of a Desktop bridge and a separately loaded Chrome extension. Verify both versions
+in `chrome://extensions`, reload after updating, and use the extension from the same fixed Release.
+Blank bridge settings probe `3080 / 3081 / 3090 / 14389 / 43189`; for another Host port configure:
+
+```text
+ws://127.0.0.1:<actual Desktop Host port>/ext/bridge
+```
+
+Chrome loopback needs no manually entered token. Firefox and remote deployments still need their
+documented authentication. A connected bridge does not grant control: session `/browser` gating
+and extension approvals remain. Keep Computer Use's native helper and its TCC grants;
+the same helper appears in both Accessibility and Screen Recording lists. Desktop's own permissions
+do not replace the helper's permissions. Validate native preflight inside the actual Host.
+
+Before migration, back up sessions, attachments, Taskboard, Gallery and configuration. Check titles,
+historical-log decoding, task/workspace ownership and image resources after migration. Do not
+copy `node_modules`, re-sign the official app or alter its bundled Host. Data is not automatically
+synced between independent Web and Desktop Homes. Host restarts may end Sidebar terminals.
+Desktop's internal HTTP/Browser bridge remains necessary when a standalone Web installation is removed.
+Mobile is optional and is skipped in Desktop-only deployments.
+
+### Desktop validation
+
+This table describes the tested target combination, not the live state of a machine or a guarantee
+for other credentials, platforms or model inputs. Classifications apply only to the stated scope.
+
+| Classification | Capability / target | Evidence and limits |
+| --- | --- | --- |
+| Fully usable | CPA `0.4.8`, WorkBuddy `0.2.7` | Real text model replies; image generation/editing succeeded on retry, but one provider editing response contained only text |
+| Fully usable | Browser `v0.1.13-dev.1` | 540 source tests; after user reload/approval, background open preserved foreground and subsequent input/click targeted the new background tab; Firefox untested |
+| Fully usable | Taskboard `0.7.7` | 439 tests passed, 2 opt-in Git tests skipped; two scheduled tasks produced real model replies with one-second dispatch spacing |
+| Fully usable | ImageGen `0.5.10`, Sidebar `0.24.1` | 148 ImageGen tests; Gallery/Taskboard surfaces and persisted images verified; IndexedDB failure/retry verified in source tests, not injected into the formal Gallery |
+| Fully usable | Computer Use `0.1.6-dev.2` | Native build and real input/click after human approval; a candidate without native permission cannot be counted as passed |
+| Fully usable | Record/Replay `0.3.3-dev.1` | Recording/replay confirmed by the user after manual `/open-record-replay`; agent must not unlock or initiate recording independently |
+| Fully usable | Spend `0.6.7-dev.2` | Actual usage and UI verified; cost is an estimate |
+| Fully usable | Lazy Gate `0.1.7` | Official Host's first-turn tools and same-turn user unlock verified; aggregate loaded state and accessible icon refresh replace duplicate per-card text |
+| Fully usable, advice only | Decision Engine `0.4.19` | Explicit `executionMode: advice-only` exposes `decision_decide`, blocks actions and tasks, and omits `decision_run`; default remains `execute`, execution mode untested |
+| Needs adjustment | Optional Laya SDK `0.1.1` | Inference works, but one of four constraint-quality samples failed; `0.1.2` not quality-tested, automatic execution not accepted |
+| Needs adjustment | GitHub MCP `1.1.0` | REST `github_file_read` works; official Host fails to present MCP embedded-resource bodies to the model |
+| Fully usable | Sandbox shim `0.1.1` | No schema changes under read-only/workspace-write; removes redundant fields only in an already-authorized danger-full-access session |
+| Incompatible in part | Legacy log formats | Older subagent descriptors and `request/header.config.speed` may be rejected by the target Host; retain originals for a supported migration |
+| Skipped | Mobile `0.6.1` | Optional client; pairing and remote access not certified by Desktop-only validation |
+
+Remaining Host-supplied and prerelease peer warnings must be evaluated separately from actual
+dependency resolution. Taskboard/ImageGen's former optional Sidebar warning is resolved by
+`^0.21.1 || 0.24.1`; no version exemption is used. An empty historical session has no content from
+which to infer a title, and orphan task ownership needs authoritative evidence before rebinding.
+
+## Release and upstream checks
+
+GitHub Release, registry publication and a public exact commit are distinct delivery forms.
+The target Browser, Taskboard, ImageGen, Lazy Gate, Decision Engine, Computer Use and Spend
+fixes have published Releases; their assessed main snapshots match the target tags.
+Record/Replay `0.3.3-dev.1` remains a public exact commit with no matching Release.
+GitHub MCP also uses an exact commit because the source provides no corresponding tag/Release.
+Computer Use's GitHub Release/tarball is available, but its npm publication workflow failed
+with `ENEEDAUTH`; the catalog does not depend on that registry publication.
+CPA and WorkBuddy tags have public Releases, with Git delivery rather than tarball assets.
+
+For a pinned target, resolve the remote tag to its commit, check non-draft Release assets and
+checksums, and inspect real runtime entries. Compare registry dist-tags or Release metadata to
+discover newer versions; a version written on `main` is not proof of a published package.
+
+```bash
+gh release view <catalog-tag> --repo <owner/repo> \
+  --json tagName,isDraft,isPrerelease,publishedAt,assets,url
+gh api repos/<owner/repo>/git/ref/tags/<catalog-tag>
+# For an annotated tag, dereference git/tags/<object.sha> to its commit.
+npm view <registry-package>@<exact-version> version dist.integrity
+```
+
+Use these reviewed identities to check the catalog sources; they are not an installation inventory:
+
+| Source | Target | Commit |
+| --- | --- | --- |
+| CPA | `v0.4.8` | `bd0d80adaac42046a2b54dcf9dc72ce881be5caf` |
+| WorkBuddy | `v0.2.7` | `4033d36714714e5da01d022cf0930ecd20d739b2` |
+| Browser | `v0.1.13-dev.1` | `38d015d6f87cbb57c05539565dc67de0de5dd7d0` |
+| Computer Use | `v0.1.6-dev.2` | `189ec1ca73c98c4dc3b7413635351369ec54bc9c` |
+| Decision Engine | `v0.4.19` | `eca7ec65ce316de9d17b442ae7a26beb8abc79be` |
+| GitHub MCP | Exact commit | `5be9077d46bfed66b76843bbcc7bdc459990b3af` |
+| ImageGen | `v0.5.10` | `73a37d2f6842d12c3b27b74c479f6ae3f0981447` |
+| Record/Replay | Exact commit | `277a05b527ccfaf8e555933209e70886bf1e545d` |
+| Sandbox shim | `sandbox-schema-shim-v0.1.1` | `ba4088c1a7b77b1c73fd5d5438f46800720d6bcd` |
+| Spend | `v0.6.7-dev.2` | `592db2d44adb7f416a399f65c79e5255c680cf90` |
+| Taskboard | `v0.7.7` | `9e1ffad0245e72218597d8aafc72da8c91000458` |
+| Lazy Gate | `v0.1.7` | `4dacae05b5b3df698121f41285d38982655c0b90` |
+| Recorder helper | `v0.1.1` | `91188499023cbce9f56c11b58f71bc7e8298a33d` |
+
+| Release asset | SHA-256 |
+| --- | --- |
+| [Browser bridge tarball](https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.13-dev.1/yuxianglin-dsh-bridge-browser-0.0.13-dev.1.tgz) | `803232e3837202ddc29091782e7070c43536afb7a6846ada1640540d9a053c8d` |
+| [Chrome extension zip](https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.13-dev.1/dsh-browser-extension-0.1.13-dev.1.zip) | `eb21db4aff93a8655d253df8ca80ff7d13170cbf86a21dac6998dbb68cbe7f7d` |
+| [Computer Use tarball](https://github.com/LiuRJ99/dsh-computer-use/releases/download/v0.1.6-dev.2/zibokapi-dsh-codex-computer-use-0.1.6-dev.2.tgz) | `2d37b6a9385e5d2724c1d2feb0a96c44fbbb179ed4a64391b2ef8054810c3e5a` |
+| [Decision Engine tarball](https://github.com/LiuRJ99/dsh-decision-engine/releases/download/v0.4.19/dsh-decision-engine-0.4.19.tgz) | `996e9ef7acc14eb84c658c4663effd2c2bc30ebf7522a3187ef231dc4a4b6a5f` |
+| [ImageGen tarball](https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.10/dsh-image-gen-0.5.10.tgz) | `ac7876f5a2b72e5ecec40bf365bb6fc1ca1da0c94162a90d872eb3fb914b2b24` |
+| [Spend tarball](https://github.com/LiuRJ99/dsh-spend/releases/download/v0.6.7-dev.2/dsh-spend-0.6.7-dev.2.tgz) | `738f10fd9229c8d80e1902c0a5571d7d988da48dae514501d5090e492951f581` |
+| [Taskboard tarball](https://github.com/LiuRJ99/dsh-taskboard-cloader/releases/download/v0.7.7/dsh-taskboard-0.7.7.tgz) | `596e1b85b48e47cdeeaabae7a54bd0d8d22ba1a4e6c04fb5c465716af4bd8b40` |
+| [Lazy Gate tarball](https://github.com/LiuRJ99/dsh-tool-lazy-gate/releases/download/v0.1.7/dsh-tool-lazy-gate-0.1.7.tgz) | `a0c4c83dd6e6839a4e2e4efc19c9e40ca1549ec9b734e5834e4883c612ab8dc4` |
+
+For forks, start with an open `sync/upstream-main` PR on the default branch. Read the complete
+body, commits, files, reviews and decision comments before any local upstream fetch/diff/merge.
+The PR is a frozen snapshot; do not refresh it when upstream moves. A successful workflow proves
+detection, not adoption. With no open PR, inspect the workflow and previous evaluation boundary first.
+
+```bash
+gh pr list --repo <fork-owner/repo> --base <default-branch> \
+  --head sync/upstream-main --state open
+gh pr view <number> --repo <fork-owner/repo> --json body,commits,files,comments,reviews
+gh api --paginate repos/<fork-owner/repo>/pulls/<number>/files
+gh run list --repo <fork-owner/repo> --workflow sync-upstream.yml --limit 3
+```
+
+Each fork's daily sync workflow must preserve an open snapshot and the last evaluated upstream SHA.
+Review source/config conflicts separately from generated outputs and lockfiles. Selective adoption or
+rejection is recorded on the closed PR as `partial` or `rejected`; whole adoption as `whole`.
+Changes after the recorded boundary belong to the next PR. No automatic merge or `-X ours` shortcut.
+For self-maintained repositories, compare the release source with main and distinguish runtime changes
+from documentation/workflows before deciding whether a new package release is needed.
+
+| Sync PR (closed as `partial`) | Adopted in the published fork | Deferred / preserved |
+| --- | --- | --- |
+| [Browser #5](https://github.com/LiuRJ99/dsh-browser/pull/5) | `6d6ce252`: background open, approval label, separate foreground/control targets; `v0.1.13-dev.1` | Preserve DSH 0.2 peers, per-session bindings and permission restrictions |
+| [Taskboard #5](https://github.com/LiuRJ99/dsh-taskboard-cloader/pull/5) | `930bb2c6` / `5746284b`: durable queue, atomic handoff, serialized dispatch and cancellable waits; `v0.7.7` | No automatic successors, runAt redesign or bulk purge; preserve recurring review cards and Sidebar integration |
+| [ImageGen #5](https://github.com/LiuRJ99/dsh-image-gen/pull/5) | `d9a58cd9`: save-result propagation and persistence-only UI retry; `v0.5.10` | Preserve CPA, transactions, tombstones, favorites and workspace metadata; defer studio/OAuth/batch ZIP |
 
 ## Upstream relation
 
@@ -286,7 +450,7 @@ Assess each upstream release against the host you actually run before adopting i
 | `open-record-replay` (helper CLI) | `humblebanana/open-record-replay` | The fork fixes foreign-cwd CLI behavior and native build targets; it is not a separate DSH plugin |
 
 Query open `sync/upstream-main` PRs first. Review their full bodies, commits, files and decision comments before local fetch/diff or trial merges.
-A successful sync workflow does not prove upstream was absorbed. See the [check procedure](docs/release-source-checks.zh-CN.md).
+A successful sync workflow does not prove upstream was absorbed. See [release and upstream checks](#release-and-upstream-checks).
 
 Rules:
 
@@ -301,7 +465,7 @@ Rules:
 These need more than a `dsh plugin add`.
 
 - **Browser** — both bridge and browser extension must be ready. Check out exact commit `38d015d6f87cbb57c05539565dc67de0de5dd7d0`,
-  install with a frozen lockfile, build the workspace, pack the bridge and add it to a candidate profile; see the [local guide](docs/dsh-0.2.0-rc.2.zh-CN.md).
+  install with a frozen lockfile, build the workspace, pack the bridge and add it to a candidate profile; see [source builds](#adapted-plugin-source-builds).
   Load Chrome's `extensions/dsh-browser/dist/`. The release extension manifest is `0.1.12`; verify the loaded extension as well as bridge `0.0.13-dev.1`.
   `scripts/install.sh` modifies the `web` profile by default; use the explicit build/pack path for candidate validation.
   Its remote convenience fallback downloads unpinned `main`. Firefox needs a separate `pnpm --filter dsh-browser-extension run build:firefox` build and token setup and was not tested in this round.
@@ -337,6 +501,80 @@ These need more than a `dsh plugin add`.
   fail from a foreign working directory. The fork also lowers the native
   recorder's deployment target to macOS 13 /
   Swift 5.9.
+
+### Adapted plugin source builds
+
+Inspect existing checkout changes first; use `git pull --ff-only` on an existing main checkout
+or clone a missing repository. For reproduction, use a separate checkout at the reviewed
+tag/commit above. Do not reset, clean or discard work. Read applicable repository `AGENTS.md`.
+
+The following creates an isolated **CLI source-test runtime**, not a Desktop installation.
+Use Node 24, retain existing Homes, and pin the complete official npm Host:
+
+```bash
+export DSH_VALIDATION_ROOT="$PWD/.dsh-validation"
+mkdir -p "$DSH_VALIDATION_ROOT/runtime" "$DSH_VALIDATION_ROOT/artifacts"
+npm install --prefix "$DSH_VALIDATION_ROOT/runtime" --save-exact \
+  @deepseek-ai/dsh@0.2.0-rc.2 pnpm@11.7.0
+export PATH="$DSH_VALIDATION_ROOT/runtime/node_modules/.bin:$PATH"
+export DSH_HOME="$DSH_VALIDATION_ROOT/home"
+dsh --profile candidate-0.2 --from-default-profile web --dump-config >/dev/null
+```
+
+Merge the candidate overrides before adding CPA. Run each group below from the corresponding
+pinned repository root. Source tests and packaged artifacts do not prove Desktop native permission
+or model behavior. Keep secrets out of output; Host launch logs can contain access tokens.
+
+Browser (the packaged release assets are also available without rebuilding):
+
+```bash
+pnpm install --frozen-lockfile
+pnpm run check:runtime
+pnpm run typecheck
+pnpm test
+pnpm run build
+DSH_TEST_CLI="$DSH_VALIDATION_ROOT/runtime/node_modules/@deepseek-ai/dsh/lib/bin.js" pnpm run test:smoke
+(cd packages/browser/bridge-browser && pnpm pack --pack-destination "$DSH_VALIDATION_ROOT/artifacts")
+```
+
+Load `extensions/dsh-browser/dist/` in Chrome and verify manifest `0.1.12`. The smoke test uses
+the complete official npm CLI because the development dependency may lack required runtime peers.
+Do not replace smoke assertions or run the installer against an existing formal Web profile.
+For release installation, download the checksum-verified bridge tarball to a stable local path
+and install it with `dsh plugin --profile <candidate-profile> add <tarball-path>`;
+extract and load the matching Chrome zip separately, then reload the extension.
+
+Record/Replay:
+
+```bash
+pnpm install --frozen-lockfile
+node scripts/link-dsh.mjs --path "$DSH_VALIDATION_ROOT/runtime/node_modules/@deepseek-ai"
+pnpm run validate
+pnpm pack --pack-destination "$DSH_VALIDATION_ROOT/artifacts"
+```
+
+Spend:
+
+```bash
+pnpm install --frozen-lockfile
+pnpm test
+pnpm pack --pack-destination "$DSH_VALIDATION_ROOT/artifacts"
+```
+
+Computer Use source requires its pinned pnpm `11.21.0`, not `11.7.0`:
+
+```bash
+npm install --prefix "$DSH_VALIDATION_ROOT/computer-tools" --save-exact pnpm@11.21.0
+PATH="$DSH_VALIDATION_ROOT/computer-tools/node_modules/.bin:$PATH" pnpm install --frozen-lockfile
+PATH="$DSH_VALIDATION_ROOT/computer-tools/node_modules/.bin:$PATH" pnpm run check
+PATH="$DSH_VALIDATION_ROOT/computer-tools/node_modules/.bin:$PATH" pnpm pack --pack-destination "$DSH_VALIDATION_ROOT/artifacts"
+```
+
+Check its `packageManager` integrity and return to the profile's pnpm before installing artifacts.
+On Linux, skip the macOS package or disable `computer-engine`, `computer-tools` and
+`computer-policy` for a loading-only check. Do not report native behavior as passed there.
+Record/Replay retains the packaging fix after `v0.3.0`, whose empty allowBuilds placeholder
+breaks pnpm 11 installation. Build the pinned recorder helper on macOS before enabling recording.
 
 ### ImageGen source build
 

@@ -47,9 +47,11 @@ dsh --profile <profile> --dump-config
 - [固定安装示例](#固定安装示例)
 - [依赖关系](#依赖关系)
 - [Desktop 部署](#desktop-部署)
-- [发布与上游检查](docs/release-source-checks.zh-CN.md)
+- [候选依赖 overrides](#候选依赖-overrides)
+- [发布与上游检查](#发布与上游检查)
 - [与上游的关系](#与上游的关系)
 - [特殊产品](#特殊产品)
+- [适配插件源码构建](#适配插件源码构建)
 - [插件目录之外的 macOS 服务](#插件目录之外的-macos-服务)
 - [验证清单](#验证清单)
 - [许可证](#许可证)
@@ -121,7 +123,7 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 | --- | --- | --- | --- |
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、GPT/Codex Responses 路由、账号/配额界面（含 Kimi Code）、速度模式、图片生成服务 | GitHub Release `v0.4.8` | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
 | [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | 将本地 Tencent WorkBuddy/CodeBuddy 模型接入 DSH 的 OpenAI 兼容 provider | GitHub Release `v0.2.7` | Node `≥20.18.1`；已登录的 WorkBuddy/CodeBuddy 桌面会话；本地 bridge 默认监听 `127.0.0.1:8318` |
-| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | GitHub Release `v0.1.13-dev.1` bridge tarball + Chrome extension zip；bridge `0.0.13-dev.1` | Node/pnpm；需同时构建 bridge 和 Chrome 扩展；Firefox 需要下文的手动 Firefox 构建和 token 配置 |
+| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | GitHub Release `v0.1.13-dev.1` bridge tarball + Chrome extension zip；bridge `0.0.13-dev.1` | 匹配的 bridge 与 Chrome 扩展物料；仅源码安装时需要同时构建；Firefox 需要单独构建与 token 配置 |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.6-dev.2` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.24.1` | Taskboard 和 ImageGen 的可选 UI 服务；`0.24.1` 声明 DSH `^0.2.0-rc.1` peer；消费者的可选 peer 已覆盖该版本，见兼容性说明 |
 | [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | 面向 DSH 的模型中立低延迟决策层：提供可插拔决策引擎与 Provider、有限候选集决策协议，以及 Browser / Computer / Custom 环境适配器 | GitHub Release `v0.4.19` | DSH peer 服务；可选固定 SDK `@receptron/laya@0.1.1` 提供本地推理；若启用 browser/computer 适配器需相应宿主工具/插件支持 |
@@ -138,19 +140,24 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 
 本轮候选目标为官方 `@deepseek-ai/dsh@0.2.0-rc.2`，未验证 `0.2.1-alpha.1`。
 Browser、Computer Use 和 Spend 通过上表固定 GitHub Release 交付；Record/Replay 的 `0.3.3-dev.1` 继续使用精确 Git commit。fork 不按同名裸 npm 包安装。
-完整[调整表、构建与本地验证步骤](docs/dsh-0.2.0-rc.2.zh-CN.md)及[本地验证提示词](docs/local-validation-prompt.zh-CN.md)已独立保存。
+安装、发布来源、源码构建和 Desktop 验证统一保存在本 README 及英文版中。
 
 737 项插件测试通过；Linux CLI/Web 基础检查中，13 个插件激活，Computer Use 的三个原生条目禁用。
 这项 Linux 历史证据不包含模型调用、真实浏览器操作、移动配对、macOS 原生录制或完整 UI 交互。
-同一 Host 目标的后续 [Desktop 验收范围](docs/desktop-0.2.0-rc.2.zh-CN.md#已验证范围与已知限制)另列，不能混为一次全平台验证。
+同一 Host 目标的后续 [Desktop 验收范围](#desktop-验收)另列，不能混为一次全平台验证。
 
 每个 package 的 peer 范围和 `dsh.compatibility` 才是兼容声明依据。Host 的 peer 检查使用 `includePrerelease: true`，
 所以 `>=0.1.7-rc.1 <0.2.0` 可以接受 `0.2.0-rc.2`，而 `^0.1.7-rc.1` 不能；不能仅凭范围的外观决定是否改写。
 四个适配仓库使用精确的 `0.2.0-rc.2` 声明。Node 24 为本轮验证环境；各包的 `engines` 仍需满足。
 
 CPA `v0.4.8` 的旧版直接依赖可能把 Host settings/config-editor 降到 0.1.7。候选 profile 必须使用
-[文档中的精确 overrides](docs/dsh-0.2.0-rc.2.zh-CN.md#候选-profile-依赖解析)统一相关官方包；不要修改插件 node_modules。
+[候选依赖 overrides](#候选依赖-overrides)统一相关官方包；不要修改插件 node_modules。
 本轮 fork 版本选择性吸收上游修复：Browser 支持 `browser_open_tab({ active: false })`，保留会话绑定与审批；Taskboard 持久化到期窗口，串行 FIFO 派发，默认间隔一秒；ImageGen 对图库保存失败给出提示，重试只保存图片，不重新生成。保留 Sidebar 0.24.1 集成。自动派生后继卡片、批量永久删除、studio/OAuth 与批量 ZIP 暂缓。
+
+这些目标还保留此前的集成修复：Taskboard 的 producer-owned 调度消息、ImageGen settings entry 标识、
+Spend 悬浮组件不遮挡 Taskboard 弹窗、Decision Engine 在 Web Server 就绪后注册路由、
+Computer Use 等待 AppKit 启动与首个可访问窗口。Lazy Gate 在 prompt 组装时同步 Host 已收集的工具目录，
+包括同轮用户解锁；该同步不会授予权限。
 
 Taskboard `v0.7.7` 和 ImageGen `v0.5.10` 的可选 Better Sidebar peer 已明确覆盖 `^0.21.1 || 0.24.1`。
 Host 激活、资源请求和 Taskboard/Gallery 侧栏入口已验证；模型功能与权限仍须按部署环境验收，不使用版本豁免。
@@ -159,10 +166,39 @@ Record/Replay 新候选版本保留 `v0.3.1` 的打包修复。不要安装 `v0.
 ImageGen `v0.5.10` 源码构建使用 CPA `v0.4.8`，CPA peer 为 `>=0.4.0 <0.5.0`；必须使用经过 checksum 验证的 Release tarball，因为 Git 忽略了 `lib/`。
 DSH base 和 Web Host bundle 是宿主层，不作为社区插件列在本目录中。
 
+### 候选依赖 overrides
+
+针对已验证的 Host `0.2.0-rc.2`，安装 CPA 前将以下设置合并到候选 profile 的
+`$DSH_HOME/profiles/<candidate-profile>/pnpm-workspace.yaml`。
+保留已有字段与 overrides；其他 Host 必须重新验证，不能直接沿用这些 pin。
+
+```yaml
+nodeLinker: hoisted
+autoInstallPeers: false
+allowBuilds:
+  '@google/genai': true
+  protobufjs: true
+overrides:
+  '@deepseek-ai/dsh-atomic-write': 0.2.0-rc.2
+  '@deepseek-ai/dsh-brand': 0.2.0-rc.2
+  '@deepseek-ai/dsh-config-editor': 0.2.0-rc.2
+  '@deepseek-ai/dsh-credentials': 0.2.0-rc.2
+  '@deepseek-ai/dsh-llm': 0.2.0-rc.2
+  '@deepseek-ai/dsh-settings': 0.2.0-rc.2
+  '@deepseek-ai/dsh-timeout': 0.2.0-rc.2
+  '@deepseek-ai/dsh-typert-protocol': 0.2.0-rc.2
+  '@deepseek-ai/dsh-util-crypto': 0.2.0-rc.2
+  '@deepseek-ai/dsh-util-values': 0.2.0-rc.2
+```
+
+pnpm 11 的构建授权在该 workspace YAML 中。其他包请求构建脚本时，先检查脚本再按需授权；
+不要全局放开构建或使用版本豁免。Host 版本线只比较 `@deepseek-ai/dsh-*`，包含 prerelease；
+Cordis 与 Schemastery 使用独立版本线，不混入比较。
+
 ## 固定安装示例
 
 第一轮请使用新建的 `<candidate-profile>`。目标 profile 必须已经提供 DSH 官方 Web Host bundle；
-它不是本目录中的社区插件。安装 CPA 前先合并上文链接的 profile overrides。Computer Use 仅在 macOS 原生服务准备好后启用；其他平台跳过该行。下面只使用公开且精确的来源：
+它不是本目录中的社区插件。安装 CPA 前先合并上文的候选依赖 overrides。Computer Use 仅在 macOS 原生服务准备好后启用；其他平台跳过该行。下面只使用公开且精确的来源：
 
 ```bash
 # 先安装 provider（v0.4.8 与 v0.2.7 tag 对应的 commit）。
@@ -231,11 +267,126 @@ skill 元数据后，也可以门控 `taskboard` 和 `recorder`。每个门控�
 ## Desktop 部署
 
 官方 Desktop 使用自身 Host 和 Plugin Manager，CLI/Web profile 的安装结果不会自动出现在 Desktop。
-参见 [Desktop 部署与验收](docs/desktop-0.2.0-rc.2.zh-CN.md)：包含 Chrome 一次性桥地址配置、原生 helper 权限、数据迁移核对及已知限制。
+安装前核对 Desktop 的实际 Host、Home 与 profile。在独立 candidate Home 中验证，保留已有配置和数据，
+通过后再部署并重启正式 Desktop。从 Finder 启动时，使用该版本支持的 Home 配置方式，不假定继承终端的环境变量。
+使用 Desktop 自身 Plugin Manager 和目录固定来源，provider 先于消费者安装，合并 CPA overrides。
 仅保留官方桌面入口即可；Browser 不需要额外启动器，Computer Use 的原生 helper 仍按实际 provider 保留。
 
-发布状态与上游新版本分开核对，方法见[发布来源与 PR-first 检查](docs/release-source-checks.zh-CN.md)。
-Record/Replay `0.3.3-dev.1` 是公开精确 commit 交付，尚无对应 Release；Laya 是可选 SDK，Mobile 是可选客户端。
+Browser 由 Desktop bridge 和独立加载的 Chrome 扩展组成。在 `chrome://extensions` 核对两个版本，
+更新后重载，扩展与 bridge 使用同一固定 Release。桥地址留空时自动探测 `3080 / 3081 / 3090 / 14389 / 43189`；
+实际 Host 使用其他端口时，在扩展内配置：
+
+```text
+ws://127.0.0.1:<实际 Desktop Host 端口>/ext/bridge
+```
+
+Chrome 本机 loopback 无需手动填写 token；Firefox 与远程部署仍按文档认证。
+连接成功不等于获得控制授权：会话 `/browser` 门禁和扩展审批仍需遵守。
+保留 Computer Use 的 native helper 与 TCC 权限；同一个 helper 同时出现在“辅助功能”和“录屏与系统录音”中，
+并非两个客户端。Desktop 自身权限不能替代 helper 权限；原生 preflight 必须在实际 Host 内验证。
+
+迁移前备份会话、附件、Taskboard、Gallery 与配置，迁移后核对标题、历史日志解析、任务工作区归属和图片资源。
+不要复制 `node_modules`、改签官方应用或修改应用内 Host。独立 Web 与 Desktop Home 不会自动同步数据。
+重启 Host 可能结束 Sidebar 终端。卸载独立 Web 时，仍须保留 Desktop 内部 HTTP / Browser bridge。
+Mobile 为可选客户端，Desktop-only 部署跳过。
+
+### Desktop 验收
+
+下表是目标组合的验证证据，不是本机实时安装清单，也不保证其他凭据、平台或模型输入同样通过。
+分类只针对表内明确验证的范围。
+
+| 分类 | 功能 / 目标 | 证据与限制 |
+| --- | --- | --- |
+| 完全可用 | CPA `0.4.8`、WorkBuddy `0.2.7` | 真实文本模型回复；生图/编辑复测成功，但某次 provider 编辑返回只有文字 |
+| 完全可用 | Browser `v0.1.13-dev.1` | 540 源码测试；用户重载并批准后，后台开页保留前台，后续输入与点击准确作用于新后台页；Firefox 未测 |
+| 完全可用 | Taskboard `0.7.7` | 439 测试通过，2 项可选 Git 测试跳过；两个定时任务获真实模型回复，派发间隔一秒 |
+| 完全可用 | ImageGen `0.5.10`、Sidebar `0.24.1` | 148 项 ImageGen 测试；Gallery/Taskboard 入口与已保存图片验证通过；IndexedDB 故障重试由源码测试验证，未在正式图库制造故障 |
+| 完全可用 | Computer Use `0.1.6-dev.2` | 原生构建与用户批准后的真实输入/点击；未取得原生权限的 candidate 不能算通过 |
+| 完全可用 | Record/Replay `0.3.3-dev.1` | 用户手动 `/open-record-replay` 后确认录制/回放可用；代理不得代为解锁或自行发起录制 |
+| 完全可用 | Spend `0.6.7-dev.2` | 真实用量与 UI 通过；费用为估算 |
+| 完全可用 | Lazy Gate `0.1.7` | 官方 Host 首轮工具目录、同轮用户解锁通过；顶部汇总加载数量，带可访问名称的刷新图标取代逐卡重复文字 |
+| 完全可用，仅建议模式 | Decision Engine `0.4.19` | 显式 `executionMode: advice-only` 只提供 `decision_decide`，拦截动作/任务且不注册 `decision_run`；默认仍为 `execute`，执行模式未测 |
+| 需调整 | 可选 Laya SDK `0.1.1` | 推理可用，4 个约束质量样例中 1 个失败；`0.1.2` 未做质量验收，不采纳自动执行 |
+| 需调整 | GitHub MCP `1.1.0` | REST `github_file_read` 可用；官方 Host 未将 MCP embedded resource 正文呈现给模型 |
+| 完全可用 | Sandbox shim `0.1.1` | read-only/workspace-write 不改 schema；只在已有 danger-full-access 授权下去除冗余字段 |
+| 部分不兼容 | 旧历史日志格式 | 旧子代理 descriptor 和 `request/header.config.speed` 可能被目标 Host 拒绝；保留原文件，等待受支持的迁移 |
+| 跳过 | Mobile `0.6.1` | 可选客户端；Desktop-only 验收不包含配对与远程访问 |
+
+Host 外供依赖和 prerelease peer 提示应与实际依赖解析分别核对。
+Taskboard/ImageGen 的旧可选 Sidebar 警告已由 `^0.21.1 || 0.24.1` 解决，没有版本豁免。
+没有内容的旧空会话无法推导标题；孤立任务归属需要权威证据，不能任意重绑定。
+
+## 发布与上游检查
+
+GitHub Release、registry 发布和公开精确 commit 是不同交付形式。
+Browser、Taskboard、ImageGen、Lazy Gate、Decision Engine、Computer Use 和 Spend 的目标修复均有公开 Release，
+已评估的 main 快照与对应目标 tag 一致。Record/Replay `0.3.3-dev.1` 仍只有公开精确 commit，没有对应 Release。
+GitHub MCP 也使用精确 commit，来源仓库没有对应 tag/Release。
+Computer Use 已有 GitHub Release/tarball，但 npm 发布 workflow 报 `ENEEDAUTH`；目录不依赖该 registry 发布。
+CPA 和 WorkBuddy 的 tag 有公开 Release，采用 Git 交付，未提供 tarball asset。
+
+针对目录目标，解析远端 tag 的 commit，核对 Release 非 draft、asset checksum 和真实运行入口。
+另查 registry dist-tags 或 Release 元数据发现新版本；`main` 的 package 版本不代表已经发布。
+
+```bash
+gh release view <目录指定的-tag> --repo <owner/repo> \
+  --json tagName,isDraft,isPrerelease,publishedAt,assets,url
+gh api repos/<owner/repo>/git/ref/tags/<目录指定的-tag>
+# annotated tag 继续读取 git/tags/<object.sha>，直到解析为 commit。
+npm view <registry-package>@<精确版本> version dist.integrity
+```
+
+以下身份用于核对目录固定来源，不是本机安装清单：
+
+| 来源 | 目标 | 提交 |
+| --- | --- | --- |
+| CPA | `v0.4.8` | `bd0d80adaac42046a2b54dcf9dc72ce881be5caf` |
+| WorkBuddy | `v0.2.7` | `4033d36714714e5da01d022cf0930ecd20d739b2` |
+| Browser | `v0.1.13-dev.1` | `38d015d6f87cbb57c05539565dc67de0de5dd7d0` |
+| Computer Use | `v0.1.6-dev.2` | `189ec1ca73c98c4dc3b7413635351369ec54bc9c` |
+| Decision Engine | `v0.4.19` | `eca7ec65ce316de9d17b442ae7a26beb8abc79be` |
+| GitHub MCP | 精确 commit | `5be9077d46bfed66b76843bbcc7bdc459990b3af` |
+| ImageGen | `v0.5.10` | `73a37d2f6842d12c3b27b74c479f6ae3f0981447` |
+| Record/Replay | 精确 commit | `277a05b527ccfaf8e555933209e70886bf1e545d` |
+| Sandbox shim | `sandbox-schema-shim-v0.1.1` | `ba4088c1a7b77b1c73fd5d5438f46800720d6bcd` |
+| Spend | `v0.6.7-dev.2` | `592db2d44adb7f416a399f65c79e5255c680cf90` |
+| Taskboard | `v0.7.7` | `9e1ffad0245e72218597d8aafc72da8c91000458` |
+| Lazy Gate | `v0.1.7` | `4dacae05b5b3df698121f41285d38982655c0b90` |
+| 录制器 helper | `v0.1.1` | `91188499023cbce9f56c11b58f71bc7e8298a33d` |
+
+| Release asset | SHA-256 |
+| --- | --- |
+| [Browser bridge tarball](https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.13-dev.1/yuxianglin-dsh-bridge-browser-0.0.13-dev.1.tgz) | `803232e3837202ddc29091782e7070c43536afb7a6846ada1640540d9a053c8d` |
+| [Chrome extension zip](https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.13-dev.1/dsh-browser-extension-0.1.13-dev.1.zip) | `eb21db4aff93a8655d253df8ca80ff7d13170cbf86a21dac6998dbb68cbe7f7d` |
+| [Computer Use tarball](https://github.com/LiuRJ99/dsh-computer-use/releases/download/v0.1.6-dev.2/zibokapi-dsh-codex-computer-use-0.1.6-dev.2.tgz) | `2d37b6a9385e5d2724c1d2feb0a96c44fbbb179ed4a64391b2ef8054810c3e5a` |
+| [Decision Engine tarball](https://github.com/LiuRJ99/dsh-decision-engine/releases/download/v0.4.19/dsh-decision-engine-0.4.19.tgz) | `996e9ef7acc14eb84c658c4663effd2c2bc30ebf7522a3187ef231dc4a4b6a5f` |
+| [ImageGen tarball](https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.10/dsh-image-gen-0.5.10.tgz) | `ac7876f5a2b72e5ecec40bf365bb6fc1ca1da0c94162a90d872eb3fb914b2b24` |
+| [Spend tarball](https://github.com/LiuRJ99/dsh-spend/releases/download/v0.6.7-dev.2/dsh-spend-0.6.7-dev.2.tgz) | `738f10fd9229c8d80e1902c0a5571d7d988da48dae514501d5090e492951f581` |
+| [Taskboard tarball](https://github.com/LiuRJ99/dsh-taskboard-cloader/releases/download/v0.7.7/dsh-taskboard-0.7.7.tgz) | `596e1b85b48e47cdeeaabae7a54bd0d8d22ba1a4e6c04fb5c465716af4bd8b40` |
+| [Lazy Gate tarball](https://github.com/LiuRJ99/dsh-tool-lazy-gate/releases/download/v0.1.7/dsh-tool-lazy-gate-0.1.7.tgz) | `a0c4c83dd6e6839a4e2e4efc19c9e40ca1549ec9b734e5834e4883c612ab8dc4` |
+
+fork 先查询默认分支上 `sync/upstream-main` 的 open PR，审完整正文、commits、files、reviews 和决策评论，
+之后才考虑本地上游 fetch/diff/合并。PR 是冻结快照，不随上游前进刷新。
+workflow 成功只说明检测运行过，不说明功能已采纳；无 open PR 时先查 workflow 与上次评估边界。
+
+```bash
+gh pr list --repo <fork-owner/repo> --base <默认分支> \
+  --head sync/upstream-main --state open
+gh pr view <编号> --repo <fork-owner/repo> --json body,commits,files,comments,reviews
+gh api --paginate repos/<fork-owner/repo>/pulls/<编号>/files
+gh run list --repo <fork-owner/repo> --workflow sync-upstream.yml --limit 3
+```
+
+每个 fork 的每日同步 workflow 应保留已有 open 快照与 last-evaluated upstream SHA。
+源码/配置冲突与生成物、lockfile 分开评估。选择性吸收或拒绝在关闭 PR 时记录 `partial` / `rejected`，
+整包吸收记录 `whole`；评估边界之后的新提交进入下一轮，不自动合并，也不使用 `-X ours`。
+自维护仓库核对 main 与 release 来源，区分运行时改动和文档/workflow 改动后再决定是否需要发包。
+
+| 同步 PR（已按 `partial` 关闭） | 已吸收并发布 | 暂缓 / 保留 |
+| --- | --- | --- |
+| [Browser #5](https://github.com/LiuRJ99/dsh-browser/pull/5) | `6d6ce252`：后台开页、审批提示、前台与控制目标分离；`v0.1.13-dev.1` | 保留 DSH 0.2 peers、独立会话绑定和权限限制 |
+| [Taskboard #5](https://github.com/LiuRJ99/dsh-taskboard-cloader/pull/5) | `930bb2c6` / `5746284b`：持久化队列、原子交接、串行派发与可取消等待；`v0.7.7` | 不引入自动后继卡片、runAt 重设计、批量永久删除；保留周期审核卡片及 Sidebar 集成 |
+| [ImageGen #5](https://github.com/LiuRJ99/dsh-image-gen/pull/5) | `d9a58cd9`：保存结果传播和只重试保存的 UI；`v0.5.10` | 保留 CPA、事务、删除标记、收藏和工作区元数据；暂缓 studio/OAuth/批量 ZIP |
 
 ## 与上游的关系
 
@@ -255,7 +406,7 @@ Record/Replay `0.3.3-dev.1` 是公开精确 commit 交付，尚无对应 Release
 | `open-record-replay`（辅助 CLI） | `humblebanana/open-record-replay` | fork 固定录制 CLI 的外部 cwd 行为、native 构建目标；它不是独立 DSH 插件 |
 
 每个 fork 先查询 `sync/upstream-main` 的 open PR；有 PR 时审完整正文、commits、files 和决策评论，不先做本地 fetch/diff/试合并。
-同步 workflow 成功不代表内容已经吸收。检查步骤见[发布来源核对](docs/release-source-checks.zh-CN.md#fork-先查询同步-pr)。
+同步 workflow 成功不代表内容已经吸收。检查步骤见[发布与上游检查](#发布与上游检查)。
 
 规则：
 
@@ -269,7 +420,7 @@ Record/Replay `0.3.3-dev.1` 是公开精确 commit 交付，尚无对应 Release
 这些插件的安装不止一条 `dsh plugin add`。
 
 - **Browser** —— 需要 bridge 与浏览器扩展同时就绪。检出精确 commit `38d015d6f87cbb57c05539565dc67de0de5dd7d0`，
-  冻结安装、构建 workspace、打包 bridge，再安装到 candidate profile；详见[本地步骤](docs/dsh-0.2.0-rc.2.zh-CN.md#构建四个适配插件)。
+  冻结安装、构建 workspace、打包 bridge，再安装到 candidate profile；详见[源码构建](#适配插件源码构建)。
   Chrome 加载 `extensions/dsh-browser/dist/`。本 Release 的扩展 manifest 为 `0.1.12`；需同时核对实际加载的扩展与 bridge `0.0.13-dev.1`。
   `scripts/install.sh` 默认修改 `web` profile，本轮 candidate 验证使用显式打包安装步骤。
   没有完整 checkout 时，远程 convenience installer 会下载 `main`，这条路径不算固定安装。
@@ -294,6 +445,76 @@ Record/Replay `0.3.3-dev.1` 是公开精确 commit 交付，尚无对应 Release
   必须使用这个 fork：本插件以会话工作区作为 CLI 的 cwd，而上游录制器以 `process.cwd()` 定位 Swift 包，
   因此 recorder-backed 的权限/录制调用会报 `chdir error: No such file or directory (2)`，质量命令从外部 cwd
   运行时也会失败。该 fork 同时把 native 录制器的部署目标降到 macOS 13 / Swift 5.9。
+
+### 适配插件源码构建
+
+先检查已有 checkout 改动；已有 main 使用 `git pull --ff-only`，缺少的仓库再 clone。
+复现时在单独 checkout 固定为上表 tag/commit，不 reset、clean 或丢弃改动。读取适用的仓库 `AGENTS.md`。
+
+以下创建独立的 **CLI 源码测试运行时**，不是安装 Desktop。
+使用 Node 24，保留已有 Home，固定完整官方 npm Host：
+
+```bash
+export DSH_VALIDATION_ROOT="$PWD/.dsh-validation"
+mkdir -p "$DSH_VALIDATION_ROOT/runtime" "$DSH_VALIDATION_ROOT/artifacts"
+npm install --prefix "$DSH_VALIDATION_ROOT/runtime" --save-exact \
+  @deepseek-ai/dsh@0.2.0-rc.2 pnpm@11.7.0
+export PATH="$DSH_VALIDATION_ROOT/runtime/node_modules/.bin:$PATH"
+export DSH_HOME="$DSH_VALIDATION_ROOT/home"
+dsh --profile candidate-0.2 --from-default-profile web --dump-config >/dev/null
+```
+
+安装 CPA 前合并候选 overrides。下面各组命令在相应固定源码仓库根目录执行。
+源码测试和打包不能证明 Desktop 原生权限或模型行为正确；输出不得含秘密，Host 启动日志可能包含访问 token。
+
+Browser（无需重建时，也可直接使用发布物料）：
+
+```bash
+pnpm install --frozen-lockfile
+pnpm run check:runtime
+pnpm run typecheck
+pnpm test
+pnpm run build
+DSH_TEST_CLI="$DSH_VALIDATION_ROOT/runtime/node_modules/@deepseek-ai/dsh/lib/bin.js" pnpm run test:smoke
+(cd packages/browser/bridge-browser && pnpm pack --pack-destination "$DSH_VALIDATION_ROOT/artifacts")
+```
+
+Chrome 加载 `extensions/dsh-browser/dist/`，核对 manifest `0.1.12`。
+smoke 使用完整官方 npm CLI，因为开发依赖副本可能缺少必需 runtime peer。
+不要修改 smoke 断言或让 installer 覆盖已有正式 Web profile。
+从 Release 安装时，将 checksum 已核对的 bridge tarball 下载到稳定本地路径，
+用 `dsh plugin --profile <candidate-profile> add <tarball-path>` 安装；匹配的 Chrome zip 单独解压、加载并重载。
+
+Record/Replay：
+
+```bash
+pnpm install --frozen-lockfile
+node scripts/link-dsh.mjs --path "$DSH_VALIDATION_ROOT/runtime/node_modules/@deepseek-ai"
+pnpm run validate
+pnpm pack --pack-destination "$DSH_VALIDATION_ROOT/artifacts"
+```
+
+Spend：
+
+```bash
+pnpm install --frozen-lockfile
+pnpm test
+pnpm pack --pack-destination "$DSH_VALIDATION_ROOT/artifacts"
+```
+
+Computer Use 源码需要仓库固定的 pnpm `11.21.0`，不能使用 `11.7.0` 替代：
+
+```bash
+npm install --prefix "$DSH_VALIDATION_ROOT/computer-tools" --save-exact pnpm@11.21.0
+PATH="$DSH_VALIDATION_ROOT/computer-tools/node_modules/.bin:$PATH" pnpm install --frozen-lockfile
+PATH="$DSH_VALIDATION_ROOT/computer-tools/node_modules/.bin:$PATH" pnpm run check
+PATH="$DSH_VALIDATION_ROOT/computer-tools/node_modules/.bin:$PATH" pnpm pack --pack-destination "$DSH_VALIDATION_ROOT/artifacts"
+```
+
+核对 `packageManager` integrity，操作 profile 前恢复相应 pnpm。
+Linux 跳过 macOS 包，或在仅加载检查时禁用 `computer-engine`、`computer-tools`、`computer-policy`，不能报告原生功能通过。
+Record/Replay 保留 `v0.3.0` 之后的打包修复；该旧版本的空 allowBuilds 占位符会破坏 pnpm 11 安装。
+启用录制前，须在 macOS 构建固定来源的录制器 helper。
 
 ### ImageGen 源码构建
 
