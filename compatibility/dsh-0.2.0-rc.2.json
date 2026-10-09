@@ -27,10 +27,17 @@
         "repository": "https://github.com/LiuRJ99/dsh-cpa-plugin",
         "type": "git",
         "commit": "bd0d80adaac42046a2b54dcf9dc72ce881be5caf",
-        "installSpec": "github:LiuRJ99/dsh-cpa-plugin#bd0d80adaac42046a2b54dcf9dc72ce881be5caf"
+        "installSpec": "github:LiuRJ99/dsh-cpa-plugin#bd0d80adaac42046a2b54dcf9dc72ce881be5caf",
+        "tag": "v0.4.8"
       },
       "hostCheck": "active",
-      "endToEndStatus": "requires-local-validation"
+      "endToEndStatus": "requires-local-validation",
+      "publication": {
+        "kind": "github-release",
+        "tag": "v0.4.8",
+        "url": "https://github.com/LiuRJ99/dsh-cpa-plugin/releases/tag/v0.4.8",
+        "tagCommitMatchesCatalog": true
+      }
     },
     {
       "name": "@LiuRJ99/dsh-workbuddy-provider",
@@ -40,29 +47,51 @@
         "repository": "https://github.com/LiuRJ99/dsh-workbuddy-provider",
         "type": "git",
         "commit": "4033d36714714e5da01d022cf0930ecd20d739b2",
-        "installSpec": "github:LiuRJ99/dsh-workbuddy-provider#4033d36714714e5da01d022cf0930ecd20d739b2"
+        "installSpec": "github:LiuRJ99/dsh-workbuddy-provider#4033d36714714e5da01d022cf0930ecd20d739b2",
+        "tag": "v0.2.7"
       },
       "hostCheck": "active",
-      "endToEndStatus": "requires-local-validation"
+      "endToEndStatus": "requires-local-validation",
+      "publication": {
+        "kind": "github-release",
+        "tag": "v0.2.7",
+        "url": "https://github.com/LiuRJ99/dsh-workbuddy-provider/releases/tag/v0.2.7",
+        "tagCommitMatchesCatalog": true
+      }
     },
     {
       "name": "@yuxianglin/dsh-bridge-browser",
       "label": "Browser",
-      "version": "0.0.12-dev.1",
+      "version": "0.0.13-dev.1",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-browser",
         "type": "release-tarball",
-        "commit": "15b05576ecdb1188fc90d4829a49e843a39bbcd6",
+        "commit": "38d015d6f87cbb57c05539565dc67de0de5dd7d0",
         "installMethod": "build-and-pack",
         "packagePath": "packages/browser/bridge-browser",
-        "workspaceVersion": "0.1.12-dev.1",
-        "tag": "v0.1.12-dev.1",
-        "url": "https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.12-dev.1/yuxianglin-dsh-bridge-browser-0.0.12-dev.1.tgz",
-        "sha256": "fdee86f9724dc99642cd61c930c3be267deb38c35b15d8eee1428621ff97a777",
-        "chromeExtensionAsset": "dsh-browser-extension-0.1.12-dev.1.zip"
+        "workspaceVersion": "0.1.13-dev.1",
+        "tag": "v0.1.13-dev.1",
+        "url": "https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.13-dev.1/yuxianglin-dsh-bridge-browser-0.0.13-dev.1.tgz",
+        "sha256": "803232e3837202ddc29091782e7070c43536afb7a6846ada1640540d9a053c8d",
+        "chromeExtensionAsset": "dsh-browser-extension-0.1.13-dev.1.zip",
+        "chromeExtensionManifestVersion": "0.1.12",
+        "chromeExtensionSha256": "eb21db4aff93a8655d253df8ca80ff7d13170cbf86a21dac6998dbb68cbe7f7d",
+        "chromeExtensionUrl": "https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.13-dev.1/dsh-browser-extension-0.1.13-dev.1.zip"
       },
       "hostCheck": "active",
-      "endToEndStatus": "requires-local-validation"
+      "endToEndStatus": "requires-local-validation",
+      "publication": {
+        "kind": "github-release",
+        "tag": "v0.1.13-dev.1",
+        "url": "https://github.com/LiuRJ99/dsh-browser/releases/tag/v0.1.13-dev.1",
+        "tagCommitMatchesCatalog": true
+      },
+      "componentChecks": [
+        "bridge package version and release digest",
+        "Chrome loaded manifest version and source directory",
+        "loopback bridge address and connected tab query",
+        "user-gated control approval"
+      ]
     },
     {
       "name": "@zibokapi/dsh-codex-computer-use",
@@ -83,7 +112,20 @@
         "computer-engine",
         "computer-tools",
         "computer-policy"
-      ]
+      ],
+      "publication": {
+        "kind": "github-release",
+        "tag": "v0.1.6-dev.2",
+        "url": "https://github.com/LiuRJ99/dsh-computer-use/releases/tag/v0.1.6-dev.2",
+        "tagCommitMatchesCatalog": true,
+        "npmExactVersionAvailable": false,
+        "npmPublishWorkflow": {
+          "status": "failed",
+          "errorCode": "ENEEDAUTH",
+          "runtimeCI": "passed",
+          "url": "https://github.com/LiuRJ99/dsh-computer-use/actions/runs/37753408718"
+        }
+      }
     },
     {
       "name": "dsh-better-sidebar",
@@ -95,7 +137,11 @@
         "installSpec": "dsh-better-sidebar@0.24.1"
       },
       "hostCheck": "active",
-      "endToEndStatus": "requires-local-validation"
+      "endToEndStatus": "requires-local-validation",
+      "publication": {
+        "kind": "registry-exact-version",
+        "versionAvailable": true
+      }
     },
     {
       "name": "dsh-decision-engine",
@@ -111,7 +157,13 @@
         "installSpec": "github:LiuRJ99/dsh-decision-engine#v0.4.19"
       },
       "hostCheck": "active",
-      "endToEndStatus": "requires-local-validation"
+      "endToEndStatus": "requires-local-validation",
+      "publication": {
+        "kind": "github-release",
+        "tag": "v0.4.19",
+        "url": "https://github.com/LiuRJ99/dsh-decision-engine/releases/tag/v0.4.19",
+        "tagCommitMatchesCatalog": true
+      }
     },
     {
       "name": "dsh-github-mcp",
@@ -124,19 +176,24 @@
         "installSpec": "github:GitRuozhi/dsh-github-mcp#5be9077d46bfed66b76843bbcc7bdc459990b3af"
       },
       "hostCheck": "active",
-      "endToEndStatus": "requires-local-validation"
+      "endToEndStatus": "requires-local-validation",
+      "publication": {
+        "kind": "public-exact-commit",
+        "commitAvailable": true,
+        "matchingRelease": false
+      }
     },
     {
       "name": "dsh-image-gen",
       "label": "ImageGen",
-      "version": "0.5.9",
+      "version": "0.5.10",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-image-gen",
         "type": "release-tarball",
-        "url": "https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.9/dsh-image-gen-0.5.9.tgz",
-        "sha256": "a16042e2a9d16dada99da9d24a0c3356b117e1d91b52a3a9efb5aa92f8e410d5",
-        "tag": "v0.5.9",
-        "commit": "9999171f6acde47f1edcc42bd3b80ca5395faee9"
+        "url": "https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.10/dsh-image-gen-0.5.10.tgz",
+        "sha256": "ac7876f5a2b72e5ecec40bf365bb6fc1ca1da0c94162a90d872eb3fb914b2b24",
+        "tag": "v0.5.10",
+        "commit": "73a37d2f6842d12c3b27b74c479f6ae3f0981447"
       },
       "hostCheck": "active",
       "endToEndStatus": "requires-local-validation",
@@ -146,6 +203,12 @@
         "candidateVersion": "0.24.1",
         "uiIntegration": "validated-taskboard-gallery-surfaces",
         "status": "resolved"
+      },
+      "publication": {
+        "kind": "github-release",
+        "tag": "v0.5.10",
+        "url": "https://github.com/LiuRJ99/dsh-image-gen/releases/tag/v0.5.10",
+        "tagCommitMatchesCatalog": true
       }
     },
     {
@@ -158,7 +221,11 @@
         "installSpec": "dsh-mobile@0.6.1"
       },
       "hostCheck": "active",
-      "endToEndStatus": "requires-local-validation"
+      "endToEndStatus": "requires-local-validation",
+      "publication": {
+        "kind": "registry-exact-version",
+        "versionAvailable": true
+      }
     },
     {
       "name": "dsh-record-replay",
@@ -171,7 +238,12 @@
         "installSpec": "github:LiuRJ99/dsh-record-replay#277a05b527ccfaf8e555933209e70886bf1e545d"
       },
       "hostCheck": "active",
-      "endToEndStatus": "requires-local-validation"
+      "endToEndStatus": "requires-local-validation",
+      "publication": {
+        "kind": "public-exact-commit",
+        "commitAvailable": true,
+        "matchingRelease": false
+      }
     },
     {
       "name": "dsh-sandbox-schema-shim",
@@ -182,10 +254,17 @@
         "type": "git",
         "commit": "ba4088c1a7b77b1c73fd5d5438f46800720d6bcd",
         "installSpec": "github:xiaohj233/dsh-compat-shims#ba4088c1a7b77b1c73fd5d5438f46800720d6bcd&path:/packages/sandbox-schema-shim",
-        "packagePath": "packages/sandbox-schema-shim"
+        "packagePath": "packages/sandbox-schema-shim",
+        "tag": "sandbox-schema-shim-v0.1.1"
       },
       "hostCheck": "active",
-      "endToEndStatus": "requires-local-validation"
+      "endToEndStatus": "requires-local-validation",
+      "publication": {
+        "kind": "github-release",
+        "tag": "sandbox-schema-shim-v0.1.1",
+        "url": "https://github.com/xiaohj233/dsh-compat-shims/releases/tag/sandbox-schema-shim-v0.1.1",
+        "tagCommitMatchesCatalog": true
+      }
     },
     {
       "name": "dsh-spend",
@@ -201,20 +280,26 @@
         "installSpec": "github:LiuRJ99/dsh-spend#v0.6.7-dev.2"
       },
       "hostCheck": "active",
-      "endToEndStatus": "requires-local-validation"
+      "endToEndStatus": "requires-local-validation",
+      "publication": {
+        "kind": "github-release",
+        "tag": "v0.6.7-dev.2",
+        "url": "https://github.com/LiuRJ99/dsh-spend/releases/tag/v0.6.7-dev.2",
+        "tagCommitMatchesCatalog": true
+      }
     },
     {
       "name": "dsh-taskboard",
       "label": "Taskboard",
-      "version": "0.7.6",
+      "version": "0.7.7",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-taskboard-cloader",
         "type": "git",
-        "commit": "b499febba8168915f105302ccb5a0d6982d348fb",
-        "tag": "v0.7.6",
-        "url": "https://github.com/LiuRJ99/dsh-taskboard-cloader/releases/download/v0.7.6/dsh-taskboard-0.7.6.tgz",
-        "sha256": "b41ef90110a6ed275334da64b395a73e23e59cdc00149aeefa8c6a44a4a49815",
-        "installSpec": "github:LiuRJ99/dsh-taskboard-cloader#v0.7.6"
+        "commit": "9e1ffad0245e72218597d8aafc72da8c91000458",
+        "tag": "v0.7.7",
+        "url": "https://github.com/LiuRJ99/dsh-taskboard-cloader/releases/download/v0.7.7/dsh-taskboard-0.7.7.tgz",
+        "sha256": "596e1b85b48e47cdeeaabae7a54bd0d8d22ba1a4e6c04fb5c465716af4bd8b40",
+        "installSpec": "github:LiuRJ99/dsh-taskboard-cloader#v0.7.7"
       },
       "hostCheck": "active",
       "endToEndStatus": "requires-local-validation",
@@ -224,23 +309,35 @@
         "candidateVersion": "0.24.1",
         "uiIntegration": "validated-taskboard-gallery-surfaces",
         "status": "resolved"
+      },
+      "publication": {
+        "kind": "github-release",
+        "tag": "v0.7.7",
+        "url": "https://github.com/LiuRJ99/dsh-taskboard-cloader/releases/tag/v0.7.7",
+        "tagCommitMatchesCatalog": true
       }
     },
     {
       "name": "dsh-tool-lazy-gate",
       "label": "Lazy Gate",
-      "version": "0.1.6",
+      "version": "0.1.7",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-tool-lazy-gate",
         "type": "git",
-        "commit": "0c065d0f574693166c53b1f061efea9b38412a60",
-        "installSpec": "github:LiuRJ99/dsh-tool-lazy-gate#v0.1.6",
-        "tag": "v0.1.6",
-        "url": "https://github.com/LiuRJ99/dsh-tool-lazy-gate/releases/download/v0.1.6/dsh-tool-lazy-gate-0.1.6.tgz",
-        "sha256": "9f4cb2d7d00d3033130f6797971911abe4daf12c92cdff226b30a9792357d967"
+        "commit": "4dacae05b5b3df698121f41285d38982655c0b90",
+        "installSpec": "github:LiuRJ99/dsh-tool-lazy-gate#v0.1.7",
+        "tag": "v0.1.7",
+        "url": "https://github.com/LiuRJ99/dsh-tool-lazy-gate/releases/download/v0.1.7/dsh-tool-lazy-gate-0.1.7.tgz",
+        "sha256": "a0c4c83dd6e6839a4e2e4efc19c9e40ca1549ec9b734e5834e4883c612ab8dc4"
       },
       "hostCheck": "active",
-      "endToEndStatus": "requires-local-validation"
+      "endToEndStatus": "requires-local-validation",
+      "publication": {
+        "kind": "github-release",
+        "tag": "v0.1.7",
+        "url": "https://github.com/LiuRJ99/dsh-tool-lazy-gate/releases/tag/v0.1.7",
+        "tagCommitMatchesCatalog": true
+      }
     }
   ],
   "releaseValidation": {
@@ -268,12 +365,93 @@
         "build": "passed"
       },
       "lazyGate": {
-        "version": "0.1.6",
+        "version": "0.1.7",
         "testsPassed": 39,
         "typecheck": "passed",
         "build": "passed",
-        "hostSystemPromptRegression": "official-0.2.0-rc.2"
+        "hostSystemPromptRegression": "official-0.2.0-rc.2",
+        "settingsSummary": "aggregate-loaded-count",
+        "refreshControl": "accessible-icon-button"
       }
+    },
+    "sourcePublicationCheckedOn": "2026-10-09",
+    "recordReplayDelivery": "public-exact-commit-without-matching-release"
+  },
+  "optionalRuntimes": [
+    {
+      "name": "@receptron/laya",
+      "version": "0.1.1",
+      "consumer": "dsh-decision-engine",
+      "source": {
+        "type": "npm",
+        "installSpec": "@receptron/laya@0.1.1"
+      },
+      "validation": {
+        "sdkInference": "passed",
+        "constraintQuality": "3-of-4-cases-passed",
+        "executeMode": "not-tested"
+      },
+      "upgradePolicy": "New SDK versions require candidate API, model and constraint-quality validation."
     }
+  ],
+  "desktopValidation": {
+    "date": "2026-10-09",
+    "hostVersion": "0.2.0-rc.2",
+    "nodeMajor": 24,
+    "platform": "darwin-arm64",
+    "scope": "Target-combination evidence; not an installed-machine inventory or universal certification.",
+    "guide": "../docs/desktop-0.2.0-rc.2.zh-CN.md",
+    "modelCalls": "passed",
+    "sidebarTaskboardGallery": "passed",
+    "browserBridgeAndTabQuery": "passed",
+    "browserPageActions": "user-confirmed",
+    "imageGenerationAndEditing": "user-confirmed",
+    "computerUseInputAndClick": "passed",
+    "recordReplay": "user-confirmed",
+    "decisionAdviceOnly": "passed",
+    "decisionExecute": "not-tested",
+    "githubRESTFileRead": "passed",
+    "githubMCPEmbeddedResource": "failed",
+    "layaConstraintQuality": "requires-improvement",
+    "mobile": "skipped",
+    "firefox": "not-tested",
+    "legacyLogDecoding": "partial-incompatibility",
+    "remainingPeerWarnings": "host-supplied-and-prerelease-peer-warnings; no version exemption"
+  },
+  "selectiveUpstreamValidation": {
+    "scope": "Source tests and official Desktop candidate on Host 0.2.0-rc.2 / Node 24; historical Linux baseline evidence is unchanged",
+    "browser": {
+      "release": "v0.1.13-dev.1",
+      "testsPassed": 540,
+      "upstreamCommits": [
+        "6d6ce252617d8b4270259937ba45bc264e4f5398"
+      ],
+      "focusAndSessionIsolation": "source-regressions-passed",
+      "chromeManifestVersion": "0.1.12",
+      "liveChromeControl": "requires-deployment-validation"
+    },
+    "taskboard": {
+      "release": "v0.7.7",
+      "testsPassed": 439,
+      "testsSkipped": 2,
+      "upstreamCommits": [
+        "930bb2c6516f4634a7bc83d05226676b19b80412",
+        "5746284bc251329261d121c462b5053430d6dbe7"
+      ],
+      "candidateScheduledModelReplies": "passed",
+      "defaultDispatchSpacingMs": 1000,
+      "noSuccessorCardsOrPurge": true
+    },
+    "imageGen": {
+      "release": "v0.5.10",
+      "testsPassed": 148,
+      "upstreamCommits": [
+        "d9a58cd9225947590698d8607625f62f9c0b15ec"
+      ],
+      "indexedDBAndUIRetry": "source-regressions-passed",
+      "regenerationOnPersistenceRetry": false
+    },
+    "sidebarIntegration": "candidate-taskboard-and-gallery-surfaces-passed",
+    "typecheckBuildAndArtifactContracts": "passed"
   }
 }
