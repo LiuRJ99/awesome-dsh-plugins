@@ -428,7 +428,8 @@
       ],
       "focusAndSessionIsolation": "source-regressions-passed",
       "chromeManifestVersion": "0.1.12",
-      "liveChromeControl": "requires-deployment-validation"
+      "liveChromeControl": "candidate-passed-after-user-reload-and-approval",
+      "liveBackgroundOpen": "foreground-preserved; new-background-tab-controlled; subsequent-input-and-click-passed"
     },
     "taskboard": {
       "release": "v0.7.7",

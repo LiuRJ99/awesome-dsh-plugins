@@ -77,6 +77,8 @@ Browser `v0.1.13-dev.1` 提供后台开页参数，保留审批、前台焦点�
 
 源码验证分别通过 540、439、148 项；Taskboard 另有 2 项 opt-in Git 测试未运行。类型检查、构建与包入口检查通过。桌面 candidate 的两张只读任务按计划触发并获得真实模型回复，Sidebar 同时挂载 Taskboard 与 Gallery。故障注入下的 IndexedDB/页面保存重试由源码测试验证；没有据此声称已在正式图库制造保存故障或重新测试全部图片 provider。
 
+Chrome 扩展由用户重载并批准后，candidate 的 `active: false` 实测保留前台标签页，将新后台标签页绑定到调用会话；后续输入和点击均落在该后台页，前台仍未切换。这是该 Release 的实际验收证据，其他部署仍需各自重载对应扩展并完成审批。
+
 ## 与 Web 的差异
 
 Desktop 提供原生目录选择、系统应用和配套运行时入口；看板、Gallery、费用和 Browser 的 UI 仍使用 Host 客户端服务。
