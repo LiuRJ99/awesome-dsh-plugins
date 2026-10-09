@@ -20,7 +20,7 @@
 | Record/Replay | 0.3.3-dev.1 | 精确 DSH peers/compatibility；开发工具固定 pnpm 11.7.0 | 26 测试、构建、Host 激活 | macOS recorder native、权限、用户手动录制与回放 |
 | Sandbox schema shim | 0.1.1 | 保留固定 Git 提交与包子路径 | Host 激活 | 模型工具 schema |
 | Spend | 0.6.7-dev.2 | 精确 DSH peers/compatibility、锁文件；固定 pnpm 和 CI 工具 | 26 测试、真实 usageStats/query RPC | 真实模型用量、计费与完整 UI |
-| Taskboard | 0.7.5 | 保留固定 Git 提交 | Host 激活、客户端资源 | CRUD、调度、Lazy Gate、Sidebar 集成 |
+| Taskboard | 0.7.6 | 保留固定 Git 提交 | Host 激活、客户端资源 | CRUD、调度、Lazy Gate、Sidebar 集成 |
 | Lazy Gate | 0.1.4 | 保留固定 Git 提交 | Host 激活 | 用户手势解锁、完整会话门控、Taskboard/recorder 元数据 |
 
 Browser `v0.1.12-dev.1`、Computer Use `v0.1.6-dev.2` 与 Spend `v0.6.7-dev.2` 已发布固定 GitHub Release；Record/Replay 仍使用精确 commit。
@@ -162,7 +162,7 @@ Record/Replay 使用 `LiuRJ99/open-record-replay` 精确 tag `v0.1.1`（`9118849
 
 ## 未解决的兼容警告与验收
 
-Taskboard `v0.7.5` 和 ImageGen `v0.5.9` 已在侧栏集成测试后，将可选 Better Sidebar peer 声明为 `^0.21.1 || 0.24.1`。Taskboard 的 19 项相关测试和 ImageGen 的 29 项相关测试通过；Host 激活、资源与 Taskboard/Gallery 侧栏入口已验证。此修复不代表图片编辑 provider、所有历史会话和本机权限均已通过，不加 version exemption。
+Taskboard `v0.7.6` 和 ImageGen `v0.5.9` 已在侧栏集成测试后，将可选 Better Sidebar peer 声明为 `^0.21.1 || 0.24.1`。Taskboard 全部 431 项源码测试（包括侧栏相关测试）和 ImageGen 的 29 项相关测试通过；Host 激活、资源与 Taskboard/Gallery 侧栏入口已验证。此修复不代表图片编辑 provider、所有历史会话和本机权限均已通过，不加 version exemption。
 
 本地验收请按顺序记录结果：
 

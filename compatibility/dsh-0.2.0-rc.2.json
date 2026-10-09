@@ -206,15 +206,15 @@
     {
       "name": "dsh-taskboard",
       "label": "Taskboard",
-      "version": "0.7.5",
+      "version": "0.7.6",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-taskboard-cloader",
         "type": "git",
-        "commit": "6680bf71572fb761349c98f4a0a3c256c7470547",
-        "tag": "v0.7.5",
-        "url": "https://github.com/LiuRJ99/dsh-taskboard-cloader/releases/download/v0.7.5/dsh-taskboard-0.7.5.tgz",
-        "sha256": "8c92089d14033330d67b4e549666ad51edb866c47f4f5f218568f7d455d83182",
-        "installSpec": "github:LiuRJ99/dsh-taskboard-cloader#v0.7.5"
+        "commit": "b499febba8168915f105302ccb5a0d6982d348fb",
+        "tag": "v0.7.6",
+        "url": "https://github.com/LiuRJ99/dsh-taskboard-cloader/releases/download/v0.7.6/dsh-taskboard-0.7.6.tgz",
+        "sha256": "b41ef90110a6ed275334da64b395a73e23e59cdc00149aeefa8c6a44a4a49815",
+        "installSpec": "github:LiuRJ99/dsh-taskboard-cloader#v0.7.6"
       },
       "hostCheck": "active",
       "endToEndStatus": "requires-local-validation",
@@ -252,8 +252,10 @@
       "ImageGen settings entry id",
       "Spend modal stacking",
       "Decision Engine deferred Web route",
-      "Computer Use launch notifications and first window wait"
+      "Computer Use launch notifications and first window wait",
+      "Taskboard runtime version consistency"
     ],
-    "sidebarIntegrationTestsPassed": 48
+    "sidebarIntegrationTestsPassed": 48,
+    "taskboardSourceTestsPassed": 431
   }
 }

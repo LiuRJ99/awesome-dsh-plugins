@@ -154,7 +154,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` tools and the `open-record-replay` skill for recording a demonstrated desktop workflow | Exact Git commit `277a05b527ccfaf8e555933209e70886bf1e545d`; `0.3.3-dev.1` | macOS and Xcode Command Line Tools; exact fork [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`, wired through a profile patch |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | Removes redundant sandbox fields from model-facing tool schemas | Git tag `sandbox-schema-shim-v0.1.1`, package path `/packages/sandbox-schema-shim` | DSH base profile |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token usage, statistics, billing-plan detection and spend views | GitHub Release `v0.6.7-dev.2` | DSH session, credentials and Web UI peer services |
-| [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host-authoritative tasks, task tools, workspace claims, scheduling and kanban UI | GitHub Release `v0.7.5` | Optional Better Sidebar integration; publishes capability metadata to Lazy Gate |
+| [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host-authoritative tasks, task tools, workspace claims, scheduling and kanban UI | GitHub Release `v0.7.6` | Optional Better Sidebar integration; publishes capability metadata to Lazy Gate |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | Session-scoped gating for browser and computer-use by default, plus configured Taskboard/recorder families | GitHub Release `v0.1.4` | Browser/computer are built-in defaults; Taskboard and Record/Replay require capability config plus the adapted skill metadata; includes the Web connection workaround |
 
 ### Compatibility note
@@ -171,7 +171,7 @@ Each package's peer ranges and `dsh.compatibility` are authoritative. Host peer 
 Node 24 was used for validation; still satisfy every package's `engines`.
 
 CPA `v0.4.8` can pull older Host settings/config-editor dependencies. Apply the guide's precise overrides in the candidate profile to keep the relevant official packages at `0.2.0-rc.2`; never patch plugin node_modules.
-Taskboard `v0.7.5` and ImageGen `v0.5.9` explicitly cover optional Better Sidebar `^0.21.1 || 0.24.1` peers. Host activation, resource requests and the Taskboard/Gallery sidebar surfaces were validated. Model-backed functions and permissions still require deployment-specific checks; no version exemptions are used.
+Taskboard `v0.7.6` and ImageGen `v0.5.9` explicitly cover optional Better Sidebar `^0.21.1 || 0.24.1` peers. Host activation, resource requests and the Taskboard/Gallery sidebar surfaces were validated. Model-backed functions and permissions still require deployment-specific checks; no version exemptions are used.
 
 The Record/Replay candidate retains the packaging fix from `v0.3.1`; avoid `v0.3.0` and its unanswered allowBuilds placeholder.
 ImageGen `v0.5.9` was built with CPA `v0.4.8` and requires CPA `>=0.4.0 <0.5.0`. Use the checksum-verified release tarball because Git omits `lib/`.
@@ -210,7 +210,7 @@ dsh plugin --profile <candidate-profile> add \
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-spend#v0.6.7-dev.2"
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-taskboard-cloader#v0.7.5"
+  "github:LiuRJ99/dsh-taskboard-cloader#v0.7.6"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-tool-lazy-gate#3e8ebe3edbd7db86549fd3bee3ab7b1256e5d2aa"
 
@@ -265,7 +265,7 @@ Assess each upstream release against the host you actually run before adopting i
 | `dsh-spend` | `nonewind/dsh-spend` | The fork adds an explicit DSH compatibility range; upstream `main` is `v0.6.3` and does not declare that field |
 | `dsh-computer-use` | `geohotstan/dsh-computer-use` | Public origin has tags `v0.1.1` and `v0.1.2` but no GitHub Releases; historical fork `v0.1.5` carries the host peer-range and security fixes |
 | `dsh-record-replay` | `humblebanana/dsh-record-replay` | Upstream stops at `0.2.0`, no longer typechecks against DSH ≥ `0.1.2-rc.1`, and has no gate association. The fork also depends on the exact `v0.1.1` tag of [`LiuRJ99/open-record-replay`](https://github.com/LiuRJ99/open-record-replay) for the recorder CLI |
-| `dsh-taskboard` | `cloader/dsh-taskboard` | Fork tag `v0.7.5` includes the previously absorbed upstream `v0.6.7` features, recurring scheduled-session reuse, the fork's Better Sidebar header fixes, image attachments, crash-safe configurable data-directory migration, eager tool registration, Better Sidebar `0.19` compatibility, and first-SSE-handshake reconciliation for agent-created tasks; it preserves the fork's multi-repo, permission and speed-routing enhancements |
+| `dsh-taskboard` | `cloader/dsh-taskboard` | Fork tag `v0.7.6` includes the previously absorbed upstream `v0.6.7` features, recurring scheduled-session reuse, the fork's Better Sidebar header fixes, image attachments, crash-safe configurable data-directory migration, eager tool registration, Better Sidebar `0.19` compatibility, and first-SSE-handshake reconciliation for agent-created tasks; it preserves the fork's multi-repo, permission and speed-routing enhancements |
 | `dsh-browser` | `Lum1104/dsh-browser` | Historical fork tag `v0.1.11` includes the fork installer and Host fixes plus rich-text input, bridge-restart resume, dependency-security fixes, prioritized controls for visible dialogs, and opt-in scoped discovery of non-semantic controls |
 | `dsh-image-gen` | `shanliuling/dsh-image-gen` | Upstream relaxed its peer ranges while this fork pins exact host versions, so a merge must re-align the peer contract |
 
