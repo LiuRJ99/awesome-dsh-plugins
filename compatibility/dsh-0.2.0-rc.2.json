@@ -129,22 +129,23 @@
     {
       "name": "dsh-image-gen",
       "label": "ImageGen",
-      "version": "0.5.8",
+      "version": "0.5.9",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-image-gen",
         "type": "release-tarball",
-        "url": "https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.8/dsh-image-gen-0.5.8.tgz",
-        "sha256": "c7caf43f195d1ff6861c67ec839a0fc47dfe8ebd61fec09fca559aef46a73b59",
-        "tag": "v0.5.8",
-        "commit": "501381cd8a7b01d5ee4af89fe5915b8ca91c6991"
+        "url": "https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.9/dsh-image-gen-0.5.9.tgz",
+        "sha256": "a16042e2a9d16dada99da9d24a0c3356b117e1d91b52a3a9efb5aa92f8e410d5",
+        "tag": "v0.5.9",
+        "commit": "9999171f6acde47f1edcc42bd3b80ca5395faee9"
       },
       "hostCheck": "active",
       "endToEndStatus": "requires-local-validation",
       "optionalPeerWarning": {
         "package": "dsh-better-sidebar",
-        "declaredRange": "^0.21.1",
+        "declaredRange": "^0.21.1 || 0.24.1",
         "candidateVersion": "0.24.1",
-        "uiIntegration": "untested"
+        "uiIntegration": "validated-taskboard-gallery-surfaces",
+        "status": "resolved"
       }
     },
     {
@@ -205,23 +206,24 @@
     {
       "name": "dsh-taskboard",
       "label": "Taskboard",
-      "version": "0.7.4",
+      "version": "0.7.5",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-taskboard-cloader",
         "type": "git",
-        "commit": "576ddd69173455b66a91988b9fc38dd6d8f26ab2",
-        "tag": "v0.7.4",
-        "url": "https://github.com/LiuRJ99/dsh-taskboard-cloader/releases/download/v0.7.4/dsh-taskboard-0.7.4.tgz",
-        "sha256": "4169897f579778fb054f809b7d577236b4eb85a0d42564982dba1bc4c00dd640",
-        "installSpec": "github:LiuRJ99/dsh-taskboard-cloader#v0.7.4"
+        "commit": "6680bf71572fb761349c98f4a0a3c256c7470547",
+        "tag": "v0.7.5",
+        "url": "https://github.com/LiuRJ99/dsh-taskboard-cloader/releases/download/v0.7.5/dsh-taskboard-0.7.5.tgz",
+        "sha256": "8c92089d14033330d67b4e549666ad51edb866c47f4f5f218568f7d455d83182",
+        "installSpec": "github:LiuRJ99/dsh-taskboard-cloader#v0.7.5"
       },
       "hostCheck": "active",
       "endToEndStatus": "requires-local-validation",
       "optionalPeerWarning": {
         "package": "dsh-better-sidebar",
-        "declaredRange": "^0.21.1",
+        "declaredRange": "^0.21.1 || 0.24.1",
         "candidateVersion": "0.24.1",
-        "uiIntegration": "untested"
+        "uiIntegration": "validated-taskboard-gallery-surfaces",
+        "status": "resolved"
       }
     },
     {
@@ -244,13 +246,14 @@
     "pluginSourceTestsPassed": 1636,
     "recorderNodeTestsPassed": 10,
     "nativeSwiftTestsPassed": 30,
-    "optionalSidebarPeerWarning": "unresolved",
+    "optionalSidebarPeerWarning": "resolved",
     "patches": [
       "Taskboard producer-owned message source",
       "ImageGen settings entry id",
       "Spend modal stacking",
       "Decision Engine deferred Web route",
       "Computer Use launch notifications and first window wait"
-    ]
+    ],
+    "sidebarIntegrationTestsPassed": 48
   }
 }

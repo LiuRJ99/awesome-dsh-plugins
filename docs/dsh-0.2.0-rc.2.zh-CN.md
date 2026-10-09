@@ -15,12 +15,12 @@
 | Better Sidebar | 0.24.1 | 从 0.21.1 升级为 DSH 0.2 peer 版本 | Host 激活、客户端资源 | 编辑器、终端、Git、与消费者的 UI 集成 |
 | Decision Engine | 0.4.18 | 保留固定 Git 提交 | Host 激活 | 模型、可选 Laya SDK、browser/computer 适配器 |
 | GitHub MCP | 1.1.0 | 更新固定上游提交 | Host 激活 | 凭据、MCP 和文件读取 |
-| ImageGen | 0.5.8 | 保留 checksum 已核对的 Release tarball | Host 激活 | 生成/编辑、Gallery、Sidebar 集成 |
+| ImageGen | 0.5.9 | 保留 checksum 已核对的 Release tarball | Host 激活 | 生成/编辑、Gallery、Sidebar 集成 |
 | Mobile | 0.6.1 | 从 0.4.6 升级 | Host 激活 | 移动客户端、配对、远程连接 |
 | Record/Replay | 0.3.3-dev.1 | 精确 DSH peers/compatibility；开发工具固定 pnpm 11.7.0 | 26 测试、构建、Host 激活 | macOS recorder native、权限、用户手动录制与回放 |
 | Sandbox schema shim | 0.1.1 | 保留固定 Git 提交与包子路径 | Host 激活 | 模型工具 schema |
 | Spend | 0.6.7-dev.2 | 精确 DSH peers/compatibility、锁文件；固定 pnpm 和 CI 工具 | 26 测试、真实 usageStats/query RPC | 真实模型用量、计费与完整 UI |
-| Taskboard | 0.7.4 | 保留固定 Git 提交 | Host 激活、客户端资源 | CRUD、调度、Lazy Gate、Sidebar 集成 |
+| Taskboard | 0.7.5 | 保留固定 Git 提交 | Host 激活、客户端资源 | CRUD、调度、Lazy Gate、Sidebar 集成 |
 | Lazy Gate | 0.1.4 | 保留固定 Git 提交 | Host 激活 | 用户手势解锁、完整会话门控、Taskboard/recorder 元数据 |
 
 Browser `v0.1.12-dev.1`、Computer Use `v0.1.6-dev.2` 与 Spend `v0.6.7-dev.2` 已发布固定 GitHub Release；Record/Replay 仍使用精确 commit。
@@ -142,7 +142,7 @@ pnpm 的 SHA-512 校验应与该仓库 `packageManager` 一致。操作 profile 
 
 先用 README 的固定来源安装 CPA、WorkBuddy，然后安装 Sidebar/Mobile、其他插件和本地适配包。不要裸装同名冲突的包。
 ImageGen 从 README 指定的公开 Release 下载，检查 SHA-256 为
-`c7caf43f195d1ff6861c67ec839a0fc47dfe8ebd61fec09fca559aef46a73b59` 后再从稳定本地路径安装。
+`a16042e2a9d16dada99da9d24a0c3356b117e1d91b52a3a9efb5aa92f8e410d5` 后再从稳定本地路径安装。
 
 ```bash
 dsh plugin --profile candidate-0.2 add "$DSH_VALIDATION_ROOT/artifacts/dsh-spend-0.6.7-dev.2.tgz"
@@ -162,8 +162,7 @@ Record/Replay 使用 `LiuRJ99/open-record-replay` 精确 tag `v0.1.1`（`9118849
 
 ## 未解决的兼容警告与验收
 
-Taskboard 和 ImageGen 的可选 Better Sidebar peer 仍声明 `^0.21.1`，与 `0.24.1` 有警告。
-这不是已经修好的 UI 兼容问题。先验证其侧栏入口、任务操作、Gallery 和页面卸载；若失败，再在相应源码仓库定位修复，不能只放宽 peer 或加 version exemption。
+Taskboard `v0.7.5` 和 ImageGen `v0.5.9` 已在侧栏集成测试后，将可选 Better Sidebar peer 声明为 `^0.21.1 || 0.24.1`。Taskboard 的 19 项相关测试和 ImageGen 的 29 项相关测试通过；Host 激活、资源与 Taskboard/Gallery 侧栏入口已验证。此修复不代表图片编辑 provider、所有历史会话和本机权限均已通过，不加 version exemption。
 
 本地验收请按顺序记录结果：
 
@@ -180,4 +179,4 @@ Taskboard 和 ImageGen 的可选 Better Sidebar peer 仍声明 `^0.21.1`，与 `
 
 Taskboard `v0.7.4` 修复 DSH 0.2 producer-owned 调度消息；ImageGen `v0.5.8` 修复 settings entry id；Spend `v0.6.7-dev.2` 修复悬浮组件遮挡 Taskboard 弹窗；Decision Engine `v0.4.18` 在 Web Server 就绪后注册 provider 路由；Computer Use `v0.1.6-dev.2` 修复 AppKit 启动通知与首个 AX 窗口的等待。
 
-上述源码及 Browser、Record/Replay 的测试共 1636 项通过，另有录制器 10 项 Node 测试和 Computer Use 30 项 Swift 测试通过。Taskboard/ImageGen 的旧 Sidebar `^0.21.1` 可选 peer 声明尚未解决；实际 UI 验证不构成版本豁免。Laya SDK/模型、图像编辑的 provider 网络调用，以及用户手动录制仍需按部署环境验证。
+上述源码及 Browser、Record/Replay 的测试共 1636 项通过，另有录制器 10 项 Node 测试和 Computer Use 30 项 Swift 测试通过。Taskboard/ImageGen 后续 release 已修复 Sidebar `0.24.1` 可选 peer 声明，并保留相关 UI 集成测试；不使用版本豁免。Laya SDK/模型、图像编辑的 provider 网络调用，以及用户手动录制仍需按部署环境验证。
