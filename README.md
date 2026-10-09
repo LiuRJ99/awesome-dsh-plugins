@@ -147,7 +147,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | GitHub Release `v0.1.12-dev.1`: bridge tarball + Chrome extension zip; bridge `0.0.12-dev.1` | Node/pnpm; build both bridge and Chrome extension; Firefox needs a separate build and token setup |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.6-dev.2` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.24.1` | Optional UI service for Taskboard and ImageGen; `0.24.1` declares DSH `^0.2.0-rc.1` peers; see the consumer compatibility notes below |
-| [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | Model-agnostic low-latency decision layer for DSH: pluggable Decision Engine and Providers, finite-candidate decision protocol, and Browser / Computer / Custom environment adapters | GitHub Release `v0.4.18` | DSH peer services; optional `@receptron/laya` for local inference; requires corresponding host tools/plugins if browser/computer adapters are enabled |
+| [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | Model-agnostic low-latency decision layer for DSH: pluggable Decision Engine and Providers, finite-candidate decision protocol, and Browser / Computer / Custom environment adapters | GitHub Release `v0.4.19` | DSH peer services; optional `@receptron/laya` for local inference; requires corresponding host tools/plugins if browser/computer adapters are enabled |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | Official GitHub MCP server bridge (`mcp__github__*`) plus a REST file reader | Exact Git commit `5be9077d46bfed66b76843bbcc7bdc459990b3af` (upstream publishes no tags) | `GITHUB_TOKEN` in the DSH process environment; DSH commonly loads it from `$DSH_HOME/.env` |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA-backed image generation, model catalog, image editing, Gallery and workspace save | GitHub Release `v0.5.9` tarball asset; SHA-256 `a16042e2a9d16dada99da9d24a0c3356b117e1d91b52a3a9efb5aa92f8e410d5` | Install CPA first; ImageGen was built against CPA `v0.4.8`, and its `>=0.4.0 <0.5.0` peer range covers the catalog target `v0.4.8`. The repository gitignores `lib/`, so a Git install ships no entry point |
 | [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | Access to DSH sessions from a mobile device | Exact registry version `0.6.1` | LAN access is separate from optional remote access; remote is off by default, paired devices are fully trusted, LAN uses a pinned local CA, and remote uses the provider's HTTPS endpoint. `0.6.1` requires Node `^22.19 || >=24`; validate the matching mobile client and pairing flow locally |
@@ -155,7 +155,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | Removes redundant sandbox fields from model-facing tool schemas | Git tag `sandbox-schema-shim-v0.1.1`, package path `/packages/sandbox-schema-shim` | DSH base profile |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token usage, statistics, billing-plan detection and spend views | GitHub Release `v0.6.7-dev.2` | DSH session, credentials and Web UI peer services |
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host-authoritative tasks, task tools, workspace claims, scheduling and kanban UI | GitHub Release `v0.7.6` | Optional Better Sidebar integration; publishes capability metadata to Lazy Gate |
-| [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | Session-scoped gating for browser and computer-use by default, plus configured Taskboard/recorder families | GitHub Release `v0.1.4` | Browser/computer are built-in defaults; Taskboard and Record/Replay require capability config plus the adapted skill metadata; includes the Web connection workaround |
+| [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | Session-scoped gating for browser and computer-use by default, plus configured Taskboard/recorder families | GitHub Release `v0.1.6` | Browser/computer are built-in defaults; Taskboard and Record/Replay require capability config plus the adapted skill metadata; includes the Web connection workaround |
 
 ### Compatibility note
 
@@ -198,7 +198,7 @@ dsh plugin --profile <candidate-profile> add dsh-mobile@0.6.1
 
 # Fixed sources; published forks use exact release tags.
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-decision-engine#v0.4.18"
+  "github:LiuRJ99/dsh-decision-engine#v0.4.19"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-computer-use#v0.1.6-dev.2"
 dsh plugin --profile <candidate-profile> add \
@@ -212,7 +212,7 @@ dsh plugin --profile <candidate-profile> add \
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-taskboard-cloader#v0.7.6"
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-tool-lazy-gate#3e8ebe3edbd7db86549fd3bee3ab7b1256e5d2aa"
+  "github:LiuRJ99/dsh-tool-lazy-gate#v0.1.6"
 
 # Inspect the composed candidate before promoting it.
 dsh --profile <candidate-profile> --dump-config

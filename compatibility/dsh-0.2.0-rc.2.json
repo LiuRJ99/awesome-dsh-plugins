@@ -100,15 +100,15 @@
     {
       "name": "dsh-decision-engine",
       "label": "Decision Engine",
-      "version": "0.4.18",
+      "version": "0.4.19",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-decision-engine",
         "type": "git",
-        "commit": "fce257567b8e843a7f19a3376c52c7aac3d46a11",
-        "tag": "v0.4.18",
-        "url": "https://github.com/LiuRJ99/dsh-decision-engine/releases/download/v0.4.18/dsh-decision-engine-0.4.18.tgz",
-        "sha256": "f29208ec373c65650098f7403f3d5266a5a6a05698473bc17f40fc7051191535",
-        "installSpec": "github:LiuRJ99/dsh-decision-engine#v0.4.18"
+        "commit": "eca7ec65ce316de9d17b442ae7a26beb8abc79be",
+        "tag": "v0.4.19",
+        "url": "https://github.com/LiuRJ99/dsh-decision-engine/releases/download/v0.4.19/dsh-decision-engine-0.4.19.tgz",
+        "sha256": "996e9ef7acc14eb84c658c4663effd2c2bc30ebf7522a3187ef231dc4a4b6a5f",
+        "installSpec": "github:LiuRJ99/dsh-decision-engine#v0.4.19"
       },
       "hostCheck": "active",
       "endToEndStatus": "requires-local-validation"
@@ -229,12 +229,15 @@
     {
       "name": "dsh-tool-lazy-gate",
       "label": "Lazy Gate",
-      "version": "0.1.4",
+      "version": "0.1.6",
       "source": {
         "repository": "https://github.com/LiuRJ99/dsh-tool-lazy-gate",
         "type": "git",
-        "commit": "3e8ebe3edbd7db86549fd3bee3ab7b1256e5d2aa",
-        "installSpec": "github:LiuRJ99/dsh-tool-lazy-gate#3e8ebe3edbd7db86549fd3bee3ab7b1256e5d2aa"
+        "commit": "0c065d0f574693166c53b1f061efea9b38412a60",
+        "installSpec": "github:LiuRJ99/dsh-tool-lazy-gate#v0.1.6",
+        "tag": "v0.1.6",
+        "url": "https://github.com/LiuRJ99/dsh-tool-lazy-gate/releases/download/v0.1.6/dsh-tool-lazy-gate-0.1.6.tgz",
+        "sha256": "9f4cb2d7d00d3033130f6797971911abe4daf12c92cdff226b30a9792357d967"
       },
       "hostCheck": "active",
       "endToEndStatus": "requires-local-validation"
@@ -256,6 +259,21 @@
       "Taskboard runtime version consistency"
     ],
     "sidebarIntegrationTestsPassed": 48,
-    "taskboardSourceTestsPassed": 431
+    "taskboardSourceTestsPassed": 431,
+    "followupSourceChecks": {
+      "decisionEngine": {
+        "version": "0.4.19",
+        "testsPassed": 328,
+        "typecheck": "passed",
+        "build": "passed"
+      },
+      "lazyGate": {
+        "version": "0.1.6",
+        "testsPassed": 39,
+        "typecheck": "passed",
+        "build": "passed",
+        "hostSystemPromptRegression": "official-0.2.0-rc.2"
+      }
+    }
   }
 }

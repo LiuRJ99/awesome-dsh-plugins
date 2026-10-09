@@ -13,7 +13,7 @@
 | Browser | workspace 0.1.12-dev.1 / bridge 0.0.12-dev.1 | DSH peers、开发依赖、锁文件改为 0.2.0-rc.2；CI 使用完整官方 npm Host | 532 测试、类型检查、Chrome 构建、真实 Host 烟雾测试 | 加载扩展、真实页面工具、Firefox（本轮未测） |
 | Computer Use | 0.1.6-dev.2 | DSH peers、开发依赖、锁文件；fake-daemon 平台夹具及 Linux 拒绝加载测试；CI 目标同步 | 153 测试、类型检查、JS/声明构建 | macOS native、TCC 权限、真实应用；Linux 禁用三个原生条目 |
 | Better Sidebar | 0.24.1 | 从 0.21.1 升级为 DSH 0.2 peer 版本 | Host 激活、客户端资源 | 编辑器、终端、Git、与消费者的 UI 集成 |
-| Decision Engine | 0.4.18 | 保留固定 Git 提交 | Host 激活 | 模型、可选 Laya SDK、browser/computer 适配器 |
+| Decision Engine | 0.4.19 | 新增仅建议模式；禁用时仍注册控制技能 | Host 激活、328 源码测试、仅建议决策与执行拦截 | 模型质量、可选 Laya SDK、执行模式下的 browser/computer 适配器 |
 | GitHub MCP | 1.1.0 | 更新固定上游提交 | Host 激活 | 凭据、MCP 和文件读取 |
 | ImageGen | 0.5.9 | 保留 checksum 已核对的 Release tarball | Host 激活 | 生成/编辑、Gallery、Sidebar 集成 |
 | Mobile | 0.6.1 | 从 0.4.6 升级 | Host 激活 | 移动客户端、配对、远程连接 |
@@ -21,7 +21,7 @@
 | Sandbox schema shim | 0.1.1 | 保留固定 Git 提交与包子路径 | Host 激活 | 模型工具 schema |
 | Spend | 0.6.7-dev.2 | 精确 DSH peers/compatibility、锁文件；固定 pnpm 和 CI 工具 | 26 测试、真实 usageStats/query RPC | 真实模型用量、计费与完整 UI |
 | Taskboard | 0.7.6 | 保留固定 Git 提交 | Host 激活、客户端资源 | CRUD、调度、Lazy Gate、Sidebar 集成 |
-| Lazy Gate | 0.1.4 | 保留固定 Git 提交 | Host 激活 | 用户手势解锁、完整会话门控、Taskboard/recorder 元数据 |
+| Lazy Gate | 0.1.6 | 同步当前请求目录与可信用户解锁；显示插件、资源与会话状态 | 39 源码测试、官方 SystemPrompt 回归、首轮目录与同轮解锁 | 用户手势、会话恢复、实际 browser/computer/recorder 权限 |
 
 Browser `v0.1.12-dev.1`、Computer Use `v0.1.6-dev.2` 与 Spend `v0.6.7-dev.2` 已发布固定 GitHub Release；Record/Replay 仍使用精确 commit。
 插件测试共 **737 项通过**（532 + 153 + 26 + 26）。录制器 fork `open-record-replay@v0.1.1` 另有 10 项 Node 测试通过；其完整安装和 Swift 构建需要 macOS。
@@ -180,3 +180,13 @@ Taskboard `v0.7.6` 和 ImageGen `v0.5.9` 已在侧栏集成测试后，将可选
 Taskboard `v0.7.4` 修复 DSH 0.2 producer-owned 调度消息；ImageGen `v0.5.8` 修复 settings entry id；Spend `v0.6.7-dev.2` 修复悬浮组件遮挡 Taskboard 弹窗；Decision Engine `v0.4.18` 在 Web Server 就绪后注册 provider 路由；Computer Use `v0.1.6-dev.2` 修复 AppKit 启动通知与首个 AX 窗口的等待。
 
 上述源码及 Browser、Record/Replay 的测试共 1636 项通过，另有录制器 10 项 Node 测试和 Computer Use 30 项 Swift 测试通过。Taskboard/ImageGen 后续 release 已修复 Sidebar `0.24.1` 可选 peer 声明，并保留相关 UI 集成测试；不使用版本豁免。Laya SDK/模型、图像编辑的 provider 网络调用，以及用户手动录制仍需按部署环境验证。
+
+## 桌面门禁与决策建议模式补充
+
+Lazy Gate `v0.1.6` 修复官方 `0.2.0-rc.2` 的组装时序差异：Host 先收集工具，再运行 `system-prompt/assemble`；仅更新 scoped restriction 不会同步本轮已收集的目录。插件现在同时过滤该目录，并在同轮恢复用户刚解锁且仍满足其他限制的工具，再交给下游 schema 中间件。`v0.1.5` 的当前请求目录修复不完整，应使用 `v0.1.6`。设置页提供资源刷新及“插件已禁用 / 资源缺失 / 已锁定 / 已解锁 / 下次会话生效”等独立状态，展示状态不会自动授权。
+
+Decision Engine `v0.4.19` 增加 `executionMode: advice-only`：只提供 `decision_decide`，不注册 `decision_run`；工具与 service 层拒绝执行动作和任务。`enabled: false` 时仍保留 `decision-control` 技能声明，便于门禁识别插件处于禁用状态。默认值仍为 `execute`，需要仅建议模式时应在 candidate 设置中显式选择，再验证和部署。建议模式可验证本地 Provider 的决策结果，但不保证模型一定满足约束或选对候选，质量验收仍需保留。
+
+Sandbox schema shim `0.1.1` 在 `workspace-write` 和 `read-only` 下不改变 schema；只在已有 `danger-full-access` 会话去除冗余提权字段，不扩大实际权限。
+
+Desktop 的隔离 candidate 如果使用新的启动器或签名，macOS 可能重新计算原生组件的权限归属。原路径的文件存在或从终端读取权限成功，不能替代 Desktop Host 内的 preflight；未取得授权的原生功能应报告跳过或失败，不能报通过。
