@@ -147,7 +147,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | Plugin | Capability | Install from | Prerequisites |
 | --- | --- | --- | --- |
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, Codex Responses GPT routing, account/quota UI (including Kimi Code), speed modes, image-generation service | GitHub Release `v0.4.8` | DSH peer services; CPA endpoint and credentials configured by the user |
-| [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | Local Tencent WorkBuddy/CodeBuddy model provider for OpenAI-compatible DSH requests | GitHub Release `v0.2.7` | Node `>=20.18.1`; an authenticated WorkBuddy/CodeBuddy desktop session; the local bridge defaults to `127.0.0.1:8318` |
+| [`@LiuRJ99/dsh-workbuddy-provider`](https://github.com/LiuRJ99/dsh-workbuddy-provider) | Local Tencent WorkBuddy/CodeBuddy model provider for OpenAI-compatible DSH requests | GitHub Release `v0.2.8` | Node `>=20.18.1`; an authenticated WorkBuddy/CodeBuddy desktop session; the local bridge defaults to `127.0.0.1:8318` |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | GitHub Release `v0.1.13-dev.1`: bridge tarball + Chrome extension zip; bridge `0.0.13-dev.1` | Matching bridge and Chrome extension assets; rebuild both only for source installation; Firefox needs a separate build and token setup |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.6-dev.2` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.24.1` | Optional UI service for Taskboard and ImageGen; `0.24.1` declares DSH `^0.2.0-rc.1` peers; see the consumer compatibility notes below |
@@ -229,11 +229,11 @@ Enable Computer Use only after its macOS native prerequisites are ready; skip th
 These commands use only public, exact sources:
 
 ```bash
-# Providers first (exact v0.4.8 and v0.2.7 tag commits).
+# Providers first (exact v0.4.8 and v0.2.8 tag commits).
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-cpa-plugin#bd0d80adaac42046a2b54dcf9dc72ce881be5caf"
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-workbuddy-provider#4033d36714714e5da01d022cf0930ecd20d739b2"
+  "github:LiuRJ99/dsh-workbuddy-provider#a9233012d18c26a7e094362ad748ede5457e4219"
 
 # Exact registry versions.
 dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.24.1
@@ -381,7 +381,7 @@ Use these reviewed identities to check the catalog sources; they are not an inst
 | Source | Target | Commit |
 | --- | --- | --- |
 | CPA | `v0.4.8` | `bd0d80adaac42046a2b54dcf9dc72ce881be5caf` |
-| WorkBuddy | `v0.2.7` | `4033d36714714e5da01d022cf0930ecd20d739b2` |
+| WorkBuddy | `v0.2.8` | `a9233012d18c26a7e094362ad748ede5457e4219` |
 | Browser | `v0.1.13-dev.1` | `38d015d6f87cbb57c05539565dc67de0de5dd7d0` |
 | Computer Use | `v0.1.6-dev.2` | `189ec1ca73c98c4dc3b7413635351369ec54bc9c` |
 | Decision Engine | `v0.4.19` | `eca7ec65ce316de9d17b442ae7a26beb8abc79be` |
