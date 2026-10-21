@@ -148,7 +148,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | Plugin | Capability | Install from | Prerequisites |
 | --- | --- | --- | --- |
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, Codex Responses GPT routing, account/quota UI (including Kimi Code), speed modes, image-generation service | GitHub Release `v0.4.11` | DSH peer services; CPA endpoint and credentials configured by the user |
-| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | GitHub Release `v0.1.15-dev.2`: bridge tarball + Chrome extension zip; bridge `0.0.15-dev.2` | Matching bridge and Chrome extension assets; rebuild both only for source installation; Firefox needs a separate build and token setup |
+| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | GitHub Release `v0.1.16-dev.1`: bridge tarball + Chrome extension zip; bridge `0.0.16-dev.1` | Matching bridge and Chrome extension assets; rebuild both only for source installation; Firefox needs a separate build and token setup |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.6-dev.4` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.28.0` | Optional UI service for Taskboard and ImageGen; `0.28.0` declares DSH `^0.2.1-rc.1` peers; see the consumer compatibility notes below |
 | [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | Model-agnostic low-latency decision layer for DSH: pluggable Decision Engine and Providers, finite-candidate decision protocol, and Browser / Computer / Custom environment adapters | GitHub Release `v0.4.21` | DSH peer services; optional pinned SDK `@receptron/laya@0.1.1` for local inference; requires corresponding host tools/plugins if browser/computer adapters are enabled |
@@ -267,7 +267,9 @@ The official app is sufficient as the entry point: Browser needs no extra launch
 
 Browser consists of a Desktop bridge and a separately loaded Chrome extension. Verify both versions
 in `chrome://extensions`, reload after updating, and use the extension from the same fixed Release.
-Blank bridge settings probe `3080 / 3081 / 3090 / 14389 / 43189`; for another Host port configure:
+The bridge publishes Desktop's current WebSocket address on loopback discovery port `43189`.
+Leave the extension bridge address empty and save to discover it automatically and reconnect after
+Desktop changes its Web port. A manually entered address stays pinned; when needed, configure:
 
 ```text
 ws://127.0.0.1:<actual Desktop Host port>/ext/bridge
@@ -376,7 +378,7 @@ Use these reviewed identities to check the catalog sources; they are not an inst
 | Source | Target | Commit |
 | --- | --- | --- |
 | CPA | `v0.4.11` | `305896e8da2b5fa450728e5a24e8e877e5712f46` |
-| Browser | `v0.1.15-dev.2` | `641d8195b13b657cf3828c39051eca27ab003424` |
+| Browser | `v0.1.16-dev.1` | `cdebbaf80a6960e21467243f76688997a893d708` |
 | Computer Use | `v0.1.6-dev.4` | `f349b40aebe221b019aed4a39bb8613f6ef1373b` |
 | Decision Engine | `v0.4.21` | `810f1c43a2de4c98377967bf2cc04bd33d0a9b46` |
 | GitHub MCP | Exact commit | `5be9077d46bfed66b76843bbcc7bdc459990b3af` |
@@ -390,8 +392,8 @@ Use these reviewed identities to check the catalog sources; they are not an inst
 
 | Release asset | SHA-256 |
 | --- | --- |
-| [Browser bridge tarball](https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.15-dev.2/yuxianglin-dsh-bridge-browser-0.0.15-dev.2.tgz) | `eb2c9e36e10766e2e00e0384a081c93e532ef21ab69d00c9bae61c14d78bf3c4` |
-| [Chrome extension zip](https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.15-dev.2/dsh-browser-extension-0.1.15-dev.2.zip) | `dc61c2e3f83aac69ab45f7093194b40186b807e5fd5e0a2166c274dfbc81e463` |
+| [Browser bridge tarball](https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.16-dev.1/yuxianglin-dsh-bridge-browser-0.0.16-dev.1.tgz) | `8d26ec69a27ae57d6d221a81bbf927bdecfdbd932253a832c45ffc8c05fe5334` |
+| [Chrome extension zip](https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.16-dev.1/dsh-browser-extension-0.1.16-dev.1.zip) | `5aee10680a0b0d9c263bacbbf5f53343ed773953fbbf7f7ece8a974bf8010ca6` |
 | [ImageGen tarball](https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.13/dsh-image-gen-0.5.13.tgz) | `1efc3085ef04026eaa01aa051458f5525631af3203a215c596fe3a4581666d3b` |
 
 For forks, start with an open `sync/upstream-main` PR on the default branch. Read the complete
@@ -456,9 +458,9 @@ Rules:
 
 These need more than a `dsh plugin add`.
 
-- **Browser** — both bridge and browser extension must be ready. Check out exact commit `641d8195b13b657cf3828c39051eca27ab003424`,
+- **Browser** — both bridge and browser extension must be ready. Check out exact commit `cdebbaf80a6960e21467243f76688997a893d708`,
   install with a frozen lockfile, build the workspace, pack the bridge and add it to a candidate profile; see [source builds](#adapted-plugin-source-builds).
-  Load Chrome's `extensions/dsh-browser/dist/`. The release extension manifest is `0.1.15`; verify the loaded extension as well as bridge `0.0.15-dev.2`.
+  Load Chrome's `extensions/dsh-browser/dist/`. The release extension manifest is `0.1.16`; verify the loaded extension as well as bridge `0.0.16-dev.1`.
   `scripts/install.sh` modifies the `web` profile by default; use the explicit build/pack path for candidate validation.
   Its remote convenience fallback downloads unpinned `main`. Firefox needs a separate `pnpm --filter dsh-browser-extension run build:firefox` build and token setup and was not tested in this round.
 - **ImageGen** — to reproduce its build, build CPA from its exact `v0.4.11` tag first, then ImageGen from
@@ -529,7 +531,7 @@ DSH_TEST_CLI="$DSH_VALIDATION_ROOT/runtime/node_modules/@deepseek-ai/dsh/lib/bin
 (cd packages/browser/bridge-browser && pnpm pack --pack-destination "$DSH_VALIDATION_ROOT/artifacts")
 ```
 
-Load `extensions/dsh-browser/dist/` in Chrome and verify manifest `0.1.15`. The smoke test uses
+Load `extensions/dsh-browser/dist/` in Chrome and verify manifest `0.1.16`. The smoke test uses
 the complete official npm CLI because the development dependency may lack required runtime peers.
 Do not replace smoke assertions or run the installer against an existing formal Web profile.
 For release installation, download the checksum-verified bridge tarball to a stable local path
