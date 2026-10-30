@@ -154,12 +154,27 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | Model-agnostic low-latency decision layer for DSH: pluggable Decision Engine and Providers, finite-candidate decision protocol, and Browser / Computer / Custom environment adapters | GitHub Release `v0.4.21` | DSH peer services; optional pinned SDK `@receptron/laya@0.1.1` for local inference; requires corresponding host tools/plugins if browser/computer adapters are enabled |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | Official GitHub MCP server bridge (`mcp__github__*`) plus a REST file reader | Exact Git commit `5be9077d46bfed66b76843bbcc7bdc459990b3af` (upstream publishes no tags) | `GITHUB_TOKEN` in the DSH process environment; DSH commonly loads it from `$DSH_HOME/.env` |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA-backed image generation, model catalog, image editing, Gallery and workspace save | GitHub Release `v0.5.14` tarball asset; SHA-256 `7eb68b4805cfb90cb0562bc39972f74a5153010ac1b5a9e0a1a579ea34040949` | Install CPA first; ImageGen declares minimum-only peers: CPA `>=0.4.0` and optional Better Sidebar `>=0.21.1`. The repository gitignores `lib/`, so a Git install ships no entry point |
-| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | Access to DSH sessions from a mobile device | Exact registry version `0.6.1` | LAN access is separate from optional remote access; remote is off by default, paired devices are fully trusted, LAN uses a pinned local CA, and remote uses the provider's HTTPS endpoint. `0.6.1` requires Node `^22.19 || >=24`; validate the matching mobile client and pairing flow locally. Upstream `0.8.0` raises its React peer to `^19.3` and is not pinned here until verified against a matching Host build |
+| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | Access to DSH sessions from a mobile device | Exact registry version `0.7.1` | Node `^22.19 || >=24`; optional React peer `^18.2.0`. LAN and remote access have separate controls; paired devices are fully trusted and remote is off by default. Preserve the private CA and paired-device store. Android App and plugin versions are independent from plugin `0.6.2` onward. Upstream `0.8.0` raises its React peer to `^19.3` and is not pinned here. See the Mobile qualification and diagnostics limit below |
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` tools and the `open-record-replay` skill for recording a demonstrated desktop workflow | GitHub Release `v0.3.3-dev.3` | macOS and Xcode Command Line Tools; exact fork [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`, wired through a profile patch |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | Removes redundant sandbox fields from model-facing tool schemas | Git tag `sandbox-schema-shim-v0.1.1`, package path `/packages/sandbox-schema-shim` | DSH base profile |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token usage, statistics, billing-plan detection and spend views | GitHub Release `v0.6.7-dev.4` | DSH session, credentials and Web UI peer services |
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host-authoritative tasks, task tools, workspace claims, scheduling and kanban UI | GitHub Release `v0.7.12` | Optional Better Sidebar integration (minimum-only peer `>=0.21.1`); publishes capability metadata to Lazy Gate |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | Session-scoped gating for browser and computer-use by default, plus configured Taskboard/recorder families | GitHub Release `v0.1.10` | Browser/computer are built-in defaults; Taskboard and Record/Replay require capability config plus the adapted skill metadata; includes the Web connection workaround |
+
+### Additional plugin: dshbot
+
+[`ChisaAlter/dshbot`](https://github.com/ChisaAlter/dshbot) adds sidebar bot
+contacts, group rooms, agent messaging and durable task handoff. Its standalone
+source snapshot is recorded here for evaluation; it is not an install target for
+the DSH 0.2.x combination above.
+
+| Source snapshot | Package version | Compatibility and prerequisites |
+| --- | --- | --- |
+| Exact Git commit [`45464abda7f4cb39ddb73e3372c21b488a39f6fa`](https://github.com/ChisaAlter/dshbot/tree/45464abda7f4cb39ddb73e3372c21b488a39f6fa) | `0.2.0` | All seven declared DSH peers use `^0.1.0-rc.7 || ^0.1.1-rc.1`, which excludes DSH 0.2.x even with prereleases included. It also needs the official sidebar slots and provisions its `dshbot-room` agent preset on first load. |
+
+The plugin's package version is separate from its supported Host range. A future
+install target needs a compatible declaration and runtime validation at a fixed
+source revision.
 
 ### Compatibility note
 
@@ -198,8 +213,8 @@ dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-cpa-plugin#v0.4.11"
 # Exact registry versions.
 dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.28.2
-# Optional: install only for mobile access; skip in Desktop-only deployments.
-dsh plugin --profile <candidate-profile> add dsh-mobile@0.6.1
+# Optional: phone access works with both Desktop and Web profiles.
+dsh plugin --profile <candidate-profile> add dsh-mobile@0.7.1
 
 # Fixed sources; published forks use exact release tags.
 dsh plugin --profile <candidate-profile> add \
@@ -286,7 +301,9 @@ historical-log decoding, task/workspace ownership and image resources after migr
 copy `node_modules`, re-sign the official app or alter its bundled Host. Data is not automatically
 synced between independent Web and Desktop Homes. Host restarts may end Sidebar terminals.
 Desktop's internal HTTP/Browser bridge remains necessary when a standalone Web installation is removed.
-Mobile is optional and is skipped in Desktop-only deployments.
+Mobile is optional. Install it into the Desktop profile when phone access is
+needed; a Desktop entry point does not prevent Mobile access. Deployments that
+do not need phone access can skip it.
 
 ### Desktop validation
 
@@ -357,6 +374,22 @@ live model billing, recording/replay, Firefox or Mobile coverage.
 The published targets keep the official `0.2.1-rc.1` build SDK and admit newer Hosts by default. Public source checks passed 1,844 tests: CPA 105, Computer Use 155, Decision Engine 330, ImageGen 151, Record/Replay 28, Spend 28, Taskboard 458, Lazy Gate 41, Browser bridge 136 and Chrome extension 412. Applicable type checks, builds and package-contract checks passed. Regression tests cover newer prereleases without adding an RC allowlist; they do not simulate those future runtimes.
 
 Published assets were downloaded and matched their SHA-256 checksums. An isolated official `0.2.1-rc.2` Host loaded all 16 components from 13 community plugins as active, with no community pending entries or loader errors. Sources, runtime entries and dependencies passed inspection. This adds startup coverage only; live model billing, recording/replay, Firefox and Mobile were not retested.
+
+### Mobile 0.7.1 qualification
+
+The exact registry package `dsh-mobile@0.7.1` retains the React `^18.2.0` optional
+peer. With official DSH `0.2.1-rc.4`, an isolated Desktop loaded Mobile and its
+bundled question fixes without pending entries; the official directory-picker
+components remained active.
+Checks covered CA-verified HTTPS, temporary device pairing, the mobile HTML
+response and an authenticated Host RPC through the mobile gateway. The temporary
+device was revoked afterward. This does not certify a physical phone or a remote
+tunnel.
+
+Known limit: Mobile's connection-diagnostics endpoint returns HTTP 500 with this
+Host. LAN control, pairing and the tested gateway RPC still work. Retain the CA,
+device store and custom extensions during upgrades; do not clear pairing data to
+work around a diagnostics-page error.
 
 ## Release and upstream checks
 

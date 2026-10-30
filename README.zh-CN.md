@@ -128,12 +128,25 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 | [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | 面向 DSH 的模型中立低延迟决策层：提供可插拔决策引擎与 Provider、有限候选集决策协议，以及 Browser / Computer / Custom 环境适配器 | GitHub Release `v0.4.21` | DSH peer 服务；可选固定 SDK `@receptron/laya@0.1.1` 提供本地推理；若启用 browser/computer 适配器需相应宿主工具/插件支持 |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | GitHub 官方 MCP server 桥接（`mcp__github__*`）与 REST 文件读取 | 精确 Git commit `5be9077d46bfed66b76843bbcc7bdc459990b3af`（上游未发布 tag） | DSH 进程环境中的 `GITHUB_TOKEN`；DSH 通常从 `$DSH_HOME/.env` 加载 |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA 图片生成、图片模型目录、图片编辑、Gallery 和工作区保存 | GitHub Release `v0.5.14` tarball asset；SHA-256 `7eb68b4805cfb90cb0562bc39972f74a5153010ac1b5a9e0a1a579ea34040949` | 先安装 CPA；ImageGen 只声明最低 peer：CPA `>=0.4.0`、可选 Better Sidebar `>=0.21.1`。该仓库 `.gitignore` 了 `lib/`，从 Git 安装会没有入口 |
-| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.6.1` | 局域网与可选远程访问分别控制；远程默认关闭，已配对设备完全受信，局域网使用固定本地 CA，远程使用 provider 的 HTTPS 端点。`0.6.1` 要求 Node `^22.19 || >=24`；配套移动客户端及配对流程需本地验证。上游 `0.8.0` 的 React peer 升到 `^19.3`，在匹配的 Host 构建验证前不在此固定 |
+| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.7.1` | Node `^22.19 || >=24`；可选 React peer `^18.2.0`。局域网与远程访问分别控制，配对设备完全受信，远程默认关闭；升级时保留私有 CA 和已配对设备存储。自插件 `0.6.2` 起，Android App 与插件独立编号。上游 `0.8.0` 的 React peer 升到 `^19.3`，未在此固定；验收范围及诊断接口限制见下文 |
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` 工具与 `open-record-replay` skill，用于录制并回放桌面操作 | GitHub Release `v0.3.3-dev.3` | macOS 与 Xcode Command Line Tools；使用精确的 fork 版 [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`，通过 profile patch 指定 |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | 清理模型侧工具 schema 中多余的沙箱字段 | Git tag `sandbox-schema-shim-v0.1.1`，package path `/packages/sandbox-schema-shim` | DSH base profile |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token 用量、统计、计费计划识别和费用视图 | GitHub Release `v0.6.7-dev.4` | DSH session、credentials 和 Web UI peer 服务 |
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host 权威任务、任务工具、工作区认领、调度和看板 UI | GitHub Release `v0.7.12` | Better Sidebar 为可选集成（peer 只写最低要求 `>=0.21.1`）；向 Lazy Gate 发布能力元数据 |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | 默认门控 browser 与 computer-use，并可按配置门控 Taskboard/录制器工具族 | GitHub Release `v0.1.10` | browser/computer 是内置默认；Taskboard 与 Record/Replay 需要 capability 配置和 adapted skill 元数据；包含 Web connection workaround |
+
+### 补充插件：dshbot
+
+[`ChisaAlter/dshbot`](https://github.com/ChisaAlter/dshbot) 提供侧边栏机器人联系人、
+群聊、Agent 间消息和持久化任务交接。这里记录独立分发仓库的固定源码快照供评估，
+不把它列为上述 DSH 0.2.x 组合的安装目标。
+
+| 源码快照 | 包版本 | 兼容性与前置条件 |
+| --- | --- | --- |
+| 精确 Git commit [`45464abda7f4cb39ddb73e3372c21b488a39f6fa`](https://github.com/ChisaAlter/dshbot/tree/45464abda7f4cb39ddb73e3372c21b488a39f6fa) | `0.2.0` | 七个 DSH peer 均声明 `^0.1.0-rc.7 || ^0.1.1-rc.1`，包含 prerelease 比较时也不覆盖 DSH 0.2.x；还需要官方侧栏插槽，首次加载会部署 `dshbot-room` agent preset。 |
+
+插件包版本与支持的 Host 范围是两回事。后续安装目标需要在固定源码 revision 上有兼容
+声明和运行时验证。
 
 ### 兼容性说明
 
@@ -169,8 +182,8 @@ dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-cpa-plugin#v0.4.11"
 # 精确 registry 版本。
 dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.28.2
-# 可选：只有需要移动访问时安装；Desktop-only 部署跳过。
-dsh plugin --profile <candidate-profile> add dsh-mobile@0.6.1
+# 可选：需要手机访问时安装，Desktop 和 Web profile 均支持。
+dsh plugin --profile <candidate-profile> add dsh-mobile@0.7.1
 
 # 固定来源；已发布 fork 使用精确 release tag。
 dsh plugin --profile <candidate-profile> add \
@@ -247,7 +260,8 @@ Chrome 本机 loopback 无需手动填写 token；Firefox 与远程部署仍按�
 迁移前备份会话、附件、Taskboard、Gallery 与配置，迁移后核对标题、历史日志解析、任务工作区归属和图片资源。
 不要复制 `node_modules`、改签官方应用或修改应用内 Host。独立 Web 与 Desktop Home 不会自动同步数据。
 重启 Host 可能结束 Sidebar 终端。卸载独立 Web 时，仍须保留 Desktop 内部 HTTP / Browser bridge。
-Mobile 为可选客户端，Desktop-only 部署跳过。
+Mobile 为可选客户端。需要手机访问时，将它装入 Desktop profile；使用桌面版作为入口
+不妨碍 Mobile 访问。不需要手机访问的部署可以跳过。
 
 ### Desktop 验收
 
@@ -311,6 +325,17 @@ macOS 原生辅助程序构建通过；各部署仍须单独检查权限。本�
 发布目标保留官方 `0.2.1-rc.1` 构建 SDK，默认允许后续 Host。公开插件源码共通过 1,844 项测试：CPA 105、Computer Use 155、Decision Engine 330、ImageGen 151、Record/Replay 28、Spend 28、Taskboard 458、Lazy Gate 41、Browser bridge 136、Chrome 扩展 412。适用的类型检查、构建和打包契约检查通过。回归测试覆盖无需增加 RC 白名单即可允许后续预发布版本的规则，不模拟未来运行时。
 
 发布物下载后与 SHA-256 一致。独立官方 `0.2.1-rc.2` Host 中，13 个社区插件对应的 16 个组件全部 active，没有社区插件 pending 或加载错误；来源、运行入口与依赖解析检查通过。本轮新增启动覆盖，不新增真实模型计费调用、录制/回放、Firefox 或 Mobile 的验收结论。
+
+### Mobile 0.7.1 验收
+
+registry 精确包 `dsh-mobile@0.7.1` 保留 React `^18.2.0` 可选 peer。独立的官方
+DSH `0.2.1-rc.4` Desktop 加载了 Mobile 和随包的问题界面修复，没有 pending 条目，
+官方目录选择组件仍保持 active。验证覆盖 CA 校验通过的 HTTPS、临时设备配对、移动页面 HTML 响应，
+以及通过移动网关调用已认证的 Host RPC；临时设备已撤销。这不代表实机手机或远程隧道
+已经验收。
+
+已知限制：这个组合的连接诊断接口返回 HTTP 500；局域网开关、配对和已测试的网关 RPC
+仍可工作。升级时应保留 CA、设备存储和自定义扩展，不要为解决诊断页错误而清空配对数据。
 
 ## 发布与上游检查
 
