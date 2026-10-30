@@ -122,13 +122,13 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 | 插件 | 能力 | 安装来源 | 前置条件 |
 | --- | --- | --- | --- |
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、GPT/Codex Responses 路由、账号/配额界面（含 Kimi Code）、速度模式、图片生成服务 | GitHub Release `v0.4.11` | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
-| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | GitHub Release `v0.1.15-dev.2` bridge tarball + Chrome extension zip；bridge `0.0.15-dev.2` | 匹配的 bridge 与 Chrome 扩展物料；仅源码安装时需要同时构建；Firefox 需要单独构建与 token 配置 |
+| [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | GitHub Release `v0.1.16-dev.2` bridge tarball + Chrome extension zip；bridge `0.0.16-dev.2` | 匹配的 bridge 与 Chrome 扩展物料；仅源码安装时需要同时构建；Firefox 需要单独构建与 token 配置 |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.6-dev.4` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
-| [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.28.0` | Taskboard 和 ImageGen 的可选 UI 服务；`0.28.0` 声明 DSH `^0.2.1-rc.1` peer；消费者的可选 peer 已覆盖该版本，见兼容性说明 |
+| [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.28.2` | Taskboard 和 ImageGen 的可选 UI 服务；`0.28.2` 声明 DSH `^0.2.1-rc.1` peer，包含 `0.28.1` 起的大会话冷读/OOM 修复；消费者的可选 peer 范围目前止于 `0.28.0`，安装时可能出现可选 peer 警告，见兼容性说明 |
 | [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | 面向 DSH 的模型中立低延迟决策层：提供可插拔决策引擎与 Provider、有限候选集决策协议，以及 Browser / Computer / Custom 环境适配器 | GitHub Release `v0.4.21` | DSH peer 服务；可选固定 SDK `@receptron/laya@0.1.1` 提供本地推理；若启用 browser/computer 适配器需相应宿主工具/插件支持 |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | GitHub 官方 MCP server 桥接（`mcp__github__*`）与 REST 文件读取 | 精确 Git commit `5be9077d46bfed66b76843bbcc7bdc459990b3af`（上游未发布 tag） | DSH 进程环境中的 `GITHUB_TOKEN`；DSH 通常从 `$DSH_HOME/.env` 加载 |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA 图片生成、图片模型目录、图片编辑、Gallery 和工作区保存 | GitHub Release `v0.5.13` tarball asset；SHA-256 `1efc3085ef04026eaa01aa051458f5525631af3203a215c596fe3a4581666d3b` | 先安装 CPA；ImageGen 构建时使用 CPA `v0.4.11`，其 `>=0.4.0 <0.5.0` peer 范围覆盖本目录目标 `v0.4.11`。该仓库 `.gitignore` 了 `lib/`，从 Git 安装会没有入口 |
-| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.6.1` | 局域网与可选远程访问分别控制；远程默认关闭，已配对设备完全受信，局域网使用固定本地 CA，远程使用 provider 的 HTTPS 端点。`0.6.1` 要求 Node `^22.19 || >=24`；配套移动客户端及配对流程需本地验证 |
+| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.6.1` | 局域网与可选远程访问分别控制；远程默认关闭，已配对设备完全受信，局域网使用固定本地 CA，远程使用 provider 的 HTTPS 端点。`0.6.1` 要求 Node `^22.19 || >=24`；配套移动客户端及配对流程需本地验证。上游 `0.8.0` 的 React peer 升到 `^19.3`，在匹配的 Host 构建验证前不在此固定 |
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` 工具与 `open-record-replay` skill，用于录制并回放桌面操作 | GitHub Release `v0.3.3-dev.3` | macOS 与 Xcode Command Line Tools；使用精确的 fork 版 [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`，通过 profile patch 指定 |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | 清理模型侧工具 schema 中多余的沙箱字段 | Git tag `sandbox-schema-shim-v0.1.1`，package path `/packages/sandbox-schema-shim` | DSH base profile |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token 用量、统计、计费计划识别和费用视图 | GitHub Release `v0.6.7-dev.4` | DSH session、credentials 和 Web UI peer 服务 |
@@ -139,11 +139,11 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 
 维护的 fork 采用**默认向前兼容**：`engines.dsh >=0.2.0-rc.2`，DSH peer 使用相同范围。新 Host 无需仅为补充版本白名单而重发插件。保留已知最低要求，只有确认不兼容时才收窄范围。构建 SDK 与安装来源继续独立固定。
 
-Host 优先检查 `engines.dsh`，否则检查 `@deepseek-ai/dsh` 与 `@deepseek-ai/dsh-*` peer，比较时包含 prerelease；`dsh.compatibility` 是补充元数据。尚未实测不等于不支持，声明允许加载也不表示未来版本均已实测。第三方插件保留各自范围；Sidebar 0.28.0 使用 `^0.2.1-rc.1`。
+Host 优先检查 `engines.dsh`，否则检查 `@deepseek-ai/dsh` 与 `@deepseek-ai/dsh-*` peer，比较时包含 prerelease；`dsh.compatibility` 是补充元数据。尚未实测不等于不支持，声明允许加载也不表示未来版本均已实测。第三方插件保留各自范围；Sidebar 0.28.2 使用 `^0.2.1-rc.1`。
 
 CPA 0.4.11 使用 Host 提供的 peer 服务，避免安装另一份 settings/config-editor。CPA 与 Lazy Gate 0.1.10 的连接补丁保留 webStartup 和 webServer，不再要求已移除的 webRuntime。Browser 将 Host 提供的 Peer 传给 Gateway 调用、流与事件回传；身份不取自扩展 payload。Computer Use 不再强依赖已移除的 invariants 服务。
 
-Taskboard 0.7.11 与 ImageGen 0.5.13 针对发布的 Sidebar 0.28.0 类型检查通过，可选 peer 为 ^0.21.1 || 0.24.1 || 0.26.0 || 0.28.0。Sidebar 的语言包 peer 是可选项。ImageGen 发布物使用 CPA 0.4.11 构建，其 >=0.4.0 <0.5.0 peer 覆盖目标 CPA 0.4.11；Git 不携带 lib，仍须安装校验后的 release tarball。
+Taskboard 0.7.11 与 ImageGen 0.5.13 针对发布的 Sidebar 0.28.0 类型检查通过，可选 peer 为 ^0.21.1 || 0.24.1 || 0.26.0 || 0.28.0。Sidebar 0.28.1/0.28.2 是同一条 0.28 线上的冷读/OOM 修复，落在上述已发布可选范围之外，因此在消费者发布匹配范围前安装会出现可选 peer 警告；升到 0.28.2 后需复验 Taskboard 看板页与 ImageGen Gallery。Sidebar 的语言包 peer 是可选项。ImageGen 发布物使用 CPA 0.4.11 构建，其 >=0.4.0 <0.5.0 peer 覆盖目标 CPA 0.4.11；Git 不携带 lib，仍须安装校验后的 release tarball。
 
 本轮保留 CPA-only 生图、Gallery 事务与工作区元数据、Taskboard 持久化 FIFO 和明确的会话归属、Browser 会话绑定与审批、Lazy Gate 的用户显式解锁。下方历史 Desktop、模型和原生权限实测只适用于注明的版本。
 
@@ -168,7 +168,7 @@ pnpm 11 构建授权在 pnpm-workspace.yaml 的 allowBuilds，逐包审查后授
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-cpa-plugin#v0.4.11"
 # 精确 registry 版本。
-dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.28.0
+dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.28.2
 # 可选：只有需要移动访问时安装；Desktop-only 部署跳过。
 dsh plugin --profile <candidate-profile> add dsh-mobile@0.6.1
 
@@ -333,7 +333,7 @@ npm view <registry-package>@<精确版本> version dist.integrity
 | 来源 | 目标 | 提交 |
 | --- | --- | --- |
 | CPA | `v0.4.11` | `305896e8da2b5fa450728e5a24e8e877e5712f46` |
-| Browser | `v0.1.15-dev.2` | `641d8195b13b657cf3828c39051eca27ab003424` |
+| Browser | `v0.1.16-dev.2` | `256733493119dca239ed28b5f19aaaae129da7c7` |
 | Computer Use | `v0.1.6-dev.4` | `f349b40aebe221b019aed4a39bb8613f6ef1373b` |
 | Decision Engine | `v0.4.21` | `810f1c43a2de4c98377967bf2cc04bd33d0a9b46` |
 | GitHub MCP | 精确 commit | `5be9077d46bfed66b76843bbcc7bdc459990b3af` |
@@ -347,8 +347,8 @@ npm view <registry-package>@<精确版本> version dist.integrity
 
 | Release asset | SHA-256 |
 | --- | --- |
-| [Browser bridge tarball](https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.15-dev.2/yuxianglin-dsh-bridge-browser-0.0.15-dev.2.tgz) | `eb2c9e36e10766e2e00e0384a081c93e532ef21ab69d00c9bae61c14d78bf3c4` |
-| [Chrome extension zip](https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.15-dev.2/dsh-browser-extension-0.1.15-dev.2.zip) | `dc61c2e3f83aac69ab45f7093194b40186b807e5fd5e0a2166c274dfbc81e463` |
+| [Browser bridge tarball](https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.16-dev.2/yuxianglin-dsh-bridge-browser-0.0.16-dev.2.tgz) | `adc797a216ecbd4ded3e430c6716c12483bc4d084278fd0d9f04aa780cc32be3` |
+| [Chrome extension zip](https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.16-dev.2/dsh-browser-extension-0.1.16-dev.2.zip) | `09b105aaefca050cf57b59456129a1101c36bdbf8632fc29612690b6de687d11` |
 | [ImageGen tarball](https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.13/dsh-image-gen-0.5.13.tgz) | `1efc3085ef04026eaa01aa051458f5525631af3203a215c596fe3a4581666d3b` |
 
 fork 先查询默认分支上 `sync/upstream-main` 的 open PR，审完整正文、commits、files、reviews 和决策评论，
@@ -408,9 +408,9 @@ gh run list --repo <fork-owner/repo> --workflow sync-upstream.yml --limit 3
 
 这些插件的安装不止一条 `dsh plugin add`。
 
-- **Browser** —— 需要 bridge 与浏览器扩展同时就绪。检出精确 commit `641d8195b13b657cf3828c39051eca27ab003424`，
+- **Browser** —— 需要 bridge 与浏览器扩展同时就绪。检出精确 commit `256733493119dca239ed28b5f19aaaae129da7c7`，
   冻结安装、构建 workspace、打包 bridge，再安装到 candidate profile；详见[源码构建](#适配插件源码构建)。
-  Chrome 加载 `extensions/dsh-browser/dist/`。本 Release 的扩展 manifest 为 `0.1.15`；需同时核对实际加载的扩展与 bridge `0.0.15-dev.2`。
+  Chrome 加载 `extensions/dsh-browser/dist/`。本 Release 的扩展 manifest 为 `0.1.16`；需同时核对实际加载的扩展与 bridge `0.0.16-dev.2`。
   `scripts/install.sh` 默认修改 `web` profile，本轮 candidate 验证使用显式打包安装步骤。
   没有完整 checkout 时，远程 convenience installer 会下载 `main`，这条路径不算固定安装。
   Firefox 需要单独运行 `pnpm --filter dsh-browser-extension run build:firefox` 并完成扩展 token 配置；本轮未验证 Firefox。
@@ -468,7 +468,7 @@ DSH_TEST_CLI="$DSH_VALIDATION_ROOT/runtime/node_modules/@deepseek-ai/dsh/lib/bin
 (cd packages/browser/bridge-browser && pnpm pack --pack-destination "$DSH_VALIDATION_ROOT/artifacts")
 ```
 
-Chrome 加载 `extensions/dsh-browser/dist/`，核对 manifest `0.1.15`。
+Chrome 加载 `extensions/dsh-browser/dist/`，核对 manifest `0.1.16`。
 smoke 使用完整官方 npm CLI，因为开发依赖副本可能缺少必需 runtime peer。
 不要修改 smoke 断言或让 installer 覆盖已有正式 Web profile。
 从 Release 安装时，将 checksum 已核对的 bridge tarball 下载到稳定本地路径，
