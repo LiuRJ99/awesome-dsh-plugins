@@ -150,15 +150,15 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, Codex Responses GPT routing, account/quota UI (including Kimi Code), speed modes, image-generation service | GitHub Release `v0.4.11` | DSH peer services; CPA endpoint and credentials configured by the user |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | GitHub Release `v0.1.16-dev.2`: bridge tarball + Chrome extension zip; bridge `0.0.16-dev.2` | Matching bridge and Chrome extension assets; rebuild both only for source installation; Firefox needs a separate build and token setup |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.6-dev.4` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
-| [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.28.2` | Optional UI service for Taskboard and ImageGen; `0.28.2` declares DSH `^0.2.1-rc.1` peers and carries the large-session cold-read/OOM fixes from `0.28.1`; consumer optional peer ranges currently end at `0.28.0`, so installs may report an optional-peer warning — see the consumer compatibility notes below |
+| [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.28.2` | Optional UI service for Taskboard and ImageGen; `0.28.2` declares DSH `^0.2.1-rc.1` peers and carries the large-session cold-read/OOM fixes from `0.28.1`; Taskboard and ImageGen declare minimum-only optional peers (`>=0.21.1`), so newer Sidebar releases are accepted without the optional-peer warning — see the consumer compatibility notes below |
 | [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | Model-agnostic low-latency decision layer for DSH: pluggable Decision Engine and Providers, finite-candidate decision protocol, and Browser / Computer / Custom environment adapters | GitHub Release `v0.4.21` | DSH peer services; optional pinned SDK `@receptron/laya@0.1.1` for local inference; requires corresponding host tools/plugins if browser/computer adapters are enabled |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | Official GitHub MCP server bridge (`mcp__github__*`) plus a REST file reader | Exact Git commit `5be9077d46bfed66b76843bbcc7bdc459990b3af` (upstream publishes no tags) | `GITHUB_TOKEN` in the DSH process environment; DSH commonly loads it from `$DSH_HOME/.env` |
-| [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA-backed image generation, model catalog, image editing, Gallery and workspace save | GitHub Release `v0.5.13` tarball asset; SHA-256 `1efc3085ef04026eaa01aa051458f5525631af3203a215c596fe3a4581666d3b` | Install CPA first; ImageGen was built against CPA `v0.4.11`, and its `>=0.4.0 <0.5.0` peer range covers the catalog target `v0.4.11`. The repository gitignores `lib/`, so a Git install ships no entry point |
+| [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA-backed image generation, model catalog, image editing, Gallery and workspace save | GitHub Release `v0.5.14` tarball asset; SHA-256 `7eb68b4805cfb90cb0562bc39972f74a5153010ac1b5a9e0a1a579ea34040949` | Install CPA first; ImageGen declares minimum-only peers: CPA `>=0.4.0` and optional Better Sidebar `>=0.21.1`. The repository gitignores `lib/`, so a Git install ships no entry point |
 | [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | Access to DSH sessions from a mobile device | Exact registry version `0.6.1` | LAN access is separate from optional remote access; remote is off by default, paired devices are fully trusted, LAN uses a pinned local CA, and remote uses the provider's HTTPS endpoint. `0.6.1` requires Node `^22.19 || >=24`; validate the matching mobile client and pairing flow locally. Upstream `0.8.0` raises its React peer to `^19.3` and is not pinned here until verified against a matching Host build |
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` tools and the `open-record-replay` skill for recording a demonstrated desktop workflow | GitHub Release `v0.3.3-dev.3` | macOS and Xcode Command Line Tools; exact fork [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`, wired through a profile patch |
 | [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | Removes redundant sandbox fields from model-facing tool schemas | Git tag `sandbox-schema-shim-v0.1.1`, package path `/packages/sandbox-schema-shim` | DSH base profile |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token usage, statistics, billing-plan detection and spend views | GitHub Release `v0.6.7-dev.4` | DSH session, credentials and Web UI peer services |
-| [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host-authoritative tasks, task tools, workspace claims, scheduling and kanban UI | GitHub Release `v0.7.11` | Optional Better Sidebar integration; publishes capability metadata to Lazy Gate |
+| [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host-authoritative tasks, task tools, workspace claims, scheduling and kanban UI | GitHub Release `v0.7.12` | Optional Better Sidebar integration (minimum-only peer `>=0.21.1`); publishes capability metadata to Lazy Gate |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | Session-scoped gating for browser and computer-use by default, plus configured Taskboard/recorder families | GitHub Release `v0.1.10` | Browser/computer are built-in defaults; Taskboard and Record/Replay require capability config plus the adapted skill metadata; includes the Web connection workaround |
 
 ### Compatibility note
@@ -169,7 +169,7 @@ Host admission checks `engines.dsh` first, otherwise `@deepseek-ai/dsh` and `@de
 
 CPA 0.4.11 uses Host-provided peers instead of installing another settings/config-editor stack. Its connection patch and Lazy Gate 0.1.10 preserve webStartup and webServer without requiring the retired webRuntime service. Browser passes the Host-owned Peer to Gateway calls, streams and event replies; identity never comes from extension payloads. Computer Use no longer requires the retired invariants service.
 
-Taskboard 0.7.11 and ImageGen 0.5.13 typecheck against published Sidebar 0.28.0, with optional peer range ^0.21.1 || 0.24.1 || 0.26.0 || 0.28.0. Sidebar 0.28.1/0.28.2 are cold-read/OOM bugfixes on the same 0.28 line and sit outside those published optional ranges, so installers report an optional-peer warning until the consumers publish matching ranges; re-verify the Taskboard board tab and ImageGen Gallery after upgrading to 0.28.2. The language-pack peer in Sidebar is optional. ImageGen was built with CPA 0.4.11; its >=0.4.0 <0.5.0 peer covers target CPA 0.4.11. Use its checksum-verified release tarball because Git omits lib.
+Taskboard 0.7.12 and ImageGen 0.5.14 declare minimum-only peers: optional Better Sidebar `>=0.21.1`, and (for ImageGen) CPA `>=0.4.0`, with no upper bounds. Sidebar 0.28.2 and newer therefore stay accepted without an optional-peer warning; re-verify the Taskboard board tab and ImageGen Gallery after upgrading. The language-pack peer in Sidebar is optional. ImageGen was built with CPA 0.4.11 and declares CPA `>=0.4.0`; use its checksum-verified release tarball because Git omits lib.
 
 These releases retain CPA-only image generation, Gallery transactions and workspace metadata, Taskboard durable FIFO and explicit session ownership, Browser session bindings and approvals, and explicit user unlock in Lazy Gate. Historical Desktop, model and native-permission checks below apply only to their stated versions.
 
@@ -215,7 +215,7 @@ dsh plugin --profile <candidate-profile> add \
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-spend#v0.6.7-dev.4"
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-taskboard-cloader#v0.7.11"
+  "github:LiuRJ99/dsh-taskboard-cloader#v0.7.12"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-tool-lazy-gate#v0.1.10"
 
@@ -382,11 +382,11 @@ Use these reviewed identities to check the catalog sources; they are not an inst
 | Computer Use | `v0.1.6-dev.4` | `f349b40aebe221b019aed4a39bb8613f6ef1373b` |
 | Decision Engine | `v0.4.21` | `810f1c43a2de4c98377967bf2cc04bd33d0a9b46` |
 | GitHub MCP | Exact commit | `5be9077d46bfed66b76843bbcc7bdc459990b3af` |
-| ImageGen | `v0.5.13` | `0f49d274e5cb2f447ad62aba10ecb07ab3bb4847` |
+| ImageGen | `v0.5.14` | `bde3a303d09278b1c3474129bfe17db0cdaf791d` |
 | Record/Replay | `v0.3.3-dev.3` | `f1e2dc1f8f4fc29e20edce6036740688494ee553` |
 | Sandbox shim | `sandbox-schema-shim-v0.1.1` | `ba4088c1a7b77b1c73fd5d5438f46800720d6bcd` |
 | Spend | `v0.6.7-dev.4` | `c15b0565848493c1b02a2e7cbfe6151de4e6cc5d` |
-| Taskboard | `v0.7.11` | `02f033e1a1fe02936ec70f6337d6d668d13b1931` |
+| Taskboard | `v0.7.12` | `776aae96af786c57eeb16c9e6f822d57320962ac` |
 | Lazy Gate | `v0.1.10` | `4f1bb51fa9a48c578a8839a00e3b6170c66b962a` |
 | Recorder helper | `v0.1.1` | `91188499023cbce9f56c11b58f71bc7e8298a33d` |
 
@@ -394,7 +394,7 @@ Use these reviewed identities to check the catalog sources; they are not an inst
 | --- | --- |
 | [Browser bridge tarball](https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.16-dev.2/yuxianglin-dsh-bridge-browser-0.0.16-dev.2.tgz) | `adc797a216ecbd4ded3e430c6716c12483bc4d084278fd0d9f04aa780cc32be3` |
 | [Chrome extension zip](https://github.com/LiuRJ99/dsh-browser/releases/download/v0.1.16-dev.2/dsh-browser-extension-0.1.16-dev.2.zip) | `09b105aaefca050cf57b59456129a1101c36bdbf8632fc29612690b6de687d11` |
-| [ImageGen tarball](https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.13/dsh-image-gen-0.5.13.tgz) | `1efc3085ef04026eaa01aa051458f5525631af3203a215c596fe3a4581666d3b` |
+| [ImageGen tarball](https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.14/dsh-image-gen-0.5.14.tgz) | `7eb68b4805cfb90cb0562bc39972f74a5153010ac1b5a9e0a1a579ea34040949` |
 
 For forks, start with an open `sync/upstream-main` PR on the default branch. Read the complete
 body, commits, files, reviews and decision comments before any local upstream fetch/diff/merge.
@@ -464,9 +464,9 @@ These need more than a `dsh plugin add`.
   `scripts/install.sh` modifies the `web` profile by default; use the explicit build/pack path for candidate validation.
   Its remote convenience fallback downloads unpinned `main`. Firefox needs a separate `pnpm --filter dsh-browser-extension run build:firefox` build and token setup and was not tested in this round.
 - **ImageGen** — to reproduce its build, build CPA from its exact `v0.4.11` tag first, then ImageGen from
-  its exact `v0.5.13` tag, and use the published `v0.5.13` release tarball. Its
+  its exact `v0.5.14` tag, and use the published `v0.5.14` release tarball. Its
   asset SHA-256 is
-  `1efc3085ef04026eaa01aa051458f5525631af3203a215c596fe3a4581666d3b`.
+  `7eb68b4805cfb90cb0562bc39972f74a5153010ac1b5a9e0a1a579ea34040949`.
   Download it to a stable local path before `dsh plugin add`; GitHub serves
   Release downloads through temporary signed redirect URLs, and those must not end
   up in a long-lived lockfile. Do not copy the source checkout into a profile or
@@ -573,8 +573,8 @@ breaks pnpm 11 installation. Build the pinned recorder helper on macOS before en
 
 The source repository uses a sibling CPA checkout during build only. Pin both
 checkouts before installing dependencies; the example below uses CPA `v0.4.11`
-(commit `305896e8da2b5fa450728e5a24e8e877e5712f46`) and ImageGen `v0.5.13`
-(commit `0f49d274e5cb2f447ad62aba10ecb07ab3bb4847`):
+(commit `305896e8da2b5fa450728e5a24e8e877e5712f46`) and ImageGen `v0.5.14`
+(commit `bde3a303d09278b1c3474129bfe17db0cdaf791d`):
 
 ```text
 staging/
@@ -585,12 +585,12 @@ staging/
 ```bash
 git clone --branch v0.4.11 --depth 1 \
   https://github.com/LiuRJ99/dsh-cpa-plugin.git staging/dsh-cpa-plugin
-git clone --branch v0.5.13 --depth 1 \
+git clone --branch v0.5.14 --depth 1 \
   https://github.com/LiuRJ99/dsh-image-gen.git staging/dsh-image-gen
 test "$(git -C staging/dsh-cpa-plugin rev-parse HEAD)" = \
   305896e8da2b5fa450728e5a24e8e877e5712f46
 test "$(git -C staging/dsh-image-gen rev-parse HEAD)" = \
-  0f49d274e5cb2f447ad62aba10ecb07ab3bb4847
+  bde3a303d09278b1c3474129bfe17db0cdaf791d
 
 cd staging/dsh-cpa-plugin
 pnpm install --frozen-lockfile
@@ -606,10 +606,10 @@ pnpm run pack:check
 pnpm run pack:artifact -- --pack-destination /tmp/dsh-image-gen-artifacts
 ```
 
-The resulting tarball is published as the `v0.5.13` Release asset:
+The resulting tarball is published as the `v0.5.14` Release asset:
 
 ```text
-https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.13/dsh-image-gen-0.5.13.tgz
+https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.14/dsh-image-gen-0.5.14.tgz
 ```
 
 Download it to a stable local path before installing, so the temporary signed
@@ -617,11 +617,11 @@ redirect URL is never written into a long-lived profile lockfile:
 
 ```bash
 curl -fL \
-  https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.13/dsh-image-gen-0.5.13.tgz \
-  -o /stable/path/dsh-image-gen-0.5.13.tgz
-shasum -a 256 /stable/path/dsh-image-gen-0.5.13.tgz
-# Expect 1efc3085ef04026eaa01aa051458f5525631af3203a215c596fe3a4581666d3b
-dsh plugin --profile <candidate-profile> add /stable/path/dsh-image-gen-0.5.13.tgz
+  https://github.com/LiuRJ99/dsh-image-gen/releases/download/v0.5.14/dsh-image-gen-0.5.14.tgz \
+  -o /stable/path/dsh-image-gen-0.5.14.tgz
+shasum -a 256 /stable/path/dsh-image-gen-0.5.14.tgz
+# Expect 7eb68b4805cfb90cb0562bc39972f74a5153010ac1b5a9e0a1a579ea34040949
+dsh plugin --profile <candidate-profile> add /stable/path/dsh-image-gen-0.5.14.tgz
 ```
 
 ## macOS services outside the plugin directory
