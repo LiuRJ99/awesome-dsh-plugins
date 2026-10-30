@@ -311,8 +311,9 @@ for other credentials, platforms or model inputs. Classifications apply only to 
 | Skipped | Mobile `0.6.1` | Optional client; pairing and remote access not certified by Desktop-only validation |
 
 Remaining Host-supplied and prerelease peer warnings must be evaluated separately from actual
-dependency resolution. Taskboard/ImageGen's former optional Sidebar warning is resolved by
-`^0.21.1 || 0.24.1`; no version exemption is used. An empty historical session has no content from
+dependency resolution. Taskboard/ImageGen's former optional Sidebar warning was resolved by enumerated
+ranges at the time; current releases declare minimum-only `>=0.21.1` (see the catalog targets
+above). No version exemption is used. An empty historical session has no content from
 which to infer a title, and orphan task ownership needs authoritative evidence before rebinding.
 
 ### 2026-10-15 candidate qualification

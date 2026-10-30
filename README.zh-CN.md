@@ -272,7 +272,7 @@ Mobile 为可选客户端，Desktop-only 部署跳过。
 | 跳过 | Mobile `0.6.1` | 可选客户端；Desktop-only 验收不包含配对与远程访问 |
 
 Host 外供依赖和 prerelease peer 提示应与实际依赖解析分别核对。
-Taskboard/ImageGen 的旧可选 Sidebar 警告已由 `^0.21.1 || 0.24.1` 解决，没有版本豁免。
+Taskboard/ImageGen 的旧可选 Sidebar 警告当时由枚举范围解决；当前版本已改为只声明最低要求 `>=0.21.1`（见上方目录目标），没有版本豁免。
 没有内容的旧空会话无法推导标题；孤立任务归属需要权威证据，不能任意重绑定。
 
 ### 2026-10-15 候选验证
