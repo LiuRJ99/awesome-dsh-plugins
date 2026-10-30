@@ -150,6 +150,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, Codex Responses GPT routing, account/quota UI (including Kimi Code), speed modes, image-generation service | GitHub Release `v0.4.11` | DSH peer services; CPA endpoint and credentials configured by the user |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | GitHub Release `v0.1.16-dev.2`: bridge tarball + Chrome extension zip; bridge `0.0.16-dev.2` | Matching bridge and Chrome extension assets; rebuild both only for source installation; Firefox needs a separate build and token setup |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.6-dev.4` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
+| [`ds-bot` (DS Bot)](https://github.com/Fei2411/DS-Bot) | Persistent bot teams, Main Bots, bot-to-bot messages, group chats and memory | Exact registry version `0.2.3` | Host LLM, tools and Web services plus a configured model. Host peers are `*`, so compatibility needs runtime validation. The bundle also selects the profile-wide `auto` search provider; see the DS Bot notes below |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.28.2` | Optional UI service for Taskboard and ImageGen; `0.28.2` declares DSH `^0.2.1-rc.1` peers and carries the large-session cold-read/OOM fixes from `0.28.1`; Taskboard and ImageGen declare minimum-only optional peers (`>=0.21.1`), so newer Sidebar releases are accepted without the optional-peer warning — see the consumer compatibility notes below |
 | [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | Model-agnostic low-latency decision layer for DSH: pluggable Decision Engine and Providers, finite-candidate decision protocol, and Browser / Computer / Custom environment adapters | GitHub Release `v0.4.21` | DSH peer services; optional pinned SDK `@receptron/laya@0.1.1` for local inference; requires corresponding host tools/plugins if browser/computer adapters are enabled |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | Official GitHub MCP server bridge (`mcp__github__*`) plus a REST file reader | Exact Git commit `5be9077d46bfed66b76843bbcc7bdc459990b3af` (upstream publishes no tags) | `GITHUB_TOKEN` in the DSH process environment; DSH commonly loads it from `$DSH_HOME/.env` |
@@ -161,20 +162,21 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host-authoritative tasks, task tools, workspace claims, scheduling and kanban UI | GitHub Release `v0.7.12` | Optional Better Sidebar integration (minimum-only peer `>=0.21.1`); publishes capability metadata to Lazy Gate |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | Session-scoped gating for browser and computer-use by default, plus configured Taskboard/recorder families | GitHub Release `v0.1.10` | Browser/computer are built-in defaults; Taskboard and Record/Replay require capability config plus the adapted skill metadata; includes the Web connection workaround |
 
-### Additional plugin: dshbot
+### DS Bot (`ds-bot`)
 
-[`ChisaAlter/dshbot`](https://github.com/ChisaAlter/dshbot) adds sidebar bot
-contacts, group rooms, agent messaging and durable task handoff. Its standalone
-source snapshot is recorded here for evaluation; it is not an install target for
-the DSH 0.2.x combination above.
+[`Fei2411/DS-Bot`](https://github.com/Fei2411/DS-Bot) publishes the npm package
+`ds-bot`; [`ChisaAlter/dshbot`](https://github.com/ChisaAlter/dshbot) is a separate
+project. The legacy package `dsh-bot` shares the `bot` entry ID with `ds-bot`, so
+those two packages cannot be enabled together.
 
-| Source snapshot | Package version | Compatibility and prerequisites |
-| --- | --- | --- |
-| Exact Git commit [`45464abda7f4cb39ddb73e3372c21b488a39f6fa`](https://github.com/ChisaAlter/dshbot/tree/45464abda7f4cb39ddb73e3372c21b488a39f6fa) | `0.2.0` | All seven declared DSH peers use `^0.1.0-rc.7 || ^0.1.1-rc.1`, which excludes DSH 0.2.x even with prereleases included. It also needs the official sidebar slots and provisions its `dshbot-room` agent preset on first load. |
+The bundle mounts the bot team and `ds-bot/web-search`. Its patch sets
+`web.searchProvider` to `auto` across the profile. Disabling `web-search-auto`
+also requires selecting another registered search provider and retaining
+`fetchProvider: http` in the replacement Web config.
 
-The plugin's package version is separate from its supported Host range. A future
-install target needs a compatible declaration and runtime validation at a fixed
-source revision.
+Bots use Host-configured models. Team data, memory and secrets live under
+`$DSH_HOME/bot`, with chat sessions under `$DSH_HOME/sessions`; back up both when
+upgrading. Wildcard Host peers do not establish a tested compatibility range.
 
 ### Compatibility note
 
@@ -215,6 +217,8 @@ dsh plugin --profile <candidate-profile> add \
 dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.28.2
 # Optional: phone access works with both Desktop and Web profiles.
 dsh plugin --profile <candidate-profile> add dsh-mobile@0.7.1
+# Optional: persistent bot teams using Host-configured models.
+dsh plugin --profile <candidate-profile> add ds-bot@0.2.3
 
 # Fixed sources; published forks use exact release tags.
 dsh plugin --profile <candidate-profile> add \
@@ -246,6 +250,7 @@ profile and restart DSH. Do not copy the candidate's `package.json`, lockfile, o
 
 ```text
 DSH base + DSH Web Host
+├─ DS Bot ── Host models, tools and sessions; own team data and auto search
 ├─ Better Sidebar ── optional UI service ──┬─ Taskboard
 │                                         └─ ImageGen
 ├─ CPA Provider ── required runtime service ── ImageGen

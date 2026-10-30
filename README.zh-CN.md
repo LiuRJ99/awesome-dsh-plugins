@@ -124,6 +124,7 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、GPT/Codex Responses 路由、账号/配额界面（含 Kimi Code）、速度模式、图片生成服务 | GitHub Release `v0.4.11` | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | GitHub Release `v0.1.16-dev.2` bridge tarball + Chrome extension zip；bridge `0.0.16-dev.2` | 匹配的 bridge 与 Chrome 扩展物料；仅源码安装时需要同时构建；Firefox 需要单独构建与 token 配置 |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.6-dev.4` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
+| [`ds-bot`（DS Bot）](https://github.com/Fei2411/DS-Bot) | 常驻 Bot 团队、主 Bot、Bot 间消息、群聊与记忆 | registry 精确版本 `0.2.3` | Host 的 LLM、tools、Web 服务及已配置模型；Host peer 为 `*`，兼容性仍需运行时验证。bundle 还会把整个 profile 的搜索提供者设为 `auto`，见下文 DS Bot 说明 |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.28.2` | Taskboard 和 ImageGen 的可选 UI 服务；`0.28.2` 声明 DSH `^0.2.1-rc.1` peer，包含 `0.28.1` 起的大会话冷读/OOM 修复；Taskboard 与 ImageGen 声明只写最低要求的可选 peer（`>=0.21.1`），更新的 Sidebar 版本会被接受，不再出现可选 peer 警告，见兼容性说明 |
 | [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | 面向 DSH 的模型中立低延迟决策层：提供可插拔决策引擎与 Provider、有限候选集决策协议，以及 Browser / Computer / Custom 环境适配器 | GitHub Release `v0.4.21` | DSH peer 服务；可选固定 SDK `@receptron/laya@0.1.1` 提供本地推理；若启用 browser/computer 适配器需相应宿主工具/插件支持 |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | GitHub 官方 MCP server 桥接（`mcp__github__*`）与 REST 文件读取 | 精确 Git commit `5be9077d46bfed66b76843bbcc7bdc459990b3af`（上游未发布 tag） | DSH 进程环境中的 `GITHUB_TOKEN`；DSH 通常从 `$DSH_HOME/.env` 加载 |
@@ -135,18 +136,19 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host 权威任务、任务工具、工作区认领、调度和看板 UI | GitHub Release `v0.7.12` | Better Sidebar 为可选集成（peer 只写最低要求 `>=0.21.1`）；向 Lazy Gate 发布能力元数据 |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | 默认门控 browser 与 computer-use，并可按配置门控 Taskboard/录制器工具族 | GitHub Release `v0.1.10` | browser/computer 是内置默认；Taskboard 与 Record/Replay 需要 capability 配置和 adapted skill 元数据；包含 Web connection workaround |
 
-### 补充插件：dshbot
+### DS Bot（`ds-bot`）
 
-[`ChisaAlter/dshbot`](https://github.com/ChisaAlter/dshbot) 提供侧边栏机器人联系人、
-群聊、Agent 间消息和持久化任务交接。这里记录独立分发仓库的固定源码快照供评估，
-不把它列为上述 DSH 0.2.x 组合的安装目标。
+[`Fei2411/DS-Bot`](https://github.com/Fei2411/DS-Bot) 对应的 npm 包名是 `ds-bot`；
+[`ChisaAlter/dshbot`](https://github.com/ChisaAlter/dshbot) 是另一个项目。旧包
+`dsh-bot` 与 `ds-bot` 共用 `bot` entry ID，不能同时启用。
 
-| 源码快照 | 包版本 | 兼容性与前置条件 |
-| --- | --- | --- |
-| 精确 Git commit [`45464abda7f4cb39ddb73e3372c21b488a39f6fa`](https://github.com/ChisaAlter/dshbot/tree/45464abda7f4cb39ddb73e3372c21b488a39f6fa) | `0.2.0` | 七个 DSH peer 均声明 `^0.1.0-rc.7 || ^0.1.1-rc.1`，包含 prerelease 比较时也不覆盖 DSH 0.2.x；还需要官方侧栏插槽，首次加载会部署 `dshbot-room` agent preset。 |
+bundle 会挂载 Bot 团队和 `ds-bot/web-search`，并把整个 profile 的
+`web.searchProvider` 设为 `auto`。关闭 `web-search-auto` 时，还需要选择另一个已注册
+的搜索提供者，并在替换的 Web config 中保留 `fetchProvider: http`。
 
-插件包版本与支持的 Host 范围是两回事。后续安装目标需要在固定源码 revision 上有兼容
-声明和运行时验证。
+Bot 使用 Host 中配置的模型。团队数据、记忆和 secrets 位于 `$DSH_HOME/bot`，聊天会话
+位于 `$DSH_HOME/sessions`，升级时应同时备份。Host peer 使用通配符不等于已经验证过
+所有 Host 版本。
 
 ### 兼容性说明
 
@@ -184,6 +186,8 @@ dsh plugin --profile <candidate-profile> add \
 dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.28.2
 # 可选：需要手机访问时安装，Desktop 和 Web profile 均支持。
 dsh plugin --profile <candidate-profile> add dsh-mobile@0.7.1
+# 可选：使用 Host 已配置模型的常驻 Bot 团队。
+dsh plugin --profile <candidate-profile> add ds-bot@0.2.3
 
 # 固定来源；已发布 fork 使用精确 release tag。
 dsh plugin --profile <candidate-profile> add \
@@ -214,6 +218,7 @@ candidate 通过后，用相同的精确来源重复安装到正式 profile，�
 
 ```text
 DSH base + DSH Web Host
+├─ DS Bot ── Host 模型、工具与会话；独立团队数据及 auto 搜索
 ├─ Better Sidebar ── 可选 UI 服务 ──┬─ Taskboard
 │                                  └─ ImageGen
 ├─ CPA Provider ── 必需运行时服务 ── ImageGen
