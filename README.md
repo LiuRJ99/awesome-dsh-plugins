@@ -150,17 +150,40 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, Codex Responses GPT routing, account/quota UI (including Kimi Code), speed modes, image-generation service | GitHub Release `v0.4.11` | DSH peer services; CPA endpoint and credentials configured by the user |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | GitHub Release `v0.1.16-dev.2`: bridge tarball + Chrome extension zip; bridge `0.0.16-dev.2` | Matching bridge and Chrome extension assets; rebuild both only for source installation; Firefox needs a separate build and token setup |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.6-dev.4` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
-| [`ds-bot` (DS Bot)](https://github.com/Fei2411/DS-Bot) | Persistent bot teams, Main Bots, bot-to-bot messages, group chats and memory | Exact registry version `0.2.3` | Host LLM, tools and Web services plus a configured model. Host peers are `*`, so compatibility needs runtime validation. The bundle also selects the profile-wide `auto` search provider; see the DS Bot notes below |
+| [`ds-bot` (DS Bot)](https://github.com/Fei2411/DS-Bot) | Persistent bot teams, Main Bots, bot-to-bot messages, group chats and memory | Exact registry version `0.2.4` | Host LLM, tools and Web services plus a configured model. Host peers are `*`, so compatibility needs runtime validation. The bundle also selects the profile-wide `auto` search provider; see the DS Bot notes below |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web sidebar, explorer, editor, terminal, Git and browser surfaces; `ctx.betterSidebar` service | Exact registry version `0.28.2` | Optional UI service for Taskboard and ImageGen; `0.28.2` declares DSH `^0.2.1-rc.1` peers and carries the large-session cold-read/OOM fixes from `0.28.1`; Taskboard and ImageGen declare minimum-only optional peers (`>=0.21.1`), so newer Sidebar releases are accepted without the optional-peer warning — see the consumer compatibility notes below |
 | [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | Model-agnostic low-latency decision layer for DSH: pluggable Decision Engine and Providers, finite-candidate decision protocol, and Browser / Computer / Custom environment adapters | GitHub Release `v0.4.21` | DSH peer services; optional pinned SDK `@receptron/laya@0.1.1` for local inference; requires corresponding host tools/plugins if browser/computer adapters are enabled |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | Official GitHub MCP server bridge (`mcp__github__*`) plus a REST file reader | Exact Git commit `5be9077d46bfed66b76843bbcc7bdc459990b3af` (upstream publishes no tags) | `GITHUB_TOKEN` in the DSH process environment; DSH commonly loads it from `$DSH_HOME/.env` |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA-backed image generation, model catalog, image editing, Gallery and workspace save | GitHub Release `v0.5.14` tarball asset; SHA-256 `7eb68b4805cfb90cb0562bc39972f74a5153010ac1b5a9e0a1a579ea34040949` | Install CPA first; ImageGen declares minimum-only peers: CPA `>=0.4.0` and optional Better Sidebar `>=0.21.1`. The repository gitignores `lib/`, so a Git install ships no entry point |
 | [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | Access to DSH sessions from a mobile device | Exact registry version `0.7.1` | Node `^22.19 || >=24`; optional React peer `^18.2.0`. LAN and remote access have separate controls; paired devices are fully trusted and remote is off by default. Preserve the private CA and paired-device store. Android App and plugin versions are independent from plugin `0.6.2` onward. Upstream `0.8.0` raises its React peer to `^19.3` and is not pinned here. See the Mobile qualification and diagnostics limit below |
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` tools and the `open-record-replay` skill for recording a demonstrated desktop workflow | GitHub Release `v0.3.3-dev.3` | macOS and Xcode Command Line Tools; exact fork [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`, wired through a profile patch |
-| [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | Removes redundant sandbox fields from model-facing tool schemas | Git tag `sandbox-schema-shim-v0.1.1`, package path `/packages/sandbox-schema-shim` | DSH base profile |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token usage, statistics, billing-plan detection and spend views | GitHub Release `v0.6.7-dev.4` | DSH session, credentials and Web UI peer services |
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host-authoritative tasks, task tools, workspace claims, scheduling and kanban UI | GitHub Release `v0.7.12` | Optional Better Sidebar integration (minimum-only peer `>=0.21.1`); publishes capability metadata to Lazy Gate |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | Session-scoped gating for browser and computer-use by default, plus configured Taskboard/recorder families | GitHub Release `v0.1.10` | Browser/computer are built-in defaults; Taskboard and Record/Replay require capability config plus the adapted skill metadata; includes the Web connection workaround |
+
+### Legacy compatibility plugin
+
+This plugin is retained as a source reference for older Host integrations and is
+excluded from the installation example below.
+
+| Plugin | Capability | Install from | Prerequisites |
+| --- | --- | --- | --- |
+| [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | Removes redundant sandbox fields from model-facing tool schemas | Git tag `sandbox-schema-shim-v0.1.1`, package path `/packages/sandbox-schema-shim` | Requires the older prompt-assembly tool-schema API. **Incompatible with official DSH `0.2.1-rc.4`**; remove or disable it on that Host |
+
+On official DSH `0.2.1-rc.4`, tool declarations are attached after the
+`system-prompt/assemble` waterfall. The shim assumes that `assembled.tools`
+already exists there and calls `.map()` on it in `danger-full-access` sessions.
+The turn then fails before a model request with
+`Cannot read properties of undefined (reading 'map')`. DS Bot commonly exposes
+this because its Bots use that permission preset; ordinary Agent sessions with
+the same preset can also be affected. Removing the shim leaves the Host's own
+sandbox and approval policies in control and does not change the permission preset.
+
+For an affected profile, remove the legacy bundle through the plugin manager:
+
+```bash
+dsh plugin --profile <profile> remove dsh-sandbox-schema-shim
+```
 
 ### DS Bot (`ds-bot`)
 
@@ -218,7 +241,7 @@ dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.28.2
 # Optional: phone access works with both Desktop and Web profiles.
 dsh plugin --profile <candidate-profile> add dsh-mobile@0.7.1
 # Optional: persistent bot teams using Host-configured models.
-dsh plugin --profile <candidate-profile> add ds-bot@0.2.3
+dsh plugin --profile <candidate-profile> add ds-bot@0.2.4
 
 # Fixed sources; published forks use exact release tags.
 dsh plugin --profile <candidate-profile> add \
@@ -229,8 +252,6 @@ dsh plugin --profile <candidate-profile> add \
   "github:GitRuozhi/dsh-github-mcp#5be9077d46bfed66b76843bbcc7bdc459990b3af"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-record-replay#v0.3.3-dev.3"
-dsh plugin --profile <candidate-profile> add \
-  "github:xiaohj233/dsh-compat-shims#ba4088c1a7b77b1c73fd5d5438f46800720d6bcd&path:/packages/sandbox-schema-shim"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-spend#v0.6.7-dev.4"
 dsh plugin --profile <candidate-profile> add \
@@ -380,6 +401,14 @@ The published targets keep the official `0.2.1-rc.1` build SDK and admit newer H
 
 Published assets were downloaded and matched their SHA-256 checksums. An isolated official `0.2.1-rc.2` Host loaded all 16 components from 13 community plugins as active, with no community pending entries or loader errors. Sources, runtime entries and dependencies passed inspection. This adds startup coverage only; live model billing, recording/replay, Firefox and Mobile were not retested.
 
+### DS Bot 0.2.4 qualification
+
+With official DSH `0.2.1-rc.4`, an isolated candidate reproduced the legacy
+sandbox shim's failure before the first generation step. After removing that
+bundle, the same Bot session, model selection and `danger-full-access` preset
+completed a live text turn. This validates the affected request path; it does
+not certify every DS Bot feature or model provider.
+
 ### Mobile 0.7.1 qualification
 
 The exact registry package `dsh-mobile@0.7.1` retains the React `^18.2.0` optional
@@ -398,7 +427,7 @@ work around a diagnostics-page error.
 
 ## Release and upstream checks
 
-The public forks maintained in this round have GitHub Releases and v* tags protected against updates and deletion. Record/Replay uses v0.3.3-dev.3. GitHub MCP and Sandbox shim retain pinned sources. Source tags, npm packages and release assets are distinct delivery forms; verify provenance, actual entry points and checksums individually.
+The public forks maintained in this round have GitHub Releases and v* tags protected against updates and deletion. Record/Replay uses v0.3.3-dev.3. GitHub MCP and the legacy Sandbox shim retain pinned source references; the latter is excluded from the modern installation set as described above. Source tags, npm packages and release assets are distinct delivery forms; verify provenance, actual entry points and checksums individually.
 
 Computer Use's source CI passed; its npm publish job failed with
 [ENEEDAUTH](https://github.com/LiuRJ99/dsh-computer-use/actions/runs/39191230437).
