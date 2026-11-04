@@ -124,7 +124,7 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、GPT/Codex Responses 路由、账号/配额界面（含 Kimi Code）、速度模式、图片生成服务 | GitHub Release `v0.4.11` | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | GitHub Release `v0.1.16-dev.2` bridge tarball + Chrome extension zip；bridge `0.0.16-dev.2` | 匹配的 bridge 与 Chrome 扩展物料；仅源码安装时需要同时构建；Firefox 需要单独构建与 token 配置 |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.6-dev.4` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
-| [`ds-bot`（DS Bot）](https://github.com/Fei2411/DS-Bot) | 常驻 Bot 团队、主 Bot、Bot 间消息、群聊与记忆 | registry 精确版本 `0.2.4` | Host 的 LLM、tools、Web 服务及已配置模型；Host peer 为 `*`，兼容性仍需运行时验证。bundle 还会把整个 profile 的搜索提供者设为 `auto`，见下文 DS Bot 说明 |
+| [`ds-bot`（DS Bot）](https://github.com/Fei2411/DS-Bot) | 常驻 Bot 团队、主 Bot、Bot 间消息、群聊与记忆 | registry 精确版本 `0.2.7` | Host 的 LLM、tools、Web 服务及已配置模型。上游 npm 包：直接安装或更新到 registry 当前版本，无需单独验收轮次；Host peer 为 `*`。bundle 还会把整个 profile 的搜索提供者设为 `auto`，见下文 DS Bot 说明 |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.28.2` | Taskboard 和 ImageGen 的可选 UI 服务；`0.28.2` 声明 DSH `^0.2.1-rc.1` peer，包含 `0.28.1` 起的大会话冷读/OOM 修复；Taskboard 与 ImageGen 声明只写最低要求的可选 peer（`>=0.21.1`），更新的 Sidebar 版本会被接受，不再出现可选 peer 警告，见兼容性说明 |
 | [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | 面向 DSH 的模型中立低延迟决策层：提供可插拔决策引擎与 Provider、有限候选集决策协议，以及 Browser / Computer / Custom 环境适配器 | GitHub Release `v0.4.21` | DSH peer 服务；可选固定 SDK `@receptron/laya@0.1.1` 提供本地推理；若启用 browser/computer 适配器需相应宿主工具/插件支持 |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | GitHub 官方 MCP server 桥接（`mcp__github__*`）与 REST 文件读取 | 精确 Git commit `5be9077d46bfed66b76843bbcc7bdc459990b3af`（上游未发布 tag） | DSH 进程环境中的 `GITHUB_TOKEN`；DSH 通常从 `$DSH_HOME/.env` 加载 |
@@ -167,8 +167,9 @@ bundle 会挂载 Bot 团队和 `ds-bot/web-search`，并把整个 profile 的
 的搜索提供者，并在替换的 Web config 中保留 `fetchProvider: http`。
 
 Bot 使用 Host 中配置的模型。团队数据、记忆和 secrets 位于 `$DSH_HOME/bot`，聊天会话
-位于 `$DSH_HOME/sessions`，升级时应同时备份。Host peer 使用通配符不等于已经验证过
-所有 Host 版本。
+位于 `$DSH_HOME/sessions`，升级时应同时备份。DS Bot 是上游 registry 包：直接安装或
+更新到 registry 当前版本即可，新版本不需要单独的目录验收轮次。Host peer 使用通配符
+不等于已经验证过所有 Host 版本。
 
 ### 兼容性说明
 
@@ -207,7 +208,7 @@ dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.28.2
 # 可选：需要手机访问时安装，Desktop 和 Web profile 均支持。
 dsh plugin --profile <candidate-profile> add dsh-mobile@0.7.1
 # 可选：使用 Host 已配置模型的常驻 Bot 团队。
-dsh plugin --profile <candidate-profile> add ds-bot@0.2.4
+dsh plugin --profile <candidate-profile> add ds-bot@0.2.7
 
 # 固定来源；已发布 fork 使用精确 release tag。
 dsh plugin --profile <candidate-profile> add \
@@ -349,7 +350,10 @@ macOS 原生辅助程序构建通过；各部署仍须单独检查权限。本�
 
 发布物下载后与 SHA-256 一致。独立官方 `0.2.1-rc.2` Host 中，13 个社区插件对应的 16 个组件全部 active，没有社区插件 pending 或加载错误；来源、运行入口与依赖解析检查通过。本轮新增启动覆盖，不新增真实模型计费调用、录制/回放、Firefox 或 Mobile 的验收结论。
 
-### DS Bot 0.2.4 验收
+### DS Bot 0.2.4 验收（历史记录）
+
+这次一次性检查记录了旧 sandbox shim 的失败路径；DS Bot 本身现在直接跟随上游 registry
+（见上文 DS Bot 说明）。
 
 在官方 DSH `0.2.1-rc.4` 的独立候选环境中，旧 sandbox shim 在第一次生成步骤前复现了上述失败。
 移除该 bundle 后，同一 Bot 会话、模型选择和 `danger-full-access` 预设完成了一次真实文本轮次。
