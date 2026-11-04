@@ -124,17 +124,37 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 | [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、GPT/Codex Responses 路由、账号/配额界面（含 Kimi Code）、速度模式、图片生成服务 | GitHub Release `v0.4.11` | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | GitHub Release `v0.1.16-dev.2` bridge tarball + Chrome extension zip；bridge `0.0.16-dev.2` | 匹配的 bridge 与 Chrome 扩展物料；仅源码安装时需要同时构建；Firefox 需要单独构建与 token 配置 |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.6-dev.4` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
-| [`ds-bot`（DS Bot）](https://github.com/Fei2411/DS-Bot) | 常驻 Bot 团队、主 Bot、Bot 间消息、群聊与记忆 | registry 精确版本 `0.2.3` | Host 的 LLM、tools、Web 服务及已配置模型；Host peer 为 `*`，兼容性仍需运行时验证。bundle 还会把整个 profile 的搜索提供者设为 `auto`，见下文 DS Bot 说明 |
+| [`ds-bot`（DS Bot）](https://github.com/Fei2411/DS-Bot) | 常驻 Bot 团队、主 Bot、Bot 间消息、群聊与记忆 | registry 精确版本 `0.2.4` | Host 的 LLM、tools、Web 服务及已配置模型；Host peer 为 `*`，兼容性仍需运行时验证。bundle 还会把整个 profile 的搜索提供者设为 `auto`，见下文 DS Bot 说明 |
 | [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.28.2` | Taskboard 和 ImageGen 的可选 UI 服务；`0.28.2` 声明 DSH `^0.2.1-rc.1` peer，包含 `0.28.1` 起的大会话冷读/OOM 修复；Taskboard 与 ImageGen 声明只写最低要求的可选 peer（`>=0.21.1`），更新的 Sidebar 版本会被接受，不再出现可选 peer 警告，见兼容性说明 |
 | [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | 面向 DSH 的模型中立低延迟决策层：提供可插拔决策引擎与 Provider、有限候选集决策协议，以及 Browser / Computer / Custom 环境适配器 | GitHub Release `v0.4.21` | DSH peer 服务；可选固定 SDK `@receptron/laya@0.1.1` 提供本地推理；若启用 browser/computer 适配器需相应宿主工具/插件支持 |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | GitHub 官方 MCP server 桥接（`mcp__github__*`）与 REST 文件读取 | 精确 Git commit `5be9077d46bfed66b76843bbcc7bdc459990b3af`（上游未发布 tag） | DSH 进程环境中的 `GITHUB_TOKEN`；DSH 通常从 `$DSH_HOME/.env` 加载 |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA 图片生成、图片模型目录、图片编辑、Gallery 和工作区保存 | GitHub Release `v0.5.14` tarball asset；SHA-256 `7eb68b4805cfb90cb0562bc39972f74a5153010ac1b5a9e0a1a579ea34040949` | 先安装 CPA；ImageGen 只声明最低 peer：CPA `>=0.4.0`、可选 Better Sidebar `>=0.21.1`。该仓库 `.gitignore` 了 `lib/`，从 Git 安装会没有入口 |
 | [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.7.1` | Node `^22.19 || >=24`；可选 React peer `^18.2.0`。局域网与远程访问分别控制，配对设备完全受信，远程默认关闭；升级时保留私有 CA 和已配对设备存储。自插件 `0.6.2` 起，Android App 与插件独立编号。上游 `0.8.0` 的 React peer 升到 `^19.3`，未在此固定；验收范围及诊断接口限制见下文 |
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` 工具与 `open-record-replay` skill，用于录制并回放桌面操作 | GitHub Release `v0.3.3-dev.3` | macOS 与 Xcode Command Line Tools；使用精确的 fork 版 [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`，通过 profile patch 指定 |
-| [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | 清理模型侧工具 schema 中多余的沙箱字段 | Git tag `sandbox-schema-shim-v0.1.1`，package path `/packages/sandbox-schema-shim` | DSH base profile |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token 用量、统计、计费计划识别和费用视图 | GitHub Release `v0.6.7-dev.4` | DSH session、credentials 和 Web UI peer 服务 |
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host 权威任务、任务工具、工作区认领、调度和看板 UI | GitHub Release `v0.7.12` | Better Sidebar 为可选集成（peer 只写最低要求 `>=0.21.1`）；向 Lazy Gate 发布能力元数据 |
 | [`dsh-tool-lazy-gate`](https://github.com/LiuRJ99/dsh-tool-lazy-gate) | 默认门控 browser 与 computer-use，并可按配置门控 Taskboard/录制器工具族 | GitHub Release `v0.1.10` | browser/computer 是内置默认；Taskboard 与 Record/Replay 需要 capability 配置和 adapted skill 元数据；包含 Web connection workaround |
+
+### 旧兼容插件
+
+该插件作为旧 Host 集成的来源参考保留，已从下方安装示例中排除。
+
+| 插件 | 能力 | 安装来源 | 前置条件 |
+| --- | --- | --- | --- |
+| [`dsh-sandbox-schema-shim`](https://github.com/xiaohj233/dsh-compat-shims) | 清理模型侧工具 schema 中多余的沙箱字段 | Git tag `sandbox-schema-shim-v0.1.1`，package path `/packages/sandbox-schema-shim` | 依赖旧的 prompt 装配工具 schema API。**与官方 DSH `0.2.1-rc.4` 不兼容**；在该 Host 上须移除或禁用 |
+
+在官方 DSH `0.2.1-rc.4` 上，工具声明在 `system-prompt/assemble` waterfall 之后才挂载。
+shim 假设此时 `assembled.tools` 已存在，并在 `danger-full-access` 会话里对它调用 `.map()`，
+导致该轮在发出模型请求前就以
+`Cannot read properties of undefined (reading 'map')` 失败。DS Bot 常用该权限预设，因此
+更容易暴露；使用同一预设的普通 Agent 会话也可能受影响。移除 shim 后由 Host 自身的沙箱与
+审批策略接管，不改变权限预设。
+
+受影响的 profile 可用插件管理器移除旧 bundle：
+
+```bash
+dsh plugin --profile <profile> remove dsh-sandbox-schema-shim
+```
 
 ### DS Bot（`ds-bot`）
 
@@ -187,7 +207,7 @@ dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.28.2
 # 可选：需要手机访问时安装，Desktop 和 Web profile 均支持。
 dsh plugin --profile <candidate-profile> add dsh-mobile@0.7.1
 # 可选：使用 Host 已配置模型的常驻 Bot 团队。
-dsh plugin --profile <candidate-profile> add ds-bot@0.2.3
+dsh plugin --profile <candidate-profile> add ds-bot@0.2.4
 
 # 固定来源；已发布 fork 使用精确 release tag。
 dsh plugin --profile <candidate-profile> add \
@@ -198,8 +218,6 @@ dsh plugin --profile <candidate-profile> add \
   "github:GitRuozhi/dsh-github-mcp#5be9077d46bfed66b76843bbcc7bdc459990b3af"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-record-replay#v0.3.3-dev.3"
-dsh plugin --profile <candidate-profile> add \
-  "github:xiaohj233/dsh-compat-shims#ba4088c1a7b77b1c73fd5d5438f46800720d6bcd&path:/packages/sandbox-schema-shim"
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-spend#v0.6.7-dev.4"
 dsh plugin --profile <candidate-profile> add \
@@ -331,6 +349,12 @@ macOS 原生辅助程序构建通过；各部署仍须单独检查权限。本�
 
 发布物下载后与 SHA-256 一致。独立官方 `0.2.1-rc.2` Host 中，13 个社区插件对应的 16 个组件全部 active，没有社区插件 pending 或加载错误；来源、运行入口与依赖解析检查通过。本轮新增启动覆盖，不新增真实模型计费调用、录制/回放、Firefox 或 Mobile 的验收结论。
 
+### DS Bot 0.2.4 验收
+
+在官方 DSH `0.2.1-rc.4` 的独立候选环境中，旧 sandbox shim 在第一次生成步骤前复现了上述失败。
+移除该 bundle 后，同一 Bot 会话、模型选择和 `danger-full-access` 预设完成了一次真实文本轮次。
+此结果验证了受影响的请求路径，不代表 DS Bot 的全部功能或模型提供者均已验收。
+
 ### Mobile 0.7.1 验收
 
 registry 精确包 `dsh-mobile@0.7.1` 保留 React `^18.2.0` 可选 peer。独立的官方
@@ -344,7 +368,7 @@ DSH `0.2.1-rc.4` Desktop 加载了 Mobile 和随包的问题界面修复，没�
 
 ## 发布与上游检查
 
-本轮维护的公开 fork 均有 GitHub Release，v* tag 禁止更新与删除。Record/Replay 使用 v0.3.3-dev.3。GitHub MCP 与 Sandbox shim 保留固定来源。源码 tag、npm 包与 release asset 是不同交付形式，须分别核对来源、实际入口和 checksum。
+本轮维护的公开 fork 均有 GitHub Release，v* tag 禁止更新与删除。Record/Replay 使用 v0.3.3-dev.3。GitHub MCP 与旧 Sandbox shim 保留固定来源引用；后者已按上文移出现代安装集合。源码 tag、npm 包与 release asset 是不同交付形式，须分别核对来源、实际入口和 checksum。
 
 Computer Use 源码 CI 通过，npm 发布任务因
 [ENEEDAUTH](https://github.com/LiuRJ99/dsh-computer-use/actions/runs/39191230437) 失败。
