@@ -125,11 +125,11 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | GitHub Release `v0.1.16-dev.2` bridge tarball + Chrome extension zip；bridge `0.0.16-dev.2` | 匹配的 bridge 与 Chrome 扩展物料；仅源码安装时需要同时构建；Firefox 需要单独构建与 token 配置 |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.6-dev.4` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
 | [`ds-bot`（DS Bot）](https://github.com/Fei2411/DS-Bot) | 常驻 Bot 团队、主 Bot、Bot 间消息、群聊与记忆 | registry 精确版本 `0.2.7` | Host 的 LLM、tools、Web 服务及已配置模型。上游 npm 包：直接安装或更新到 registry 当前版本，无需单独验收轮次；Host peer 为 `*`。bundle 还会把整个 profile 的搜索提供者设为 `auto`，见下文 DS Bot 说明 |
-| [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.28.2` | Taskboard 和 ImageGen 的可选 UI 服务；`0.28.2` 声明 DSH `^0.2.1-rc.1` peer，包含 `0.28.1` 起的大会话冷读/OOM 修复；Taskboard 与 ImageGen 声明只写最低要求的可选 peer（`>=0.21.1`），更新的 Sidebar 版本会被接受，不再出现可选 peer 警告，见兼容性说明 |
+| [`dsh-better-sidebar`](https://github.com/omdsh-dev/DSH-better-sidebar) | Web 侧栏、资源管理器、编辑器、终端、Git、浏览器界面；`ctx.betterSidebar` 服务 | registry 精确版本 `0.30.1` | Taskboard 和 ImageGen 的可选 UI 服务；`0.30.1` 声明 DSH `^0.2.2-rc.1` peer（`0.30.0` 起支持 DSH 0.2.2 并加入侧聊图片，`0.30.1` 修复设置导航图标），更旧的 Host 请留在 `0.28.2`（`^0.2.1-rc.1`）；Taskboard 与 ImageGen 声明只写最低要求的可选 peer（`>=0.21.1`），更新的 Sidebar 版本会被接受，不再出现可选 peer 警告，见兼容性说明 |
 | [`dsh-decision-engine`](https://github.com/LiuRJ99/dsh-decision-engine) | 面向 DSH 的模型中立低延迟决策层：提供可插拔决策引擎与 Provider、有限候选集决策协议，以及 Browser / Computer / Custom 环境适配器 | GitHub Release `v0.4.21` | DSH peer 服务；可选固定 SDK `@receptron/laya@0.1.1` 提供本地推理；若启用 browser/computer 适配器需相应宿主工具/插件支持 |
 | [`dsh-github-mcp`](https://github.com/GitRuozhi/dsh-github-mcp) | GitHub 官方 MCP server 桥接（`mcp__github__*`）与 REST 文件读取 | 精确 Git commit `5be9077d46bfed66b76843bbcc7bdc459990b3af`（上游未发布 tag） | DSH 进程环境中的 `GITHUB_TOKEN`；DSH 通常从 `$DSH_HOME/.env` 加载 |
 | [`dsh-image-gen`](https://github.com/LiuRJ99/dsh-image-gen) | CPA 图片生成、图片模型目录、图片编辑、Gallery 和工作区保存 | GitHub Release `v0.5.14` tarball asset；SHA-256 `7eb68b4805cfb90cb0562bc39972f74a5153010ac1b5a9e0a1a579ea34040949` | 先安装 CPA；ImageGen 只声明最低 peer：CPA `>=0.4.0`、可选 Better Sidebar `>=0.21.1`。该仓库 `.gitignore` 了 `lib/`，从 Git 安装会没有入口 |
-| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.7.1` | Node `^22.19 || >=24`；可选 React peer `^18.2.0`。局域网与远程访问分别控制，配对设备完全受信，远程默认关闭；升级时保留私有 CA 和已配对设备存储。自插件 `0.6.2` 起，Android App 与插件独立编号。上游 `0.8.0` 的 React peer 升到 `^19.3`，未在此固定；验收范围及诊断接口限制见下文 |
+| [`dsh-mobile`](https://github.com/saya-ch/dsh-mobile) | 从移动设备访问 DSH 会话 | registry 精确版本 `0.7.1` | Node `^22.19 || >=24`；可选 React peer `^18.2.0`。局域网与远程访问分别控制，配对设备完全受信，远程默认关闭；升级时保留私有 CA 和已配对设备存储。自插件 `0.6.2` 起，Android App 与插件独立编号。上游 `0.8.x` 的 React peer 升到 `^19.3`，未在此固定；验收范围及诊断接口限制见下文 |
 | [`dsh-record-replay`](https://github.com/LiuRJ99/dsh-record-replay) | `orr_*` 工具与 `open-record-replay` skill，用于录制并回放桌面操作 | GitHub Release `v0.3.3-dev.3` | macOS 与 Xcode Command Line Tools；使用精确的 fork 版 [`open-record-replay`](https://github.com/LiuRJ99/open-record-replay) tag `v0.1.1`，通过 profile patch 指定 |
 | [`dsh-spend`](https://github.com/LiuRJ99/dsh-spend) | Token 用量、统计、计费计划识别和费用视图 | GitHub Release `v0.6.7-dev.4` | DSH session、credentials 和 Web UI peer 服务 |
 | [`dsh-taskboard`](https://github.com/LiuRJ99/dsh-taskboard-cloader) | Host 权威任务、任务工具、工作区认领、调度和看板 UI | GitHub Release `v0.7.12` | Better Sidebar 为可选集成（peer 只写最低要求 `>=0.21.1`）；向 Lazy Gate 发布能力元数据 |
@@ -175,11 +175,11 @@ Bot 使用 Host 中配置的模型。团队数据、记忆和 secrets 位于 `$D
 
 维护的 fork 采用**默认向前兼容**：`engines.dsh >=0.2.0-rc.2`，DSH peer 使用相同范围。新 Host 无需仅为补充版本白名单而重发插件。保留已知最低要求，只有确认不兼容时才收窄范围。构建 SDK 与安装来源继续独立固定。
 
-Host 优先检查 `engines.dsh`，否则检查 `@deepseek-ai/dsh` 与 `@deepseek-ai/dsh-*` peer，比较时包含 prerelease；`dsh.compatibility` 是补充元数据。尚未实测不等于不支持，声明允许加载也不表示未来版本均已实测。第三方插件保留各自范围；Sidebar 0.28.2 使用 `^0.2.1-rc.1`。
+Host 优先检查 `engines.dsh`，否则检查 `@deepseek-ai/dsh` 与 `@deepseek-ai/dsh-*` peer，比较时包含 prerelease；`dsh.compatibility` 是补充元数据。尚未实测不等于不支持，声明允许加载也不表示未来版本均已实测。第三方插件保留各自范围；Sidebar 0.30.1 使用 `^0.2.2-rc.1`，更旧的 Host 应继续使用 Sidebar `0.28.2`。
 
 CPA 0.4.11 使用 Host 提供的 peer 服务，避免安装另一份 settings/config-editor。CPA 与 Lazy Gate 0.1.10 的连接补丁保留 webStartup 和 webServer，不再要求已移除的 webRuntime。Browser 将 Host 提供的 Peer 传给 Gateway 调用、流与事件回传；身份不取自扩展 payload。Computer Use 不再强依赖已移除的 invariants 服务。
 
-Taskboard 0.7.12 与 ImageGen 0.5.14 的 peer 只声明最低要求：可选 Better Sidebar `>=0.21.1`、ImageGen 的 CPA `>=0.4.0`，均不设上限。因此 Sidebar 0.28.2 及更新版本会被接受，不再出现可选 peer 警告；升级后请复验 Taskboard 看板页与 ImageGen Gallery。Sidebar 的语言包 peer 是可选项。ImageGen 发布物使用 CPA 0.4.11 构建并声明 CPA `>=0.4.0`；Git 不携带 lib，仍须安装校验后的 release tarball。
+Taskboard 0.7.12 与 ImageGen 0.5.14 的 peer 只声明最低要求：可选 Better Sidebar `>=0.21.1`、ImageGen 的 CPA `>=0.4.0`，均不设上限。因此 Sidebar 0.30.1 及更新版本会被接受，不再出现可选 peer 警告；升级后请复验 Taskboard 看板页与 ImageGen Gallery。Sidebar 的语言包 peer 是可选项。ImageGen 发布物使用 CPA 0.4.11 构建并声明 CPA `>=0.4.0`；Git 不携带 lib，仍须安装校验后的 release tarball。
 
 本轮保留 CPA-only 生图、Gallery 事务与工作区元数据、Taskboard 持久化 FIFO 和明确的会话归属、Browser 会话绑定与审批、Lazy Gate 的用户显式解锁。下方历史 Desktop、模型和原生权限实测只适用于注明的版本。
 
@@ -204,7 +204,7 @@ pnpm 11 构建授权在 pnpm-workspace.yaml 的 allowBuilds，逐包审查后授
 dsh plugin --profile <candidate-profile> add \
   "github:LiuRJ99/dsh-cpa-plugin#v0.4.11"
 # 精确 registry 版本。
-dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.28.2
+dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.30.1
 # 可选：需要手机访问时安装，Desktop 和 Web profile 均支持。
 dsh plugin --profile <candidate-profile> add dsh-mobile@0.7.1
 # 可选：使用 Host 已配置模型的常驻 Bot 团队。
