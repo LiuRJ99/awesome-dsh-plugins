@@ -121,7 +121,7 @@ Git 交付条目使用 tag/commit，ImageGen 使用经过校验的 release tarba
 
 | 插件 | 能力 | 安装来源 | 前置条件 |
 | --- | --- | --- | --- |
-| [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、GPT/Codex Responses 路由、账号/配额界面（含 Kimi Code）、速度模式、图片生成服务 | GitHub Release `v0.4.11` | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
+| [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI 模型供应商、GPT/Codex Responses 路由、账号/配额界面（含 Kimi Code）、速度模式、图片生成服务 | GitHub Release `v0.4.12` | DSH peer 服务；用户自行配置 CPA 地址和凭据 |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | 浏览器 bridge 工具与 Chrome/Firefox 扩展集成 | GitHub Release `v0.1.16-dev.2` bridge tarball + Chrome extension zip；bridge `0.0.16-dev.2` | 匹配的 bridge 与 Chrome 扩展物料；仅源码安装时需要同时构建；Firefox 需要单独构建与 token 配置 |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS 应用状态、Accessibility Tree、截图、鼠标键盘输入、MCP 服务 | GitHub Release `v0.1.6-dev.4` | macOS、Xcode Command Line Tools、重建 native daemon、Accessibility 与 Screen Recording 授权 |
 | [`ds-bot`（DS Bot）](https://github.com/Fei2411/DS-Bot) | 常驻 Bot 团队、主 Bot、Bot 间消息、群聊与记忆 | registry 精确版本 `0.3.6` | Host 的 LLM、tools、Web 服务及已配置模型。上游 npm 包：直接安装或更新到 registry 当前版本，无需单独验收轮次；Host peer 为 `*`。bundle 还会把整个 profile 的搜索提供者设为 `auto`，见下文 DS Bot 说明 |
@@ -202,7 +202,7 @@ pnpm 11 构建授权在 pnpm-workspace.yaml 的 allowBuilds，逐包审查后授
 ```bash
 # 先安装 provider（受保护 release tag）。
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-cpa-plugin#v0.4.11"
+  "github:LiuRJ99/dsh-cpa-plugin#v0.4.12"
 # 精确 registry 版本。
 dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.32.1
 # 可选：需要手机访问时安装，Desktop 和 Web profile 均支持。
@@ -390,7 +390,7 @@ npm view <registry-package>@<精确版本> version dist.integrity
 
 | 来源 | 目标 | 提交 |
 | --- | --- | --- |
-| CPA | `v0.4.11` | `305896e8da2b5fa450728e5a24e8e877e5712f46` |
+| CPA | `v0.4.12` | `571e5f5631f6307728d04285a35db66d4c8fea83` |
 | Browser | `v0.1.16-dev.2` | `256733493119dca239ed28b5f19aaaae129da7c7` |
 | Computer Use | `v0.1.6-dev.4` | `f349b40aebe221b019aed4a39bb8613f6ef1373b` |
 | Decision Engine | `v0.4.21` | `810f1c43a2de4c98377967bf2cc04bd33d0a9b46` |
@@ -472,7 +472,7 @@ gh run list --repo <fork-owner/repo> --workflow sync-upstream.yml --limit 3
   `scripts/install.sh` 默认修改 `web` profile，本轮 candidate 验证使用显式打包安装步骤。
   没有完整 checkout 时，远程 convenience installer 会下载 `main`，这条路径不算固定安装。
   Firefox 需要单独运行 `pnpm --filter dsh-browser-extension run build:firefox` 并完成扩展 token 配置；本轮未验证 Firefox。
-- **ImageGen** —— 要复现该版本的构建，先从精确的 `v0.4.11` tag 构建 CPA，再从精确的 `v0.5.15` tag 构建 ImageGen，
+- **ImageGen** —— 要复现该版本的构建，先从精确的 `v0.4.12` tag 构建 CPA，再从精确的 `v0.5.15` tag 构建 ImageGen，
   并使用发布的 `v0.5.15` release tarball。asset 的 SHA-256 是
   `f75da78c5626ef4c914c61a36331f53083906661ab9a151aeb62d9164dadb3f4`。
   先下载到本机稳定路径再执行 `dsh plugin add`；GitHub 的 Release 下载会重定向到临时签名 URL，
@@ -564,8 +564,8 @@ Record/Replay 保留 `v0.3.0` 之后的打包修复；该旧版本的空 allowBu
 
 ### ImageGen 源码构建
 
-源码仓库只在构建阶段使用相邻 CPA checkout。安装依赖前先固定两个 checkout；下面示例使用 CPA `v0.4.11`
-（commit `305896e8da2b5fa450728e5a24e8e877e5712f46`）和 ImageGen `v0.5.15`
+源码仓库只在构建阶段使用相邻 CPA checkout。安装依赖前先固定两个 checkout；下面示例使用 CPA `v0.4.12`
+（commit `571e5f5631f6307728d04285a35db66d4c8fea83`）和 ImageGen `v0.5.15`
 （commit `bbb7420c13982a57550bf892150b456001ca7bec`）：
 
 ```text
@@ -575,12 +575,12 @@ staging/
 ```
 
 ```bash
-git clone --branch v0.4.11 --depth 1 \
+git clone --branch v0.4.12 --depth 1 \
   https://github.com/LiuRJ99/dsh-cpa-plugin.git staging/dsh-cpa-plugin
 git clone --branch v0.5.15 --depth 1 \
   https://github.com/LiuRJ99/dsh-image-gen.git staging/dsh-image-gen
 test "$(git -C staging/dsh-cpa-plugin rev-parse HEAD)" = \
-  305896e8da2b5fa450728e5a24e8e877e5712f46
+  571e5f5631f6307728d04285a35db66d4c8fea83
 test "$(git -C staging/dsh-image-gen rev-parse HEAD)" = \
   bbb7420c13982a57550bf892150b456001ca7bec
 

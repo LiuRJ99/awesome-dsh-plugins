@@ -147,7 +147,7 @@ whether its `lib/` (or equivalent `main` target) is gitignored.
 
 | Plugin | Capability | Install from | Prerequisites |
 | --- | --- | --- | --- |
-| [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, Codex Responses GPT routing, account/quota UI (including Kimi Code), speed modes, image-generation service | GitHub Release `v0.4.11` | DSH peer services; CPA endpoint and credentials configured by the user |
+| [`@LiuRJ99/dsh-cpa-plugin`](https://github.com/LiuRJ99/dsh-cpa-plugin) | CLIProxyAPI model provider, Codex Responses GPT routing, account/quota UI (including Kimi Code), speed modes, image-generation service | GitHub Release `v0.4.12` | DSH peer services; CPA endpoint and credentials configured by the user |
 | [`@yuxianglin/dsh-bridge-browser`](https://github.com/LiuRJ99/dsh-browser) | Browser bridge tools and Chrome/Firefox extension integration | GitHub Release `v0.1.16-dev.2`: bridge tarball + Chrome extension zip; bridge `0.0.16-dev.2` | Matching bridge and Chrome extension assets; rebuild both only for source installation; Firefox needs a separate build and token setup |
 | [`@zibokapi/dsh-codex-computer-use`](https://github.com/LiuRJ99/dsh-computer-use) | macOS app state, accessibility tree, screenshots, mouse/keyboard input, MCP server | GitHub Release `v0.1.6-dev.4` | macOS, Xcode Command Line Tools, a rebuilt native daemon, Accessibility and Screen Recording grants |
 | [`ds-bot` (DS Bot)](https://github.com/Fei2411/DS-Bot) | Persistent bot teams, Main Bots, bot-to-bot messages, group chats and memory | Exact registry version `0.3.6` | Host LLM, tools and Web services plus a configured model. Upstream npm package: install or update to the current registry version directly; no separate qualification round. Host peers are `*`. The bundle also selects the profile-wide `auto` search provider; see the DS Bot notes below |
@@ -237,7 +237,7 @@ These commands use only public, exact sources:
 ```bash
 # Providers first (protected release tag).
 dsh plugin --profile <candidate-profile> add \
-  "github:LiuRJ99/dsh-cpa-plugin#v0.4.11"
+  "github:LiuRJ99/dsh-cpa-plugin#v0.4.12"
 # Exact registry versions.
 dsh plugin --profile <candidate-profile> add dsh-better-sidebar@0.32.1
 # Optional: phone access works with both Desktop and Web profiles.
@@ -450,7 +450,7 @@ Use these reviewed identities to check the catalog sources; they are not an inst
 
 | Source | Target | Commit |
 | --- | --- | --- |
-| CPA | `v0.4.11` | `305896e8da2b5fa450728e5a24e8e877e5712f46` |
+| CPA | `v0.4.12` | `571e5f5631f6307728d04285a35db66d4c8fea83` |
 | Browser | `v0.1.16-dev.2` | `256733493119dca239ed28b5f19aaaae129da7c7` |
 | Computer Use | `v0.1.6-dev.4` | `f349b40aebe221b019aed4a39bb8613f6ef1373b` |
 | Decision Engine | `v0.4.21` | `810f1c43a2de4c98377967bf2cc04bd33d0a9b46` |
@@ -536,7 +536,7 @@ These need more than a `dsh plugin add`.
   Load Chrome's `extensions/dsh-browser/dist/`. The release extension manifest is `0.1.16`; verify the loaded extension as well as bridge `0.0.16-dev.2`.
   `scripts/install.sh` modifies the `web` profile by default; use the explicit build/pack path for candidate validation.
   Its remote convenience fallback downloads unpinned `main`. Firefox needs a separate `pnpm --filter dsh-browser-extension run build:firefox` build and token setup and was not tested in this round.
-- **ImageGen** — to reproduce its build, build CPA from its exact `v0.4.11` tag first, then ImageGen from
+- **ImageGen** — to reproduce its build, build CPA from its exact `v0.4.12` tag first, then ImageGen from
   its exact `v0.5.15` tag, and use the published `v0.5.15` release tarball. Its
   asset SHA-256 is
   `f75da78c5626ef4c914c61a36331f53083906661ab9a151aeb62d9164dadb3f4`.
@@ -645,8 +645,8 @@ breaks pnpm 11 installation. Build the pinned recorder helper on macOS before en
 ### ImageGen source build
 
 The source repository uses a sibling CPA checkout during build only. Pin both
-checkouts before installing dependencies; the example below uses CPA `v0.4.11`
-(commit `305896e8da2b5fa450728e5a24e8e877e5712f46`) and ImageGen `v0.5.15`
+checkouts before installing dependencies; the example below uses CPA `v0.4.12`
+(commit `571e5f5631f6307728d04285a35db66d4c8fea83`) and ImageGen `v0.5.15`
 (commit `bbb7420c13982a57550bf892150b456001ca7bec`):
 
 ```text
@@ -656,12 +656,12 @@ staging/
 ```
 
 ```bash
-git clone --branch v0.4.11 --depth 1 \
+git clone --branch v0.4.12 --depth 1 \
   https://github.com/LiuRJ99/dsh-cpa-plugin.git staging/dsh-cpa-plugin
 git clone --branch v0.5.15 --depth 1 \
   https://github.com/LiuRJ99/dsh-image-gen.git staging/dsh-image-gen
 test "$(git -C staging/dsh-cpa-plugin rev-parse HEAD)" = \
-  305896e8da2b5fa450728e5a24e8e877e5712f46
+  571e5f5631f6307728d04285a35db66d4c8fea83
 test "$(git -C staging/dsh-image-gen rev-parse HEAD)" = \
   bbb7420c13982a57550bf892150b456001ca7bec
 
